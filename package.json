@@ -1,0 +1,31 @@
+{
+  "name": "racist-specialist-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/backend/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/collapseeee/Racist-Specialist-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/collapseeee/Racist-Specialist-Project/issues"
+  },
+  "homepage": "https://github.com/collapseeee/Racist-Specialist-Project#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.15.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
