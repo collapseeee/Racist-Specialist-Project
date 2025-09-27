@@ -1,8 +1,9 @@
 import express, { Application } from 'express';
 import router from './routes/index';
+import cors from 'cors';
 
 const app: Application = express();
-app.use(express.json());
+app.use(cors());
 
 
 //  to start server type: npm start

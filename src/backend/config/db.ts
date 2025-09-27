@@ -24,17 +24,22 @@ export const getMatches = async() => {
 
 export const getMotorsport = async() => {
     const [rows] = await promisePool.query("SELECT * FROM motorsport");
-    return rows
+    return rows;
+}
+
+export const getMotorsportType = async(type: String) => {
+    const [rows] = await promisePool.query(`SELECT * FROM motorsport WHERE motorsport_type = ?`, type)
+    return rows;
 }
 
 export const getTeam = async() => {
     const [rows] = await promisePool.query("SELECT * FROM team");
-    return rows
+    return rows;
 }
 
 export const getMatchParticipating = async() => {
     const [rows] = await promisePool.query("SELECT * FROM match_participating");
-    return rows
+    return rows;
 }
 
 export default promisePool;

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getCar, getMotorsport, getMatches, getTeam, getMatchParticipating } from '../config/db'
+import { getCar, getMotorsport, getMatches, getTeam, getMatchParticipating, getMotorsportType } from '../config/db'
 
 const router = Router();
 
@@ -33,6 +33,16 @@ router.get('/team', async (req, res) => {
     });
 });
 
+router.get('/motorsport:type', async (req, res) => {
+    const type = req.params.type.replace(':','');
+    console.log(type)
+    const data = await getMotorsportType(type);
+    console.log("GET MOTORSPORT TYPE");
+    res.send({
+        data
+    });
+});
+
 router.get('/motorsport', async (req, res) => {
     const data = await getMotorsport();
     console.log("GET MOTORSPORT");
@@ -40,6 +50,7 @@ router.get('/motorsport', async (req, res) => {
         data
     });
 });
+
 router.get('/participation', async (req, res) => {
     const data = await getMatchParticipating();
     console.log("GET MATCH_PARTICIPATION");

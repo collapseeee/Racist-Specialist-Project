@@ -1,5 +1,6 @@
 // Information.jsx
-import { useParams } from "react-router-dom";
+import { data, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 const motorsportData = {
   Autocross: {
@@ -19,14 +20,40 @@ const motorsportData = {
   }
 };
 
+
+
 function Information() {
+
+
+useEffect(() => {
+  handleGetData();
+}, [])
+
+const handleGetData = async () => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/motorsport:${type}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+    const data = await response.json();
+    console.log(data);
+    
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+
   const { type } = useParams();
+  const [sportType, setSportType] = useState("Rally");
   const info = motorsportData[type];
 
   if (!info) return <div style={{ color: "white" }}>Motorsport not found</div>;
 
   return (
-    <h1>{info.title}</h1>
+    <>
+        <h1>{info.title}</h1>
+    </>
   );
 }
 
