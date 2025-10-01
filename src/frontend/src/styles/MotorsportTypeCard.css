@@ -1,8 +1,8 @@
 .type-card {
     display: block;
-    width: 260px;
-    height: 160px;
-    border-radius: 12px;
+    width: 30vw;
+    height: 30vh;
+    border-radius: 8px;
     overflow: hidden;
     text-decoration: none;
     color: white;
@@ -10,8 +10,9 @@
 }
 
 .type-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-1vh) ;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+
 }
 
 .type-card-image {
@@ -27,8 +28,10 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.75);
     padding: 8px 12px;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 24px;
+    letter-spacing: 0.08vw;
+    text-align: center;
 }

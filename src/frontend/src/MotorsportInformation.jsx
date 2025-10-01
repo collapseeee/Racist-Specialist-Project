@@ -1,6 +1,9 @@
-// Information.jsx
+// MotorsportInformation.jsx
 import { data, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import Footer from "./Footer";
+import Header from "./NavBar.jsx";
+import "./styles/MotorsportInformation.css";
 
 const motorsportData = {
   Autocross: {
@@ -22,7 +25,7 @@ const motorsportData = {
 
 
 
-function Information() {
+function MotorsportInformation() {
 
 
 useEffect(() => {
@@ -52,9 +55,11 @@ const handleGetData = async () => {
 
   return (
     <>
+      <Header />
         <h1>{info.title}</h1>
+      <Footer />
     </>
   );
 }
 
-export default Information;
+export default MotorsportInformation;

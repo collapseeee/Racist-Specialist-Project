@@ -1,8 +1,8 @@
-// TypeCard.jsx
+// MotorsportTypeCard.jsx
 import { Link } from "react-router-dom";
-import "./TypeCard.css";
+import "./styles/MotorsportTypeCard.css";
 
-function TypeCard({ title, image, type }) {
+function MotorsportTypeCard({ title, image, type }) {
   return (
     <Link to={`/${type}`} className="type-card">
       <div
@@ -15,4 +15,4 @@ function TypeCard({ title, image, type }) {
   );
 }
 
-export default TypeCard;
+export default MotorsportTypeCard;
