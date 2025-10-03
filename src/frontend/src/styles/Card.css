@@ -12,7 +12,6 @@
 .type-card:hover {
     transform: translateY(-1vh) ;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-
 }
 
 .type-card-image {
@@ -21,6 +20,19 @@
     background-size: cover;
     background-position: center;
     position: relative;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0);
+    opacity: 0.25;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .type-card-title {
@@ -32,6 +44,6 @@
     padding: 8px 12px;
     font-weight: bold;
     font-size: 24px;
-    letter-spacing: 0.08vw;
+    letter-spacing: 0.04vw;
     text-align: center;
 }

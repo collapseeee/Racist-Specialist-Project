@@ -8,9 +8,7 @@ function Footer() {
     <div className="footer">
       <div className="footer-upper-content">
         <div className="footer-left-side-content">
-          <a href="https://github.com/672115002/motoropedia">
             <img src={logo} alt="Motoropedia Logo" className="logo" />
-          </a>
           <ShinyText
             text="Motoropedia"
             disabled={false}

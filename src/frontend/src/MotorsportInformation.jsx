@@ -1,62 +1,107 @@
 // MotorsportInformation.jsx
 import { data, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import Footer from "./Footer";
-import Header from "./NavBar.jsx";
 import "./styles/MotorsportInformation.css";
-
-const motorsportData = {
-  Autocross: {
-    title: "Autocross",
-    image: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Nov%C3%A1_Paka_%C5%A0tikov_Autokros.jpg",
-    description: "Autocross is a timed competition where drivers navigate through a defined course one at a time."
-  },
-  Autotest: {
-    title: "Autotest",
-    image: "https://motorsportuk.s3.eu-west-2.amazonaws.com/wp-content/uploads/2022/04/20162356/Autotest-image.jpg",
-    description: "Autotesting is a low-speed motorsport event focusing on precision and car control."
-  },
-  CircuitRacing: {
-    title: "Circuit Racing",
-    image: "https://upload.wikimedia.org/wikipedia/commons/c/c5/BTCC_Brands06_PaddockHill.jpg",
-    description: "Circuit racing takes place on closed tracks where multiple drivers compete simultaneously."
-  }
-};
-
-
+import Footer from "./Footer";
+import NavBar from "./NavBar.jsx";
+import Card from "./Card.jsx";
+import motorsportData from "./data/motorsportData.js";
+import teamCardImage from "/public/team-card-image.png";
+import tournamentCardImage from "/public/tournament-card-image.jpg";
+import carCardImage from "/public/car-card-image.jpg";
+import Header from "./Header.jsx";
 
 function MotorsportInformation() {
-
-
-useEffect(() => {
-  handleGetData();
-}, [])
-
-const handleGetData = async () => {
-  try {
-    const response = await fetch(`http://localhost:3000/api/motorsport:${type}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    });
-    const data = await response.json();
-    console.log(data);
-    
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-
   const { type } = useParams();
-  const [sportType, setSportType] = useState("Rally");
-  const info = motorsportData[type];
+  const data = motorsportData[type];
 
-  if (!info) return <div style={{ color: "white" }}>Motorsport not found</div>;
+  const [calledData, setCalledData] = useState(null);
+
+  // Path:
+  const tournamentsPath = `${type}/Tournaments`;
+  const teamsPath = `${type}/Teams`;
+  const carsPath = `${type}/Cars`;
+  const title = `${motorsportData[type].title}`;
+
+  const handleGetData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/motorsport:${data.title}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      const result = await response.json();
+      console.log(result);
+      setCalledData(result.data[0]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    handleGetData();
+  }, [type]);
+
+  if (!data || !calledData)
+    return (
+      <>
+        <NavBar />
+        <h1>Motorsport not found</h1>
+        <Footer />
+      </>
+    );
 
   return (
     <>
-      <Header />
-        <h1>{info.title}</h1>
+      <NavBar />
+      <div className="information-header-banner">
+      {calledData && (
+        <Header
+          title={data.title}
+          image={data.image}
+          description={`(Motorsport ID: ${calledData.motorsport_id})`}
+        />
+      )}
+      </div>
+      <div className="information-container">
+        <div className="information-content">
+          <div className="information-card-container">
+            <div className="information-cards">
+              <Card
+                title="Tournaments"
+                image={tournamentCardImage}
+                type={tournamentsPath}
+              />
+              <div className="information-cards-overlay-wrapper">
+                <div className="information-cards-overlay-text">{title}</div>
+              </div>
+            </div>
+            <div className="information-cards">
+              <Card title="Teams" image={teamCardImage} type={teamsPath} />
+              <div className="information-cards-overlay-wrapper">
+                <div className="information-cards-overlay-text">{title}</div>
+              </div>
+            </div>
+            <div className="information-cards">
+              <Card title="Cars" image={carCardImage} type={carsPath} />
+              <div className="information-cards-overlay-wrapper">
+                <div className="information-cards-overlay-text">{title}</div>
+              </div>
+            </div>
+          </div>
+          <div className="separator"></div>
+          <div className="information-content-description">
+          <h1 className="information-content-description-header">
+            What is {motorsportData[type].title}?
+          </h1>
+            <div className="information-content-description-body">
+          <p>{data.description}</p>
+            </div>
+          </div>
+        </div>
+      </div>
       <Footer />
     </>
   );

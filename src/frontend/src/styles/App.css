@@ -5,7 +5,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
-.header-content {
+.logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,7 +40,6 @@
     justify-content: center;
 }
 
-/* Card section container */
 .card-container {
     display: flex;
     justify-content: center;
@@ -50,5 +49,5 @@
     width: auto;
     gap: 1.5vw;
     flex-wrap: wrap;
-    padding: 20px;
+    padding: 4vh 4vh;
 }

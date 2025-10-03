@@ -10,7 +10,7 @@ a:hover {
 body {
     margin: 0;
     display: flex;
-    place-items: center;
+    flex-direction: column;
     min-width: 100vw;
     min-height: 100vh;
 }
@@ -20,23 +20,97 @@ h1 {
     line-height: 1.1;
 }
 
-button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
+.information-header-banner {
+    height: 40.5vh;
 }
-button:hover {
-    border-color: #646cff;
+
+.information-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vh 4vw;
 }
-button:focus,
-button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+
+.information-content {
+    font-size: 2vh;
+}
+
+.information-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: auto;
+    width: auto;
+    gap: 2vw;
+    padding: 2vh 2vw;
+    flex-wrap: wrap;
+}
+
+.information-cards-overlay-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    overflow-x: hidden;
+    overflow-y: visible;
+    pointer-events: none;
+}
+
+.information-cards .type-card {
+    width: 28vw;
+    height: 40vh;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.information-cards {
+    position: relative;
+    display: inline-block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.information-cards-overlay-text {
+    position: absolute;
+    text-align: center;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    pointer-events: none;
+    font-size: 8vh;
+    line-height: 12vh;
+    letter-spacing: -0.4vh;
+    opacity: 0.45;
+    white-space: nowrap;
+    text-shadow: 8px 8px 2px rgba(0, 0, 0, 0.75);
+}
+
+.information-cards:hover .information-cards-overlay-text {
+    opacity: 0.8;
+    transform: translate(-50%, -52%); /* small upward movement */
+}
+
+.separator {
+    justify-self: center;
+    width: 100%;
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 2vh 1vw;
+}
+
+.information-content-description {
+    margin: 0 4vw;
+}
+
+.information-content-description-header {
+    margin: 4vh 0;
+    margin-bottom: 3vh;
+}
+
+.information-content-description-body {
 }
 
 @media (prefers-color-scheme: light) {
