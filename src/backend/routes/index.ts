@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getCar, getMotorsport, getMatches, getTeam, getMatchParticipating, getMotorsportType } from '../config/db'
+import { getCar, getMotorsport, getMatches, getTeam, getMatchParticipating, getMotorsportType, searchData } from '../config/db'
 
 const router = Router();
 
@@ -34,7 +34,7 @@ router.get('/team', async (req, res) => {
 });
 
 router.get('/motorsport:type', async (req, res) => {
-    const type = req.params.type.replace(':','');
+    const type = req.params.type.replace(':', '');
     console.log(type)
     const data = await getMotorsportType(type);
     console.log("GET MOTORSPORT TYPE");
@@ -59,6 +59,14 @@ router.get('/participation', async (req, res) => {
     });
 });
 
+router.get('/search:keyword', async (req, res) => {
+    const keyword = req.params.keyword.replace(':', '');
+    const data = await searchData(keyword);
+    console.log(`SEARCHING FOR ${keyword}`);
+    res.send({
+        data
+    })
+});
 
 
 export default router;

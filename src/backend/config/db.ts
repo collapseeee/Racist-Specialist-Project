@@ -12,34 +12,43 @@ const pool = mysql.createPool({
 
 const promisePool = pool.promise();
 
-export const getCar = async() => {
+export const getCar = async () => {
     const [rows] = await promisePool.query("SELECT * FROM car");
     return rows;
 }
 
-export const getMatches = async() => {
+export const getMatches = async () => {
     const [rows] = await promisePool.query("SELECT * FROM matches");
     return rows
 }
 
-export const getMotorsport = async() => {
+export const getMotorsport = async () => {
     const [rows] = await promisePool.query("SELECT * FROM motorsport");
     return rows;
 }
 
-export const getMotorsportType = async(type: String) => {
+export const getMotorsportType = async (type: String) => {
     const [rows] = await promisePool.query(`SELECT * FROM motorsport WHERE motorsport_type = ?`, type)
     return rows;
 }
 
-export const getTeam = async() => {
+export const getTeam = async () => {
     const [rows] = await promisePool.query("SELECT * FROM team");
     return rows;
 }
 
-export const getMatchParticipating = async() => {
+export const getMatchParticipating = async () => {
     const [rows] = await promisePool.query("SELECT * FROM match_participating");
     return rows;
 }
 
+export const getRacer = async () => {
+    const [rows] = await promisePool.query("SELECT * FROM staff");
+    return rows;
+}
+
+export const searchData = async (keyword: String) => {
+    const [rows] = await promisePool.query("SELECT * FROM motorsport WHERE motorsport_type LIKE ?", '%' + keyword + '%');
+    return rows;
+}
 export default promisePool;
