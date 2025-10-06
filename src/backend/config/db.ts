@@ -48,7 +48,22 @@ export const getRacer = async () => {
 }
 
 export const searchData = async (keyword: String) => {
-    const [rows] = await promisePool.query("SELECT * FROM motorsport WHERE motorsport_type LIKE ?", '%' + keyword + '%');
-    return rows;
+    const [carRows] = await promisePool.query("SELECT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year FROM car c WHERE c.car_type LIKE ? OR c.engine LIKE ? OR c.manufacturer LIKE ? OR c.product_year LIKE ?",
+        ['%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%']);
+    const [racerRows] = await promisePool.query(
+        "SELECT p.person_id, tr.team_id, tr.team_name, p.first_name, p.last_name FROM person p INNER JOIN racer r ON p.person_id = r.person_id INNER JOIN team_roster tr ON p.person_id = tr.person_id WHERE p.first_name LIKE ? OR p.last_name LIKE ?",
+        ['%' + keyword + '%', '%' + keyword + '%']
+    );
+    const [teamRows] = await promisePool.query("SELECT team_id, team_name FROM team WHERE team_name LIKE ?", '%' + keyword + '%');
+    const [tournamentRows] = await promisePool.query("SELECT tournament_id, tournament_name FROM tournaments WHERE tournament_name LIKE ?", '%' + keyword + '%');
+
+
+    return {
+        cars: carRows,
+        racers: racerRows,
+        teams: teamRows,
+        tournaments: tournamentRows
+    };
 }
+
 export default promisePool;

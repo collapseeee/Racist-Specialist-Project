@@ -1,5 +1,10 @@
 import { Router } from 'express'
-import { getCar, getMotorsport, getMatches, getTeam, getMatchParticipating, getMotorsportType, searchData } from '../config/db'
+import {
+    getCar, getMotorsport, getMatches
+    , getTeam, getMatchParticipating
+    , getMotorsportType, searchData
+    ,
+} from '../config/db'
 
 const router = Router();
 
@@ -67,6 +72,5 @@ router.get('/search:keyword', async (req, res) => {
         data
     })
 });
-
 
 export default router;
