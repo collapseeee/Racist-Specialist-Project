@@ -108,7 +108,7 @@ function CarList() {
                 <td>
                   <Link
                     to={`/${type}/Cars/${car.carmodel_id}`}
-                    className="team-link"
+                    className="car-link"
                   >
                     {car.car_type} ({car.carmodel_id})
                   </Link>

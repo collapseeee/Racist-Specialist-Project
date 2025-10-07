@@ -3,6 +3,9 @@
     padding: 2vh 10vw;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
     height: auto;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    box-sizing: border-box;
 }
 .footer-upper-content {
     display: flex;

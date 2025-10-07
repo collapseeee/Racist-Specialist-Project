@@ -96,7 +96,7 @@ function TeamList() {
               <tr key={team.tournament_id}>
                 <td>
                   <Link
-                    to={`/${type}/Teams/${team.tournament_id}`}
+                    to={`/${type}/Teams/${team.team_id}`}
                     className="team-link"
                   >
                     {team.team_name}

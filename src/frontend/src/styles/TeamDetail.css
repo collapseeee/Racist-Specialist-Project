@@ -1,0 +1,34 @@
+.team-detail-header {
+    display: flex;
+    flex-direction: column;
+    padding: 2vh 2vw;
+}
+
+.team-detail-image {
+    align-self: center;
+    width: 40vw;
+}
+
+.team-detail-header-title {
+    text-align: center;
+    font-size: 6vh;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+}
+
+.team-detail-header-description {
+    text-align: center;
+}
+
+.team-detail-header-description-header {
+    font-size: 2.5vh;
+    margin-bottom: 1vh;
+}
+
+.team-detail-header-description-text {
+    font-size: 1.5vh;
+}
+
+.team-detail-roster {
+    width: 100vh;
+}
