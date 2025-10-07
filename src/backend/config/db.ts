@@ -17,8 +17,8 @@ export const getCar = async () => {
     return rows;
 }
 
-export const getMatches = async () => {
-    const [rows] = await promisePool.query("SELECT * FROM matches");
+export const getTournaments = async () => {
+    const [rows] = await promisePool.query("SELECT * FROM tournaments");
     return rows
 }
 
@@ -37,8 +37,8 @@ export const getTeam = async () => {
     return rows;
 }
 
-export const getMatchParticipating = async () => {
-    const [rows] = await promisePool.query("SELECT * FROM match_participating");
+export const getTournamentParticipating = async () => {
+    const [rows] = await promisePool.query("SELECT * FROM tournament_participating");
     return rows;
 }
 
