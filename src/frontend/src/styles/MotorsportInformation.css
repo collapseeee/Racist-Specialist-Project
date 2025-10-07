@@ -110,7 +110,14 @@ h1 {
     margin-bottom: 3vh;
 }
 
-.information-content-description-body {
+.information-content-description-subbody {
+    margin-top: 0;
+    margin-bottom: 4vh;
+}
+
+information-content-description-subheader {
+    margin-top: 4vh;
+    margin-bottom: 0;
 }
 
 @media (prefers-color-scheme: light) {

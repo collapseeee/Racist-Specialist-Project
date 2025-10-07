@@ -97,7 +97,13 @@ function MotorsportInformation() {
             What is {motorsportData[type].title}?
           </h1>
             <div className="information-content-description-body">
-          <p>{data.description}</p>
+                {data.description.map((line, index) => {
+                  if (index % 2 === 0) {
+                    return <p key={index} className="information-content-description-subbody">{line}</p>;
+                  } else {
+                      return <h2 key={index} className="information-content-description-subheader">{line}</h2>
+                  }
+                })}
             </div>
           </div>
         </div>

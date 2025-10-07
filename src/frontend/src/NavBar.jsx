@@ -1,7 +1,8 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "/public/motoropedia-logo.png";
 import "./styles/NavBar.css";
+import SearchBar from "./SearchBar.jsx";
 
 const motorsports = [
   "Autocross",
@@ -24,16 +25,14 @@ const formatName = (sportKey) => {
 
 function NavBar() {
   const location = useLocation();
-  const currentPath = location.pathname.substring(1); // e.g. "Autocross/Tournaments"
+  const navigate = useNavigate();
 
-  // Find which motorsport is in the current path
+  const currentPath = location.pathname.substring(1); // e.g. "Autocross/Tournaments"
   const currentMotorsport = motorsports.find((sport) =>
     currentPath.startsWith(sport)
   );
 
   const isMotorsportPage = !!currentMotorsport;
-
-  // Determine the text for the dropdown button
   const dropdownText = isMotorsportPage
     ? formatName(currentMotorsport)
     : "Motorsports";
@@ -42,6 +41,9 @@ function NavBar() {
     <div className="navbar">
       <div className="navbar-content">
         <div className="navbar-left-side-content">
+          <button className="back-button" onClick={() => navigate(-1)}>
+            &#8592; Back
+          </button>
           <Link to="/" className="logo-link">
             <img src={logo} alt="Motoropedia Logo" className="navbar-logo" />
             <span className="navbar-site-name">Motoropedia</span>
@@ -67,16 +69,7 @@ function NavBar() {
         </div>
         <div className="navbar-right-side-content">
           <div className="search-bar-container">
-            <input
-              type="text"
-              placeholder="Search anything..."
-              className="search-input"
-            />
-            <button className="search-button">
-              <span role="img" aria-label="Search">
-                &#128269;
-              </span>
-            </button>
+            < SearchBar />
           </div>
         </div>
       </div>

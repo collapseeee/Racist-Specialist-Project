@@ -1,0 +1,36 @@
+/* SearchBar.css */
+.search-bar {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+    width: 100%;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0 2vw;
+    height: 5vh;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 2vh;
+}
+
+.search-button {
+    background-color: #646cff;
+    color: white;
+    border: none;
+    padding: 1vh 1vw;
+    cursor: pointer;
+    font-size: 2vh;
+    transition: background-color 0.25s;
+    border-radius: 0;
+}
+
+.search-button:hover {
+    background-color: #535bf2;
+    border-color: transparent;
+}
+

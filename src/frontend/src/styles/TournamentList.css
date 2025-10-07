@@ -1,0 +1,62 @@
+/* TournamentList.css */
+.tournament-header-banner {
+    height: 24vh;
+}
+
+.tournament-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vh 0;
+    width: 100vw;
+}
+
+.tournament-content {
+    width: 100%;
+}
+
+.tournament-table-title {
+    font-size: 4vh;
+    margin: 1vh 4vw;
+}
+
+.tournament-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tournament-table th,
+.tournament-table td {
+    padding: 1vh 4vw;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tournament-table th {
+    background-color: rgb(46, 50, 54);
+    color: #f5f5f5;
+    font-weight: 600;
+    font-size: 2.2vh;
+    cursor: pointer;
+}
+
+.tournament-table td {
+    color: #ddd;
+    font-size: 2vh;
+}
+
+.tournament-link {
+    color: #646cff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.tournament-link:hover {
+    color: #7c84ff;
+    text-decoration: underline;
+}
+
+.tournament-table tr:hover td {
+    background-color: rgba(255, 255, 255, 0.05);
+}

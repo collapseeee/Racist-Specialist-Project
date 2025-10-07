@@ -18,6 +18,7 @@
     width: 30vw;
     align-items: center;
     text-align: right;
+    justify-content: flex-end;
 }
 .footer-lower-content {
     display: flex;

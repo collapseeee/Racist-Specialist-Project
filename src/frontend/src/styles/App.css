@@ -1,4 +1,4 @@
-/* Header styling */
+/* App.css */
 .header {
     background-color: rgb(32,36,39);
     padding: 1.5vh 10vw;
@@ -50,4 +50,13 @@
     gap: 1.5vw;
     flex-wrap: wrap;
     padding: 4vh 4vh;
+}
+
+.search-bar-container {
+    width: 100%;
+    max-width: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vh auto;
 }
