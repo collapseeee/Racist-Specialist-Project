@@ -30,26 +30,41 @@ function CarDetail() {
           className="car-detail-image"
         />
         <h1 className="car-detail-header-title">{mockData.car_type}</h1>
-        <div className="car-detail-header-description">
-          <p className="car-detail-header-description-text">
-            <strong>Engine:</strong> {mockData.engine}
-          </p>
-          <p className="car-detail-header-description-text">
-            <strong>Manufacturer:</strong> {mockData.manufacturer}
-          </p>
-          <p className="car-detail-header-description-text">
-            <strong>Product Year:</strong> {mockData.product_year}
-          </p>
-          <p className="car-detail-header-description-text">
-            <strong>Team Name:</strong>{" "}
-            <Link
-              to={`/${type}/Teams/${mockData.team_id}`}
-              className="car-detail-team-link"
-            >
-              {mockData.team_name}
-            </Link>
-          </p>
-        </div>
+          <div className="car-detail-header-description">
+              <div className="car-detail-header-description-left">
+                  <p className="car-detail-header-description-text">
+                      <strong>Engine:</strong>
+                  </p>
+                  <p className="car-detail-header-description-text">
+                      <strong>Manufacturer:</strong>
+                  </p>
+                  <p className="car-detail-header-description-text">
+                      <strong>Product Year:</strong>
+                  </p>
+                  <p className="car-detail-header-description-text">
+                      <strong>Owner:</strong>
+                  </p>
+              </div>
+              <div className="car-detail-header-description-right">
+                  <p className="car-detail-header-description-text">
+                      {mockData.engine}
+                  </p>
+                  <p className="car-detail-header-description-text">
+                      {mockData.manufacturer}
+                  </p>
+                  <p className="car-detail-header-description-text">
+                      {mockData.product_year}
+                  </p>
+                  <p className="car-detail-header-description-text">
+                      <Link
+                          to={`/${type}/Teams/${mockData.team_id}`}
+                          className="car-detail-team-link"
+                      >
+                          {mockData.team_name}
+                      </Link>
+                  </p>
+              </div>
+          </div>
       </div>
 
       <Footer />

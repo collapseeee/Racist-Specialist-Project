@@ -80,17 +80,30 @@ function TeamDetail() {
       <div className="team-detail-header">
         <img src={teamPlaceholderImage} className="team-detail-image" />
         <h1 className="team-detail-header-title">{mockTeamData.team_name}</h1>
-        <div className="team-detail-header-description">
-          <p className="team-detail-header-description-text">
-            <strong>Sponsor:</strong> {mockTeamData.sponsor}
-          </p>
-          <p className="team-detail-header-description-text">
-            <strong>Country:</strong> {mockTeamData.country}
-          </p>
-          <p className="team-detail-header-description-text">
-            <strong>Win Count:</strong> {mockTeamData.win_count}
-          </p>
-        </div>
+          <div className="team-detail-header-description">
+              <div className="team-detail-header-description-left">
+                  <p className="tournament-detail-header-description-text">
+                      <strong>Sponsor:</strong>
+                  </p>
+                  <p className="tournament-detail-header-description-text">
+                      <strong>Country:</strong>
+                  </p>
+                  <p className="tournament-detail-header-description-text">
+                      <strong>Win Count:</strong>
+                  </p>
+              </div>
+              <div className="team-detail-header-description-right">
+                  <p className="tournament-detail-header-description-text">
+                      {mockTeamData.sponsor}
+                  </p>
+                  <p className="tournament-detail-header-description-text">
+                      {mockTeamData.country}
+                  </p>
+                  <p className="tournament-detail-header-description-text">
+                      {mockTeamData.win_count}
+                  </p>
+              </div>
+          </div>
       </div>
       <div className="separator"></div>
       <div className="team-detail-roster">
@@ -103,15 +116,30 @@ function TeamDetail() {
                 <h3 className="racer-card-name">
                   {racer.first_name} {racer.last_name}
                 </h3>
-                <p>
-                  <strong>Status:</strong> {racer.status}
-                </p>
-                <p>
-                  <strong>Date of Birth:</strong> {racer.date_of_birth}
-                </p>
-                <p>
-                  <strong>Nationality:</strong> {racer.nationality}
-                </p>
+                  <div className="racer-card-description">
+                      <div className="racer-card-description-left">
+                          <p>
+                              <strong>Status:</strong>
+                          </p>
+                          <p>
+                              <strong>Date of Birth:</strong>
+                          </p>
+                          <p>
+                              <strong>Nationality:</strong>
+                          </p>
+                      </div>
+                      <div className="racer-card-description-right">
+                          <p>
+                              {racer.status}
+                          </p>
+                          <p>
+                              {racer.date_of_birth}
+                          </p>
+                          <p>
+                              {racer.nationality}
+                          </p>
+                      </div>
+                  </div>
               </div>
             </div>
           ))}

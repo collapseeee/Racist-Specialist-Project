@@ -1,9 +1,4 @@
-/* TournamentList.css */
-.tournament-header-banner {
-    height: 24vh;
-}
-
-.tournament-content-container {
+.staff-content-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,13 +6,17 @@
     width: 100vw;
 }
 
-.tournament-content {
+.staff-content {
     width: 100%;
 }
 
-.tournament-table-title {
+.staff-table-title {
     font-size: 4vh;
     margin: 1vh 4vw;
+}
+
+.staff-table-container {
+    padding: 1vh 2vw;
 }
 
 .tournament-detail-ranking-table {

@@ -1,15 +1,15 @@
 // MotorsportInformation.jsx
 import { data, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import "./styles/MotorsportInformation.css";
-import Footer from "./component/Universal/Footer.jsx";
-import NavBar from "./component/Universal/NavBar.jsx";
-import Card from "./component/Universal/Card.jsx";
-import motorsportData from "./data/motorsportData.js";
+import "../styles/MotorsportInformation.css";
+import Footer from "./Universal/Footer.jsx";
+import NavBar from "./Universal/NavBar.jsx";
+import Card from "./Universal/Card.jsx";
+import motorsportData from "../data/motorsportData.js";
 import teamCardImage from "/public/team-card-image.png";
 import tournamentCardImage from "/public/tournament-card-image.jpg";
 import carCardImage from "/public/car-card-image.jpg";
-import Header from "./component/Universal/Header.jsx";
+import Header from "./Universal/Header.jsx";
 
 function MotorsportInformation() {
   const { type } = useParams();

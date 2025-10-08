@@ -13,7 +13,7 @@ function TournamentList() {
   const data = motorsportData[type];
 
   const [tournaments, setTournaments] = useState([]);
-  const [sortConfig, setSortConfig] = useState({key: "tournament_name", direction: "desc"});
+  const [sortConfig, setSortConfig] = useState({key: "tournament_name", direction: "asc"});
 
   useEffect(() => {
     const mockData = [
@@ -45,20 +45,19 @@ function TournamentList() {
     setTournaments(mockData);
   }, [type]);
 
-  const handleSort = (key) => {
-    let direction = "asc";
-    if (sortConfig.key === key && sortConfig.direction === "asc") {
-      direction = "desc";
-    }
-    setSortConfig({ key, direction });
+    const handleSort = (key) => {
+        const newDirection =
+            sortConfig.key === key && sortConfig.direction === "asc" ? "desc" : "asc";
+        setSortConfig({ key, direction: newDirection });
 
-    const sorted = [...tournaments].sort((a, b) => {
-      if (a[key] < b[key]) return sortConfig.direction === "asc" ? -1 : 1;
-      if (a[key] > b[key]) return sortConfig.direction === "asc" ? 1 : -1;
-      return 0;
-    })
-    setTournaments(sorted);
-  }
+        setTournaments((prevData) =>
+            [...prevData].sort((a, b) => {
+                if (a[key] < b[key]) return newDirection === "asc" ? -1 : 1;
+                if (a[key] > b[key]) return newDirection === "asc" ? 1 : -1;
+                return 0;
+            })
+        );
+    };
 
   return (
     <>
@@ -79,7 +78,7 @@ function TournamentList() {
       <div className="tournament-content-container">
         <div className="tournament-content">
           <h2 className="tournament-table-title">{data.title} Tournaments List</h2>
-          <table className="tournament-table">
+          <table className="tournament-detail-ranking-table">
             <thead>
             <tr>
               <th onClick={() => handleSort("tournament_name")}>

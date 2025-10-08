@@ -1,0 +1,79 @@
+.staff-detail-header-title {
+    background-color: #012c52;
+    text-align: center;
+    font-size: 6vh;
+    margin-top: 2vh;
+    padding: 1vh 0;
+    margin-bottom: 1vh;
+    text-transform: uppercase;
+    width: 100vw;
+}
+
+.staff-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 2vw;
+    padding: 4vh 0;
+}
+
+.staff-card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1vh 2vw;
+}
+
+.staff-card {
+    background-color: rgb(46, 50, 54);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    width: 30vw;
+    padding: 4vh 2vw;
+    text-align: left;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.staff-card:hover {
+    transform: translateY(-0.5vh);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+}
+
+.staff-card-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+}
+
+.staff-card-name {
+    background-color: #0f1317;
+    border-radius: 24px;
+    text-align: center;
+    word-spacing: 100vw;
+    margin-bottom: 2vh;
+    padding: 1vh 0;
+    font-size: 3vh;
+}
+
+.staff-card-info p {
+    font-size: 2vh;
+    margin: 0.5vh 0;
+}
+
+.staff-card-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2vh;
+}
+
+.staff-card-description-left {
+    text-align: right;
+}
+
+.staff-card-description-right {
+    text-align: left;
+}

@@ -7,21 +7,36 @@
 .car-detail-image {
     border-radius: 10px;
     align-self: center;
-    width: 40vw;
+    height: 50vh;
 }
 
 .car-detail-header-title {
-    background-color: #5d0a0b;
+    background-color: #33450c;
     text-align: center;
     font-size: 6vh;
     margin-top: 2vh;
     margin-bottom: 1vh;
+    padding: 1vh 0;
+    width: 100vw;
 }
 
 .car-detail-header-description {
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
+.car-detail-header-description-left {
+    text-align: right;
+    width: 50%;
+    padding: 0vh 0.5vw;
+}
+
+.car-detail-header-description-right {
+    text-align: left;
+    width: 50%;
+    padding: 0vh 0.5vw;
+}
 
 .car-detail-header-description-text {
     font-size: 2.5vh;

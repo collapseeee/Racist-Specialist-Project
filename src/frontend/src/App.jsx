@@ -1,9 +1,8 @@
 import "./styles/App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import React, { useState } from "react";
 
 import Card from "./component/Universal/Card.jsx";
-import MotorsportInformation from "./MotorsportInformation.jsx";
+import MotorsportInformation from "./component/MotorsportInformation.jsx";
 import ShinyText from "./component/Universal/ShinyText.jsx";
 import Footer from "./component/Universal/Footer.jsx";
 import TournamentList from "./component/Tournament/TournamentList.jsx";
@@ -14,7 +13,11 @@ import TournamentDetail from "./component/Tournament/TournamentDetail.jsx";
 import TeamDetail from "./component/Team/TeamDetail.jsx";
 import CarDetail from "./component/Car/CarDetail.jsx";
 import SearchResult from "./component/Universal/SearchResult.jsx";
+import StaffList from "./component/Staff/StaffList.jsx";
+import ScrollToTop from "./component/Universal/ScrollToTop.jsx";
+import StaffDetail from "./component/Staff/StaffDetail.jsx";
 
+import teamPlaceholderImage from "/public/team-placeholder.jpg";
 import logo from "/public/motoropedia-logo.png";
 import motorsportData from "./data/motorsportData.js";
 
@@ -49,6 +52,11 @@ function App() {
             type={motorsport.urlName}
           />
         ))}
+          <Card
+              title="Staff List"
+              image={teamPlaceholderImage}
+              type="StaffList"
+          />
       </div>
       <Footer />
     </>
@@ -56,9 +64,12 @@ function App() {
 
   return (
     <Router>
+        <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomeLayout />} />
         <Route path="/SearchResult" element={<SearchResult />} />
+          <Route path="/StaffList" element={<StaffList />} />
+          <Route path="/StaffList/:personId" element={<StaffDetail />} />
 
         <Route path="/:type" element={<MotorsportInformation />} />
         <Route path="/:type/Tournaments" element={<TournamentList />} />
