@@ -24,7 +24,7 @@ router.get('/car', async (req, res) => {
 
 router.get('/matches', async (req, res) => {
     const data = await getTournaments();
-    console.log("GET MATCHES");
+    console.log("GET TOURNAMENTS");
     res.send({
         data
     });
@@ -58,7 +58,7 @@ router.get('/motorsport', async (req, res) => {
 
 router.get('/participation', async (req, res) => {
     const data = await getTournamentParticipating();
-    console.log("GET MATCH_PARTICIPATION");
+    console.log("GET TOURNAMENT_PARTICIPATION");
     res.send({
         data
     });
@@ -67,6 +67,7 @@ router.get('/participation', async (req, res) => {
 router.get('/search:keyword', async (req, res) => {
     const keyword = req.params.keyword.replace(':', '');
     const data = await searchData(keyword);
+
     console.log(`SEARCHING FOR ${keyword}`);
     res.send({
         data
