@@ -1,11 +1,11 @@
 /* TournamentList.jsx */
-import "./styles/TournamentList.css";
+import "../../styles/Tournament/TournamentList.css";
 import { useParams, Link } from "react-router-dom";
 
-import NavBar from "./NavBar.jsx";
-import Footer from "./Footer.jsx";
-import Header from "./Header.jsx";
-import motorsportData from "./data/motorsportData.js";
+import NavBar from "../Universal/NavBar.jsx";
+import Footer from "../Universal/Footer.jsx";
+import Header from "../Universal/Header.jsx";
+import motorsportData from "../../data/motorsportData.js";
 import { useEffect, useState } from "react";
 
 function TournamentList() {

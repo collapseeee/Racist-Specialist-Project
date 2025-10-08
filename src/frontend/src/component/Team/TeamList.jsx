@@ -1,10 +1,10 @@
-import './styles/TeamList.css'
+import '../../styles/Team/TeamList.css'
 
-import NavBar from "./NavBar.jsx";
-import Footer from "./Footer.jsx";
-import Header from "./Header.jsx";
+import NavBar from "../Universal/NavBar.jsx";
+import Footer from "../Universal/Footer.jsx";
+import Header from "../Universal/Header.jsx";
 import { Link, useParams } from "react-router-dom";
-import motorsportData from "./data/motorsportData.js";
+import motorsportData from "../../data/motorsportData.js";
 import { useEffect, useState } from "react";
 
 function TeamList() {

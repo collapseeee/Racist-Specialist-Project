@@ -1,12 +1,12 @@
 /* CarList.jsx */
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import './styles/CarList.css'
+import '../../styles/Car/CarList.css'
 
-import NavBar from "./NavBar.jsx";
-import Footer from "./Footer.jsx";
-import Header from "./Header.jsx";
-import motorsportData from "./data/motorsportData.js";
+import NavBar from "../Universal/NavBar.jsx";
+import Footer from "../Universal/Footer.jsx";
+import Header from "../Universal/Header.jsx";
+import motorsportData from "../../data/motorsportData.js";
 
 
 function CarList() {
@@ -24,7 +24,8 @@ function CarList() {
         engine: "2.4L V8",
         manufacturer: "Red Bull",
         product_year: 2013,
-        // team name?
+        team_id: 1,
+        team_name: "Team A",
       },
       {
         carmodel_id: 2,
@@ -32,6 +33,8 @@ function CarList() {
         engine: "2,4L V8",
         manufacturer: "Ferrari",
         product_year: 2009,
+        team_id: 2,
+        team_name: "Team B",
       },
       {
         carmodel_id: 3,
@@ -39,6 +42,8 @@ function CarList() {
         engine: "1.6L I4 Turbo",
         manufacturer: "Volkswagen",
         product_year: 2003,
+        team_id: 3,
+        team_name: "Team C",
       },
       {
         carmodel_id: 4,
@@ -46,6 +51,8 @@ function CarList() {
         engine: "2.4L I9 Turbo",
         manufacturer: "BMW",
         product_year: 2017,
+        team_id: 4,
+        team_name: "Team D",
       },
     ];
     setCars(mockData);
@@ -100,6 +107,9 @@ function CarList() {
               <th onClick={() => handleSort("product_year")}>
                 Product Year {sortConfig.key === "product_year" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </th>
+              <th onClick={() => handleSort("team_name")}>
+                Team {sortConfig.key === "team_name" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+              </th>
             </tr>
             </thead>
             <tbody>
@@ -116,6 +126,7 @@ function CarList() {
                 <td>{car.engine}</td>
                 <td>{car.manufacturer}</td>
                 <td>{car.product_year}</td>
+                <td>{car.team_name}</td>
               </tr>
             ))}
             </tbody>

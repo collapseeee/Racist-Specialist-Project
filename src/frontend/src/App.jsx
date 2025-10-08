@@ -2,17 +2,18 @@ import "./styles/App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import React, { useState } from "react";
 
-import Card from "./Card.jsx";
+import Card from "./component/Universal/Card.jsx";
 import MotorsportInformation from "./MotorsportInformation.jsx";
-import ShinyText from "./ShinyText.jsx";
-import Footer from "./Footer.jsx";
-import TournamentList from "./TournamentList.jsx";
-import TeamList from "./TeamList.jsx";
-import CarList from "./CarList.jsx";
-import SearchBar from "./SearchBar.jsx";
-import TournamentDetail from "./TournamentDetail.jsx";
-import TeamDetail from "./TeamDetail.jsx";
-import CarDetail from "./CarDetail.jsx";
+import ShinyText from "./component/Universal/ShinyText.jsx";
+import Footer from "./component/Universal/Footer.jsx";
+import TournamentList from "./component/Tournament/TournamentList.jsx";
+import TeamList from "./component/Team/TeamList.jsx";
+import CarList from "./component/Car/CarList.jsx";
+import SearchBar from "./component/Universal/SearchBar.jsx";
+import TournamentDetail from "./component/Tournament/TournamentDetail.jsx";
+import TeamDetail from "./component/Team/TeamDetail.jsx";
+import CarDetail from "./component/Car/CarDetail.jsx";
+import SearchResult from "./component/Universal/SearchResult.jsx";
 
 import logo from "/public/motoropedia-logo.png";
 import motorsportData from "./data/motorsportData.js";
@@ -57,6 +58,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomeLayout />} />
+        <Route path="/SearchResult" element={<SearchResult />} />
 
         <Route path="/:type" element={<MotorsportInformation />} />
         <Route path="/:type/Tournaments" element={<TournamentList />} />

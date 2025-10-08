@@ -1,19 +1,22 @@
 /* SearchBar.jsx */
-import './styles/SearchBar.css'
+import '../../styles/Universal/SearchBar.css'
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
     const query = searchTerm.trim();
-    if (!query) {
+    if (!query) return;
 
-    }
     // Handle search logic here:
     //
     //
+    navigate(`/SearchResult?q=${encodeURIComponent(query)}`);
+
     console.log(`Searching for: "${query}"`);
     setSearchTerm("")
   }

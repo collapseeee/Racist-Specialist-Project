@@ -1,0 +1,94 @@
+.team-detail-header {
+    display: flex;
+    flex-direction: column;
+    padding: 2vh 2vw;
+}
+
+.team-detail-image {
+    border-radius: 10px;
+    align-self: center;
+    width: 40vw;
+}
+
+.team-detail-header-title {
+    background-color: #5d0a0b;
+    text-align: center;
+    font-size: 6vh;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+}
+
+.team-detail-header-description {
+    text-align: center;
+}
+
+
+.team-detail-header-description-text {
+    font-size: 2.5vh;
+}
+
+.team-detail-roster {
+    width: 100%;
+}
+
+.team-detail-roster-title {
+    background-color: #5d0a0b;
+    text-align: center;
+    font-size: 4vh;
+    margin: 0 4vw;
+}
+
+.racer-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 2vw;
+    padding: 4vh 0;
+}
+
+.racer-card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1vh 2vw;
+}
+
+.racer-card {
+    background-color: rgb(46, 50, 54);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    width: 20vw;
+    padding: 4vh 2vw;
+    text-align: left;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.racer-card:hover {
+    transform: translateY(-0.5vh);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+}
+
+.racer-card-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+}
+
+.racer-card-name {
+    text-align: center;
+    word-spacing: 100vw;
+    margin-bottom: 1vh;
+    font-size: 2.4vh;
+}
+
+.racer-card-info p {
+    font-size: 2vh;
+    margin: 0.5vh 0;
+}
+
+.team-detail-car {
+    width: 100%;
+}

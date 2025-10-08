@@ -1,0 +1,40 @@
+.car-detail-header {
+    display: flex;
+    flex-direction: column;
+    padding: 2vh 2vw;
+}
+
+.car-detail-image {
+    border-radius: 10px;
+    align-self: center;
+    width: 40vw;
+}
+
+.car-detail-header-title {
+    background-color: #5d0a0b;
+    text-align: center;
+    font-size: 6vh;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+}
+
+.car-detail-header-description {
+    text-align: center;
+}
+
+
+.car-detail-header-description-text {
+    font-size: 2.5vh;
+}
+
+.car-detail-team-link {
+    color: #646cff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.car-detail-team-link:hover {
+    color: #7c84ff;
+    text-decoration: underline;
+}

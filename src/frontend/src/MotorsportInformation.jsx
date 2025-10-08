@@ -2,14 +2,14 @@
 import { data, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import "./styles/MotorsportInformation.css";
-import Footer from "./Footer";
-import NavBar from "./NavBar.jsx";
-import Card from "./Card.jsx";
+import Footer from "./component/Universal/Footer.jsx";
+import NavBar from "./component/Universal/NavBar.jsx";
+import Card from "./component/Universal/Card.jsx";
 import motorsportData from "./data/motorsportData.js";
 import teamCardImage from "/public/team-card-image.png";
 import tournamentCardImage from "/public/tournament-card-image.jpg";
 import carCardImage from "/public/car-card-image.jpg";
-import Header from "./Header.jsx";
+import Header from "./component/Universal/Header.jsx";
 
 function MotorsportInformation() {
   const { type } = useParams();
@@ -48,7 +48,8 @@ function MotorsportInformation() {
     return (
       <>
         <NavBar />
-        <h1>Motorsport not found</h1>
+        <h1>Downloading......</h1>
+        <p>If this took longer than 30 seconds that mean database server is currently down.</p>
         <Footer />
       </>
     );

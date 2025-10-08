@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "/public/motoropedia-logo.png";
-import "./styles/NavBar.css";
+import "../../styles/Universal/NavBar.css";
 import SearchBar from "./SearchBar.jsx";
 
 const motorsports = [

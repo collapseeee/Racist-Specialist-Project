@@ -1,4 +1,4 @@
-import './styles/Header.css'
+import '../../styles/Universal/Header.css'
 import React from "react";
 
 function Header({title, image, category, description}) {

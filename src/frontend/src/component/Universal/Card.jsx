@@ -1,6 +1,6 @@
 // Card.jsx
 import { Link } from "react-router-dom";
-import "./styles/Card.css";
+import "../../styles/Universal/Card.css";
 
 function Card({ title, image, type }) {
   return (
