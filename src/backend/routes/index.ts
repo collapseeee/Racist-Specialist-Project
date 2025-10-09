@@ -3,16 +3,12 @@ import {
     getCar, getMotorsport, getTournaments
     , getTeam, getTournamentParticipating
     , getMotorsportType, searchData
-    ,
+    , getCarByModelId, getCarByMotorId, getCarByTeamId
+    , getCaster, getRacer, getReferee, getStaff, getTeamRoster
 } from '../config/db'
+import { QueryResult } from 'mysql2';
 
 const router = Router();
-
-router.get('/', (req, res) => {
-    res.status(200).send({
-        message: "Hello, world."
-    })
-});
 
 router.get('/car', async (req, res) => {
     const data = await getCar();
@@ -21,6 +17,38 @@ router.get('/car', async (req, res) => {
         data
     });
 });
+
+router.get('/car/motorsport:id', async (req, res) => {
+    const motorId: String = req.params.id.replace(':', '').trim();
+    const id: Number = Number(motorId);
+    const data = await getCarByMotorId(id);
+    console.log('GET CAR BY MOTORSPORT_ID: ', id);
+
+    res.send({
+        data
+    });
+});
+
+router.get('/car/team:id', async (req, res) => {
+    const teamId: String = req.params.id.replace(':', '').trim();
+    const id: Number = Number(teamId);
+    const data = await getCarByTeamId(id);
+
+    res.send({
+        data
+    });
+});
+
+router.get('/car/model:id', async (req, res) => {
+    const modelId: String = req.params.id.replace(':', '').trim();
+    const id: Number = Number(modelId);
+    const data = await getCarByModelId(id);
+
+    res.send({
+        data
+    });
+});
+
 
 router.get('/matches', async (req, res) => {
     const data = await getTournaments();
