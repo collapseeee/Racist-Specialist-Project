@@ -10,53 +10,32 @@ import motorsportData from "../../data/motorsportData.js";
 
 
 function CarList() {
-  const { type } = useParams();
-  const data = motorsportData[type];
+  const { motorsportId } = useParams();
+  const data = motorsportData[motorsportId];
 
   const [cars, setCars] = useState([]);
   const [sortConfig, setSortConfig] = useState({key: "car_type", direction: "desc"});
 
+  const handleGetData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/car/motorsport:${motorsportId}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      const result = await response.json();
+      console.log(result);
+      setCars(result.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
-    const mockData = [
-      {
-        carmodel_id: 1,
-        car_type: "F1",
-        engine: "2.4L V8",
-        manufacturer: "Red Bull",
-        product_year: 2013,
-        team_id: 1,
-        team_name: "Team A",
-      },
-      {
-        carmodel_id: 2,
-        car_type: "F1",
-        engine: "2,4L V8",
-        manufacturer: "Ferrari",
-        product_year: 2009,
-        team_id: 2,
-        team_name: "Team B",
-      },
-      {
-        carmodel_id: 3,
-        car_type: "WRC",
-        engine: "1.6L I4 Turbo",
-        manufacturer: "Volkswagen",
-        product_year: 2003,
-        team_id: 3,
-        team_name: "Team C",
-      },
-      {
-        carmodel_id: 4,
-        car_type: "Indy Car",
-        engine: "2.4L I9 Turbo",
-        manufacturer: "BMW",
-        product_year: 2017,
-        team_id: 4,
-        team_name: "Team D",
-      },
-    ];
-    setCars(mockData);
-  }, [type]);
+    handleGetData();
+  }, [motorsportId]);
 
   const handleSort = (key) => {
     let direction = "asc";
@@ -117,7 +96,7 @@ function CarList() {
               <tr key={car.carmodel_id}>
                 <td>
                   <Link
-                    to={`/${type}/Cars/${car.carmodel_id}`}
+                    to={`/${motorsportId}/Cars/${car.carmodel_id}`}
                     className="car-link"
                   >
                     {car.car_type} ({car.carmodel_id})

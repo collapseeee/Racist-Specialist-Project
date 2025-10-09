@@ -14,32 +14,26 @@ function TeamList() {
   const [teams, setTeams] = useState([]);
   const [sortConfig, setSortConfig] = useState({key: "team_name", direction: "desc"});
 
+  const handleGetData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/tournament/motorsport:${motorsportId}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      const result = await response.json();
+      console.log(result);
+      setTeams(result.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
-    const mockData = [
-      {
-        team_id: 1,
-        team_name: "A Red Bull Racing",
-        sponsor: "Infiniti",
-        country: "Austria",
-        win_count: 200,
-      },
-      {
-        team_id: 2,
-        team_name: "B Scuderia Ferrari",
-        sponsor: "Shell",
-        country: "Italy",
-        win_count: 220,
-      },
-      {
-        team_id: 3,
-        team_name: "C Mercedes AMG Petronas F1 Team",
-        sponsor: "Petronas",
-        country: "Germany",
-        win_count: 75,
-      },
-    ];
-    setTeams(mockData);
-  }, [type]);
+    handleGetData();
+  }, [motorsportId]);
 
   const handleSort = (key) => {
     let direction = "asc";

@@ -117,7 +117,7 @@ export const searchData = async (keyword: String) => {
         ['%' + keyword + '%', '%' + keyword + '%']
     );
     const [teamRows] = await promisePool.query("SELECT t.team_id, t.team_name, m.motorsport_type FROM team t INNER JOIN tournament_participating tp ON t.team_id = tp.team_id INNER JOIN tournaments tm ON tm.tournament_id = tp.tournament_id INNER JOIN motorsport m ON tm.motorsport_id = m.motorsport_id WHERE t.team_name LIKE ? ORDER BY t.team_name ASC", '%' + keyword + '%');
-    const [tournamentRows] = await promisePool.query("SELECT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, m.motorsport_type FROM tournaments t INNER JOIN motorsport m ON m.motorsport_id = t.motorsport_id WHERE tournament_name LIKE ? OR circuit_state LIKE ? ORDER BY p.first_name ASC", ['%' + keyword + '%', '%' + keyword + '%']);
+    const [tournamentRows] = await promisePool.query("SELECT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, m.motorsport_type FROM tournaments t INNER JOIN motorsport m ON m.motorsport_id = t.motorsport_id WHERE tournament_name LIKE ? OR circuit_state LIKE ? ORDER BY t.tournament_name ASC", ['%' + keyword + '%', '%' + keyword + '%']);
     const [staffRows] = await promisePool.query("SELECT p.person_id, p.first_name, p.last_name, s.staff_type, s.years_experience FROM person p INNER JOIN staff s ON p.person_id = s.person_id WHERE p.first_name LIKE ? OR p.last_name LIKE ? ORDER BY p.first_name ASC", ['%' + keyword + '%', '%' + keyword + '%']);
 
     return {
