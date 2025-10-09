@@ -1,4 +1,6 @@
+/* StaffDetail.jsx */
 import '../../styles/Staff/StaffDetail.css'
+import {useParams} from "react-router-dom";
 
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
@@ -6,24 +8,32 @@ import racerPlaceholderImage from "/public/racer-placeholder.jpg";
 import React, {useEffect, useState} from "react";
 
 function StaffDetail() {
-    const person_id = 0;
+    const { personId } = useParams();
 
     const [staffData, setStaffData] = useState([]);
-    useEffect(() => {
-        const mockData = {
-            person_id: 1,
-            first_name: "John",
-            last_name: "Did",
-            status: "active",
-            date_of_birth: "1970-01-01",
-            staff_type: "caster",
-            nationality: "US",
-            year_experience: 10,
-            referee_license: 131231,
-            language: "English",
+
+    const handleGetData = async () => {
+        try {
+            const response = await fetch(
+                `http://localhost:3000/api/tournament/person:${personId}`, // <-- Adjust here after backend define query.
+                {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+            const result = await response.json();
+            console.log(result);
+            setStaffData(result.data[0]);
+
+        } catch (err) {
+            console.error(err);
         }
-        setStaffData(mockData)
-    }, [])
+    };
+
+    useEffect(() => {
+        handleGetData();
+    }, [personId]);
+
     return (
         <>
             <NavBar />

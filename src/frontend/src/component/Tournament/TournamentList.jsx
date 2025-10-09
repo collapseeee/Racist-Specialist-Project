@@ -53,6 +53,12 @@ function TournamentList() {
     );
   };
 
+  function getTime(dateString) {
+      if (!dateString) return "-";
+      const date = new Date(dateString);
+      return date.toLocaleDateString("en-GB", { timeZone: "Asia/Bangkok" });
+  }
+
   return (
     <>
       <NavBar />
@@ -130,7 +136,7 @@ function TournamentList() {
                       {tournament.tournament_name}
                     </Link>
                   </td>
-                  <td>{tournament.date_of_match}</td>
+                  <td>{getTime(tournament.date_of_match)}</td>
                   <td>{tournament.circuit_street}</td>
                   <td>{tournament.circuit_city}</td>
                   <td>{tournament.circuit_state}</td>

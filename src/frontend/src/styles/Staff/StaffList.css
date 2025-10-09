@@ -12,7 +12,7 @@
 
 .staff-table-title {
     font-size: 4vh;
-    margin: 1vh 4vw;
+    margin: 1vh 0;
 }
 
 .staff-table-container {
@@ -58,4 +58,43 @@
 
 .tournament-detail-ranking-table tr:hover td {
     background-color: rgba(255, 255, 255, 0.05);
+}
+
+.staff-dropdown-group {
+    margin: 2vh 4vw;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background-color: rgb(40, 44, 52);
+    overflow: hidden;
+}
+
+.staff-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(46, 50, 54);
+    padding: 1vh 4vw;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+.staff-dropdown-header:hover {
+    background-color: rgb(55, 59, 66);
+}
+
+.dropdown-arrow {
+    color: #646cff;
+    font-size: 2vh;
+    margin-left: 10px;
+}
+
+.staff-table-container {
+    padding: 1vh 2vw;
+    animation: dropdownOpen 0.3s ease;
+}
+
+@keyframes dropdownOpen {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
 }

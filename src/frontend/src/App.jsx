@@ -55,7 +55,7 @@ function App() {
           <Card
               title="Staff List"
               image={teamPlaceholderImage}
-              type="StaffList"
+              id="StaffList"
           />
       </div>
       <Footer />

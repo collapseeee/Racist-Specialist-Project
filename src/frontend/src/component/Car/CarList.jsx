@@ -93,7 +93,7 @@ function CarList() {
             </thead>
             <tbody>
             {cars.map((car) => (
-              <tr key={car.carmodel_id}>
+              <tr key={`${car.carmodel_id}-${car.team_id}`}>
                 <td>
                   <Link
                     to={`/${motorsportId}/Cars/${car.carmodel_id}`}

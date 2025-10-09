@@ -11,6 +11,9 @@ function StaffList() {
     const [refereeSort, setRefereeSort] = useState({key: "first_name", direction: "asc"});
     const [casterSort, setCasterSort] = useState({key: "first_name", direction: "asc"});
 
+    const [showReferees, setShowReferees] = useState(true);
+    const [showCasters, setShowCasters] = useState([false]);
+
     const sortData = (data, key, direction) => {
         return [...data].sort((a, b) => {
             if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
@@ -39,61 +42,38 @@ function StaffList() {
         setCasterList((prevList) => sortData(prevList, key, direction));
     };
 
+    const handleGetData = async () => {
+        try {
+            const responseReferee = await fetch(
+                `http://localhost:3000/api/staff/referee`,
+                {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+            const resultReferee = await responseReferee.json();
+
+            const responseCaster = await fetch(
+                `http://localhost:3000/api/staff/caster`,
+                {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+            const resultCaster = await responseCaster.json();
+
+            console.log(resultCaster);
+            console.log(resultReferee);
+
+            setRefereeList(resultReferee.data);
+            setCasterList(resultCaster.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     useEffect(() => {
-        const mockRefereeData = [
-            {
-                person_id: 1,
-                first_name: "Firstname1",
-                last_name: "Lastname1",
-                year_experience: 12,
-                referee_license: 111111,
-                nationality: "A",
-            },
-            {
-                person_id: 2,
-                first_name: "Firstname2",
-                last_name: "Lastname2",
-                year_experience: 11,
-                referee_license: 222222,
-                nationality: "C",
-            },
-            {
-                person_id: 3,
-                first_name: "Firstname3",
-                last_name: "Lastname3",
-                year_experience: 15,
-                referee_license: 333333,
-                nationality: "B",
-            },
-        ];
-        const mockCasterData = [
-            {
-                person_id: 4,
-                year_experience: 12,
-                first_name: "Firstname1",
-                last_name: "Lastname1",
-                language: "Thai",
-                nationality: "B",
-            },
-            {
-                person_id: 5,
-                first_name: "Firstname2",
-                last_name: "Lastname2",
-                year_experience: 10,
-                language: "China",
-                nationality: "C",
-            },
-            {
-                person_id: 6,
-                first_name: "Firstname1",
-                last_name: "Lastname1",
-                year_experience: 20,
-                language: "Japan",
-                nationality: "A",
-            },
-        ];
-        setRefereeList(sortData(mockRefereeData, refereeSort.key, refereeSort.direction));
-        setCasterList(sortData(mockCasterData, casterSort.key, casterSort.direction));
+        handleGetData();
     }, []);
 
     return (
@@ -102,16 +82,22 @@ function StaffList() {
 
             <div className="staff-content-container">
                 <div className="staff-content">
-                    <div className="staff-table-container">
-                    <h2 className="staff-table-title">Referees List</h2>
+
+                    <div className="staff-dropdown-group">
+                        <div className="staff-dropdown-header" onClick={() => setShowReferees(!showReferees)}>
+                            <h2 id="referees" className="staff-table-title">Referees List</h2>
+                            <span className="dropdown-arrow">{showReferees ? "▲" : "▼"}</span>
+                        </div>
+                        {showReferees && (
+                        <div className="staff-table-container">
                     <table className="tournament-detail-ranking-table">
                         <thead>
                         <tr>
                             <th onClick={() => handleRefereeSort("first_name")}>
                                 Name {refereeSort.key === "first_name" ? (refereeSort.direction === "asc" ? "▲" : "▼") : ""}
                             </th>
-                            <th onClick={() => handleRefereeSort("year_experience")}>
-                                Year Experience {refereeSort.key === "year_experience" ? (refereeSort.direction === "asc" ? "▲" : "▼") : ""}
+                            <th onClick={() => handleRefereeSort("years_experience")}>
+                                Year Experience {refereeSort.key === "years_experience" ? (refereeSort.direction === "asc" ? "▲" : "▼") : ""}
                             </th>
                             <th onClick={() => handleRefereeSort("referee_license")}>
                                 Referee License {refereeSort.key === "referee_license" ? (refereeSort.direction === "asc" ? "▲" : "▼") : ""}
@@ -132,7 +118,7 @@ function StaffList() {
                                         {referee.first_name} {referee.last_name}
                                     </Link>
                                 </td>
-                                <td>{referee.year_experience}</td>
+                                <td>{referee.years_experience}</td>
                                 <td>{referee.referee_license}</td>
                                 <td>{referee.nationality}</td>
                             </tr>
@@ -140,19 +126,28 @@ function StaffList() {
                         </tbody>
                     </table>
                     </div>
+                            )}
+                    </div>
 
                     <div className="separator"></div>
 
+                    <div className="staff-dropdown-group">
+                        <div className="staff-dropdown-header" onClick={() => setShowCasters(!showCasters)}>
+                            <h2 className="staff-table-title">Casters List</h2>
+                            <span className="dropdown-arrow">{showCasters ? "▲" : "▼"}</span>
+                        </div>
+
+                        {showCasters && (
                     <div className="staff-table-container">
-                        <h2 className="staff-table-title">Casters List</h2>
+                        <h2 id="casters" className="staff-table-title">Casters List</h2>
                         <table className="tournament-detail-ranking-table">
                             <thead>
                             <tr>
                                 <th onClick={() => handleCasterSort("first_name")}>
                                     Name {casterSort.key === "first_name" ? (casterSort.direction === "asc" ? "▲" : "▼") : ""}
                                 </th>
-                                <th onClick={() => handleCasterSort("year_experience")}>
-                                    Year Experience {casterSort.key === "year_experience" ? (casterSort.direction === "asc" ? "▲" : "▼") : ""}
+                                <th onClick={() => handleCasterSort("years_experience")}>
+                                    Year Experience {casterSort.key === "years_experience" ? (casterSort.direction === "asc" ? "▲" : "▼") : ""}
                                 </th>
                                 <th onClick={() => handleCasterSort("language")}>
                                     Language {casterSort.key === "language" ? (casterSort.direction === "asc" ? "▲" : "▼") : ""}
@@ -173,13 +168,15 @@ function StaffList() {
                                             {caster.first_name} {caster.last_name}
                                         </Link>
                                     </td>
-                                    <td>{caster.year_experience}</td>
+                                    <td>{caster.years_experience}</td>
                                     <td>{caster.language}</td>
                                     <td>{caster.nationality}</td>
                                 </tr>
                             ))}
                             </tbody>
                         </table>
+                    </div>
+                            )}
                     </div>
                 </div>
             </div>

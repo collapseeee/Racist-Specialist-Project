@@ -1,5 +1,5 @@
-import { useParams, Link } from "react-router-dom";
 import "../../styles/Tournament/TournamentDetail.css";
+import { useParams, Link } from "react-router-dom";
 
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
@@ -7,7 +7,62 @@ import React, {useEffect, useState} from "react";
 import tournamentPlaceholderImage from "/public/tournament-placeholder.png";
 
 function TournamentDetail() {
-    const { type } = useParams();
+    const { motorsportId } = useParams();
+    const { tournamentId } = useParams();
+
+    const [tournamentDetail, setTournamentDetail] = useState([]);
+    const [refereeDetail, setRefereeDetail] = useState([]);
+    const [casterDetail, setCasterDetail] = useState([]);
+    const [tournamentParticipating, setTournamentParticipating] = useState([]);
+
+    const handleGetData = async () => {
+        try {
+            const responseTournamentDetail = await fetch(
+                `http://localhost:3000/api/tournament:${tournamentId}`,
+                {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+            const resultTournamentDetail = await responseTournamentDetail.json();
+            console.log(resultTournamentDetail);
+            setTournamentDetail(resultTournamentDetail.data[0]);
+
+            const responseTournamentParticipating = await fetch(
+                `http://localhost:3000/api/participation:${tournamentId}`,
+                {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+            const resultTournamentParticipating = await responseTournamentParticipating.json();
+            console.log(resultTournamentParticipating);
+            setTournamentParticipating(resultTournamentParticipating.data);
+
+            //
+            // Await for backend to implement getStaff by personId
+            //
+
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        handleGetData();
+    }, [tournamentId]);
+
+    function getTime(dateString) {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+
+        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    };
 
     const getTotalTime = (start, finish) => {
         const diff = new Date(finish) - new Date(start);
@@ -17,62 +72,20 @@ function TournamentDetail() {
         return `${days}d ${hours}h ${minutes}m`;
     };
 
-
-    const mockTournament = {
-        tournament_id: 1,
-        tournament_name: "Tournament",
-        circuit_street: "Street",
-        circuit_city: "City",
-        circuit_state: "State",
-        circuit_zip: "Zip",
-        average_viewer: 90000,
-        caster_id: 1,
-        referee_id: 1,
-    };
-
-    const [tournament, setTournament] = useState([]);
-
-  useEffect(() => {
-    const mockData = [
-      {
-        team_id: 1,
-        average_laps_time: 6000,
-        start_time: "2012-10-03 14:00:00",
-        finish_time: "2012-10-04 15:31:00",
-        placement: 1,
-      },
-      {
-        team_id: 2,
-        average_laps_time: 6500,
-        start_time: "2012-10-03 14:00:00",
-        finish_time: "2012-10-05 16:21:00",
-        placement: 1,
-      },
-      {
-        team_id: 3,
-        average_laps_time: 7000,
-        start_time: "2012-10-03 14:00:00",
-        finish_time: "2012-10-05 16:31:00",
-        placement: 1,
-      },
-    ];
-    setTournament(mockData);
-  }, []);
-
   return (
     <>
       <NavBar />
       <div className="tournament-container">
           <div className="tournament-detail-header">
               <img src={tournamentPlaceholderImage} alt="Tournament Image" className="tournament-detail-image" />
-              <h1 className="tournament-detail-header-title">{mockTournament.tournament_name}</h1>
+              <h1 className="tournament-detail-header-title">{tournamentDetail.tournament_name}</h1>
               <div className="tournament-detail-header-description">
                   <div className="tournament-detail-header-description-left">
                       <p className="tournament-detail-header-description-text">
                           <strong>Circuit Address:</strong>
                       </p>
                       <p className="tournament-detail-header-description-text">
-                          <strong>Average Viewer:</strong>
+                          <strong>Average Viewer Count:</strong>
                       </p>
                       <p className="tournament-detail-header-description-text">
                           <strong>Referee:</strong>
@@ -83,16 +96,16 @@ function TournamentDetail() {
                   </div>
                   <div className="tournament-detail-header-description-right">
                       <p className="tournament-detail-header-description-text">
-                          {mockTournament.circuit_street}, {mockTournament.circuit_city}, {mockTournament.circuit_state}, {mockTournament.circuit_zip}
+                          {tournamentDetail.circuit_street}, {tournamentDetail.circuit_city}, {tournamentDetail.circuit_state}, {tournamentDetail.circuit_zip}
                       </p>
                       <p className="tournament-detail-header-description-text">
-                          {mockTournament.average_viewer}
+                          {tournamentDetail.average_viewer_count}
                       </p>
                       <p className="tournament-detail-header-description-text">
-                          {mockTournament.referee_id}
+                          {tournamentDetail.referee_id}
                       </p>
                       <p className="tournament-detail-header-description-text">
-                          {mockTournament.caster_id}
+                          {tournamentDetail.caster_id}
                       </p>
                   </div>
               </div>
@@ -114,17 +127,17 @@ function TournamentDetail() {
                           </tr>
                           </thead>
                           <tbody>
-                          {tournament.map((tournament) => (
-                              <tr key={tournament.id}>
+                          {tournamentParticipating.map((tournament) => (
+                              <tr key={`${tournament.id}-${tournament.placement}`}>
                                   <td>{tournament.placement}</td>
                                   <td>
-                                      <Link to={`/${type}/Teams/${tournament.team_id}`} className="team-link">
-                                          {tournament.team_id}
+                                      <Link to={`/${motorsportId}/Teams/${tournament.team_id}`} className="team-link">
+                                          {tournament.team_name}
                                       </Link>
                                   </td>
                                   <td>{tournament.average_laps_time}</td>
-                                  <td>{tournament.start_time}</td>
-                                  <td>{tournament.finish_time}</td>
+                                  <td>{getTime(tournament.start_time)}</td>
+                                  <td>{getTime(tournament.finish_time)}</td>
                                   <td>{getTotalTime(tournament.start_time, tournament.finish_time)}</td>
                               </tr>
                           ))}

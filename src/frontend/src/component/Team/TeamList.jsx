@@ -8,32 +8,11 @@ import motorsportData from "../../data/motorsportData.js";
 import React, { useEffect, useState } from "react";
 
 function TeamList() {
-  const { type } = useParams();
-  const data = motorsportData[type];
+  const { motorsportId } = useParams();
+  const data = motorsportData[motorsportId];
 
   const [teams, setTeams] = useState([]);
   const [sortConfig, setSortConfig] = useState({key: "team_name", direction: "desc"});
-
-  const handleGetData = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/tournament/motorsport:${motorsportId}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        },
-      );
-      const result = await response.json();
-      console.log(result);
-      setTeams(result.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    handleGetData();
-  }, [motorsportId]);
 
   const handleSort = (key) => {
     let direction = "asc";
@@ -49,6 +28,27 @@ function TeamList() {
     })
     setTeams(sorted);
   }
+
+    const handleGetData = async () => {
+        try {
+            const response = await fetch(
+                `http://localhost:3000/api/team/motorsport:${motorsportId}`,
+                {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+            const result = await response.json();
+            console.log(result);
+            setTeams(result.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        handleGetData();
+    }, [motorsportId]);
 
   return (
     <>
@@ -90,7 +90,7 @@ function TeamList() {
               <tr key={team.tournament_id}>
                 <td>
                   <Link
-                    to={`/${type}/Teams/${team.team_id}`}
+                    to={`/${motorsportId}/Teams/${team.team_id}`}
                     className="team-link"
                   >
                     {team.team_name}

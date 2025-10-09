@@ -1,85 +1,75 @@
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import "../../styles/Team/TeamDetail.css";
 
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
 import React, { useEffect, useState } from "react";
 
-import teamPlaceholderImage from "/public/team-placeholder.jpg";
+import teamLogoPlaceholderImage from "/public/team-logo-placeholder.png";
 import racerPlaceholderImage from "/public/racer-placeholder.jpg";
 import carPlaceholderImage from "/public/car-placeholder.png";
 
 function TeamDetail() {
-  const { type } = useParams();
+    const { motorsportId } = useParams();
+  const { teamId } = useParams();
 
+  const [teamDetail, setTeamDetail] = useState([]);
   const [roster, setRoster] = useState([]);
   const [cars, setCars] = useState([]);
-  const mockTeamData = {
-    team_name: "Team A",
-    sponsor: "Sponsor A",
-    country: "Cambodia",
-    win_count: 1,
-  };
 
-  useEffect(() => {
-    const mockData = [
-      {
-        person_id: 1,
-        first_name: "Firstname1",
-        last_name: "Lastname1",
-        status: "retired",
-        date_of_birth: "1992-12-09",
-        nationality: "Thailand",
-      },
-      {
-        person_id: 2,
-        first_name: "Firstname2",
-        last_name: "Lastname2",
-        status: "active",
-        date_of_birth: "1999-09-09",
-        nationality: "Laos",
-      },
-      {
-        person_id: 3,
-        first_name: "Firstname3",
-        last_name: "Lastname3",
-        status: "retired",
-        date_of_birth: "1909-09-09",
-        nationality: "South Korea",
-      },
-    ];
-    const carMockData = [
-      {
-        carmodel_id: 1,
-        car_type: "F1",
-        engine: "2.4L V8",
-        manufacturer: "Red Bull",
-        product_year: 2013,
-      },
-      {
-        carmodel_id: 2,
-        car_type: "F2",
-        engine: "2.0L V4",
-        manufacturer: "BMW",
-        product_year: 2009,
-      },
-      {
-        carmodel_id: 3,
-        car_type: "F3",
-        engine: "4.4L V10",
-        manufacturer: "Ferrari",
-        product_year: 2016,
-      }
-    ]
-    setRoster(mockData);
-    setCars(carMockData);
-  }, [type]);
+
+  const handleGetData = async () => {
+        try {
+            const responseTeamDetail = await fetch(
+                `http://localhost:3000/api/team:${teamId}`,
+                {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+            const resultTeamDetail = await responseTeamDetail.json();
+            console.log(resultTeamDetail);
+            setTeamDetail(resultTeamDetail.data[0]);
+
+            /* !! Adjust later after backend provide query: !!
+            const responseRoster = await fetch(
+                `http://localhost:3000/api/car/team:${teamId}`, // <-- Adjust here
+                {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+            const resultRoster = await responseRoster.json();
+            console.log(resultRoster);
+            setTeamDetail(resultRoster.data);
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            */
+
+            const responseCars = await fetch(
+                `http://localhost:3000/api/car/team:${teamId}`,
+                {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+            const resultCars = await responseCars.json();
+            console.log(resultCars);
+            setCars(resultCars.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        handleGetData();
+    }, [teamId]);
+
   return (
     <>
       <NavBar />
       <div className="team-detail-header">
-        <img src={teamPlaceholderImage} className="team-detail-image" />
-        <h1 className="team-detail-header-title">{mockTeamData.team_name}</h1>
+        <img src={teamLogoPlaceholderImage} className="team-detail-image" />
+        <h1 className="team-detail-header-title">{teamDetail.team_name}</h1>
           <div className="team-detail-header-description">
               <div className="team-detail-header-description-left">
                   <p className="tournament-detail-header-description-text">
@@ -94,18 +84,20 @@ function TeamDetail() {
               </div>
               <div className="team-detail-header-description-right">
                   <p className="tournament-detail-header-description-text">
-                      {mockTeamData.sponsor}
+                      {teamDetail.sponsor}
                   </p>
                   <p className="tournament-detail-header-description-text">
-                      {mockTeamData.country}
+                      {teamDetail.country}
                   </p>
                   <p className="tournament-detail-header-description-text">
-                      {mockTeamData.win_count}
+                      {teamDetail.win_count}
                   </p>
               </div>
           </div>
       </div>
+
       <div className="separator"></div>
+
       <div className="team-detail-roster">
         <h2 className="team-detail-roster-title">Team Roster</h2>
         <div className="racer-card-container">
@@ -145,7 +137,9 @@ function TeamDetail() {
           ))}
         </div>
       </div>
+
       <div className="separator"></div>
+
       <div className="team-detail-roster">
         <h2 className="team-detail-roster-title">Car Roster</h2>
         <div className="racer-card-container">
@@ -153,9 +147,14 @@ function TeamDetail() {
             <div key={car.carmodel_id} className="racer-card">
               <div className="racer-card-info">
                 <img src={carPlaceholderImage} alt="Car Image" className="racer-card-image" />
+                  <Link
+                      to={`/${motorsportId}/Cars/${car.carmodel_id}`}
+                      className="racer-card-link"
+                      >
                 <h3 className="racer-card-name">
                   {car.car_type}
                 </h3>
+                  </Link>
                 <p>
                   <strong>Engine:</strong> {car.engine}
                 </p>

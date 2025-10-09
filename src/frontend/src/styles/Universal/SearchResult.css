@@ -80,3 +80,47 @@
     color: #7c84ff;
     text-decoration: underline;
 }
+
+.dropdown-toggle-title {
+    cursor: pointer;
+    background-color: rgb(17, 57, 67);
+    padding: 1vh 2vw;
+    color: #f5f5f5;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.dropdown-toggle-title:hover {
+    background-color: rgba(100, 108, 255, 0.3);
+}
+
+.dropdown-arrow {
+    font-size: 2vh;
+    margin-left: 10px;
+}
+
+.dropdown-section-body {
+    margin-top: 1vh;
+    transition: all 0.3s ease-in-out;
+}
+
+.disabled-title {
+    cursor: default;
+    opacity: 0.4;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.disabled-title:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dropdown-section-body.closed {
+    display: none;
+}
+
+.dropdown-section-body.open {
+    display: block;
+}
