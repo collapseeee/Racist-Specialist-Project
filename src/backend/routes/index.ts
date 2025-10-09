@@ -7,10 +7,16 @@ import {
     , getCaster, getRacer, getReferee, getStaff, getTeamRoster,
     getTournamentsById,
     getTournamentsByMotorId,
-    getTournamentParticipatingById
+    getTournamentParticipatingById,
+    getTeamById,
+    getTeamByMotorId
 } from '../config/db'
 
 const router = Router();
+
+router.get('/', async (req, res) => {
+    return res.status(200);
+})
 
 router.get('/car', async (req, res) => {
     const data = await getCar();
@@ -90,7 +96,30 @@ router.get('/team', async (req, res) => {
     });
 });
 
+router.get('/team:id', async (req, res) => {
+    const teamId: String = req.params.id.replace(':', '');
+    const id: Number = Number(teamId);
+    const data = await getTeamById(id)
+    res.send({
+        data
+    });
+});
 
+router.get('/team/motorsport:id', async (req, res) => {
+    const motorsportId: String = req.params.id.replace(':', '');
+    const id: Number = Number(motorsportId);
+    const data = await getTeamByMotorId(id);
+    res.send({
+        data
+    });
+});
+
+router.get('/teamroster', async (req, res) => {
+    const data = await getTeamRoster();
+    res.send({
+        data
+    });
+});
 
 router.get('/motorsport:type', async (req, res) => {
     const type = req.params.type.replace(':', '');

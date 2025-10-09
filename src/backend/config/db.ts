@@ -65,12 +65,6 @@ export const getMotorsportType = async (type: String) => {
     return rows;
 }
 
-/* 
-getTeam
-- ให้ filter motorsport_id ได้ (เอาไปใช้ Table List ในหน้า Teams)
-- ให้ filter team_id ได้ (เอาไปใช้ TeamDetail)
- */
-
 export const getTeam = async () => {
     const [rows] = await promisePool.query("SELECT * FROM team ORDER BY team_name ASC");
     return rows;
@@ -86,10 +80,6 @@ export const getTeamByMotorId = async (motrosport_id: Number) => {
     return rows;
 }
 
-/* 
-getTournamentParticipating
-    - ให้ filter tournament_id ได้ แล้ว return มาเป็นอันดับเรียงจากน้อยไปมาก แล้วก็เพิ่ม team_name ด้วย
- */
 export const getTournamentParticipating = async () => {
     const [rows] = await promisePool.query("SELECT * FROM tournament_participating");
     return rows;
@@ -123,7 +113,7 @@ export const searchData = async (keyword: String) => {
     const [carRows] = await promisePool.query("SELECT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year, m.motorsport_type FROM car c INNER JOIN team t ON c.team_id = t.team_id INNER JOIN tournament_participating tp ON tp.team_id = t.team_id INNER JOIN tournaments tm ON tm.tournament_id = tp.tournament_id INNER JOIN motorsport m ON m.motorsport_id = tm.motorsport_id WHERE c.car_type LIKE ? OR c.engine LIKE ? OR c.manufacturer LIKE ? OR c.product_year LIKE ? ORDER BY m.motorsport_type ASC",
         ['%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%']);
     const [racerRows] = await promisePool.query(
-        "SELECT DISTINCT p.person_id, DISTINCT tr.team_id, tr.team_name, p.first_name, p.last_name, m.motorsport_type FROM person p INNER JOIN racer r ON p.person_id = r.person_id INNER JOIN team_roster tr ON p.person_id = tr.person_id INNER JOIN tournament_participating tp ON tr.team_id = tp.team_id INNER JOIN tournaments t ON tp.tournament_id = t.tournament_id INNER JOIN motorsport m ON t.motorsport_id = m.motorsport_id WHERE p.first_name LIKE ? OR p.last_name LIKE ? ORDER BY p.first_name ASC",
+        "SELECT DISTINCT p.person_id, tr.team_id, tr.team_name, p.first_name, p.last_name, m.motorsport_type FROM person p INNER JOIN racer r ON p.person_id = r.person_id INNER JOIN team_roster tr ON p.person_id = tr.person_id INNER JOIN tournament_participating tp ON tr.team_id = tp.team_id INNER JOIN tournaments t ON tp.tournament_id = t.tournament_id INNER JOIN motorsport m ON t.motorsport_id = m.motorsport_id WHERE p.first_name LIKE ? OR p.last_name LIKE ?",
         ['%' + keyword + '%', '%' + keyword + '%']
     );
     const [teamRows] = await promisePool.query("SELECT t.team_id, t.team_name, m.motorsport_type FROM team t INNER JOIN tournament_participating tp ON t.team_id = tp.team_id INNER JOIN tournaments tm ON tm.tournament_id = tp.tournament_id INNER JOIN motorsport m ON tm.motorsport_id = m.motorsport_id WHERE t.team_name LIKE ? ORDER BY t.team_name ASC", '%' + keyword + '%');
