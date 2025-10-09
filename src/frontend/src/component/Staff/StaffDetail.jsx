@@ -71,7 +71,7 @@ function StaffDetail() {
                                         {staffData.year_experience}
                                     </p>
                                     <p>
-                                        {staffData.nationality}
+                                        {staffData.referee_license}
                                     </p>
                                     <p>
                                         {staffData.nationality}

@@ -2,9 +2,9 @@
 import { Link } from "react-router-dom";
 import "../../styles/Universal/Card.css";
 
-function Card({ title, image, type }) {
+function Card({ title, image, id }) {
   return (
-    <Link to={`/${type}`} className="type-card">
+    <Link to={`/${id}`} className="type-card">
       <div
         className="type-card-image"
         style={{ backgroundImage: `url(${image})` }}

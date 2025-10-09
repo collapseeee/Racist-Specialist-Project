@@ -1,5 +1,5 @@
 import '../../styles/Staff/StaffList.css'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
@@ -91,11 +91,10 @@ function StaffList() {
                 language: "Japan",
                 nationality: "A",
             },
-
         ];
         setRefereeList(sortData(mockRefereeData, refereeSort.key, refereeSort.direction));
         setCasterList(sortData(mockCasterData, casterSort.key, casterSort.direction));
-    });
+    }, []);
 
     return (
         <>

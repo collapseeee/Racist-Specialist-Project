@@ -1,9 +1,10 @@
 
 
 const motorsportData = {
-  Autocross: {
+  1: {
     title: "Autocross",
-    urlName: "Autocross",
+    name: "Autocross",
+    id: 1,
     image:
       "https://upload.wikimedia.org/wikipedia/commons/f/f0/Nov%C3%A1_Paka_%C5%A0tikov_Autokros.jpg",
     description: [
@@ -24,9 +25,10 @@ const motorsportData = {
       "You will also need to have a fire extinguisher fixed in the car and mud flaps fitted behind each wheel. Roll cages and harnesses are recommended, and are mandatory in Junior Autocross. As a minimum, competitors are required to wear a helmet and flame resistant overalls to approved standards. Details can be found in chapters 7 and 16 in the National Competition Rules.",
     ],
   },
-  Autotest: {
+  2: {
     title: "Autotest",
-    urlName: "Autotest",
+    name: "Autotest",
+    id: 2,
     image:
       "https://motorsportuk.s3.eu-west-2.amazonaws.com/wp-content/uploads/2022/04/20162356/Autotest-image.jpg",
     description: [
@@ -45,9 +47,10 @@ const motorsportData = {
       "There are no personal protective equipment requirements for Autotests.",
     ],
   },
-  CircuitRacing: {
+  3: {
     title: "Circuit Racing",
-    urlName: "CircuitRacing",
+    name: "CircuitRacing",
+    id: 3,
     image:
       "https://upload.wikimedia.org/wikipedia/commons/c/c5/BTCC_Brands06_PaddockHill.jpg",
     description: [
@@ -64,9 +67,10 @@ const motorsportData = {
       "Most circuit racing events will require that you have a timing transponder fitted to the vehicle. Details of the type of transponder required are specified in the event or championship Supplementary Regulations (SRs), made available by the organiser.",
     ],
   },
-  CrossCountry: {
+  4: {
     title: "Cross Country",
-    urlName: "CrossCountry",
+    name: "CrossCountry",
+    id: 4,
     image:
       "https://www.goodthingsguy.com/wp-content/uploads/2017/07/A-high-speed-cross-country-motorsport-adventure-620x400.jpg",
     description: [
@@ -79,9 +83,10 @@ const motorsportData = {
       "Whatever you do will involve a fair amount of walking around the course/sections so you’ll need a good pair of shoes or boots and some form of waterproof clothing close to hand. While you don’t need fireproof overalls you should always ensure that your clothing is made from natural fibres rather than man-made and that your limbs are fully covered. Motorsport UK-compliant helmets are required for all timed events. Technical regulations for Cross Country are found in chapter 20 of the\u00a0National Competition Rules. Specific event or Championship regulations are found in Supplementary Regulations (SRs) made available by the organiser. To begin in Cross Country events, all you will need is use of a standard production 4×4 vehicle without any additional safety items.",
     ],
   },
-  DragRacing: {
+  5: {
     title: "Drag Racing",
-    urlName: "DragRacing",
+    name: "DragRacing",
+    id: 5,
     image:
       "https://upload.wikimedia.org/wikipedia/commons/3/33/Maryland_Army_National_Guard_%283290671976%29.jpg",
     description: [
@@ -96,9 +101,10 @@ const motorsportData = {
       "As a minimum for competitive drag racing you will be required to wear a helmet and flame resistant overalls to approved standards. Details can be obtained through the organiser. It is possible to run a standard road-going production car. There are a large number of other classes catering for modified road and sports cars and bespoke drag race cars, all of which must comply with regulations specific to that class, which can be obtained through the organiser General technical regulations are found in the\u00a0National Competition Rules, although specific technical regulations for the various classes can be obtained from the organiser. Specific event or Championship regulations are found in Supplementary Regulations (SRs) also made available by the organiser.",
     ],
   },
-  Drifting: {
+  6: {
     title: "Drifting",
-    urlName: "Drifting",
+    name: "Drifting",
+    id: 6,
     image:
       "https://upload.wikimedia.org/wikipedia/commons/9/9f/King_of_Europe_Round_3_Lydden_Hill_2014_%2814356011899%29.jpg",
     description: [
@@ -111,9 +117,10 @@ const motorsportData = {
         "This heightened interest in drifting has led to the introduction of motorsport events in the USA, Australia, Europe, and the United Kingdom. The FIA recognised the importance of drifting within motorsport, leading to the introduction of the Intercontinental Drifting Cup in 2017, and more recently Motorsport UK including the Drift Pro Championship in their portfolio of motorsport disciplines, to provide further support, development, and opportunities to the UK motorsport community."
     ]
   },
-  HillClimb: {
+  7: {
     title: "Hill Climb",
-    urlName: "HillClimb",
+    name: "HillClimb",
+    id: 7,
     image:
       "https://static.wixstatic.com/media/99e530_eac8ce28e07d4f14b18416f5e0928553~mv2.jpg/v1/fill/w_640,h_426,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/99e530_eac8ce28e07d4f14b18416f5e0928553~mv2.jpg",
     description: [
@@ -128,9 +135,10 @@ const motorsportData = {
       "Due to the high-speed nature of Hill Climbs you will need to buy some Motorsport UK-compliant safety gear such as a helmet, fireproof overalls, gloves and, for some classes, a Frontal Head Restraint device. Details can be found in chapter 14 of the\u00a0National Competition Rules. Technical regulations for Sprints & Hill Climbs are found in chapter 14 of the\u00a0National Competition Rules. Specific event or Championship regulations are found in Supplementary Regulations (SRs) made available by the organiser The\u00a0Association of Hill Climb and Sprint Schools\u00a0run courses to help you prepare for your first event or obtain a competition licence upgrade"
     ]
   },
-  Karting: {
+  8: {
     title: "Karting",
-    urlName: "Karting",
+    name: "Karting",
+    id: 8,
     image:
       "https://motorsportuk.s3.eu-west-2.amazonaws.com/wp-content/uploads/2023/04/18121941/Kai-Hunter_4015-1024x620.jpg",
     description: [
@@ -153,9 +161,10 @@ const motorsportData = {
       "Regulations for most classes can be found in the\u00a0Motorsport UK\u00a0Kart Race Yearbook."
     ]
   },
-  RallyCross: {
+  9: {
     title: "Rally Cross",
-    urlName: "RallyCross",
+    name: "RallyCross",
+    id: 9,
     image:
       "https://upload.wikimedia.org/wikipedia/commons/7/7b/World_RX_-_2018_-_RD6_Sweden_%2829262747938%29.jpg",
     description: [
@@ -170,9 +179,10 @@ const motorsportData = {
       "Because Rallycross is such a high-speed discipline you will need Motorsport UK-compliant safety gear such as a helmet, fireproof overalls and gloves. \u00a0Remember that it is the competitor’s responsibility to ensure that their vehicle and equipment comply with both Motorsport UK’s General Regulations (detailed in the\u00a0National Competition Rules) and the Supplementary Regulations (SRs) of the event or championship. If you have any questions about vehicles or equipment you can speak to a member of the Motorsport UK\u00a0Technical Team\u00a0by calling 01753 765 000."
     ]
   },
-  Rallying: {
+  10: {
     title: "Rallying",
-    urlName: "Rallying",
+    name: "Rallying",
+    id: 10,
     image:
       "https://upload.wikimedia.org/wikipedia/commons/6/6a/Petter_Solberg_-_2006_Cyprus_Rally.jpg",
     description: [
@@ -191,9 +201,10 @@ const motorsportData = {
       "A Category 2 Stage Rally car is a car which no longer retains the manufacturer’s drive train configuration (for example a front-wheel-drive car converted to rear-wheel-drive), a car which has undergone extensive chassis modifications, or a car which has a replacement engine of more than a 25% capacity increase over the original. Further details can be found in the\u00a0Category 2 guidance notes. To obtain a Category 2 Stage Rally Vehicle Identity Form, the vehicle will need to be inspected by a Motorsport UK Technical Commissioner. Further details on the procedure can be found in the\u00a0Category 2 guidance notes."
     ]
   },
-  Sprint: {
+  11: {
     title: "Sprint",
-    urlName: "Sprint",
+    name: "Sprint",
+    id: 11,
     image:
       "https://motorsportuk.s3.eu-west-2.amazonaws.com/wp-content/uploads/2019/08/24142359/Sprint-2048x1365.jpeg",
     description: [
@@ -208,9 +219,10 @@ const motorsportData = {
       "It is possible for a standard road-going production car to be used in Sprints & Hill Climbs without any additional safety items. Modified production cars, or specialist Sprint or Hill Climb vehicles are required to be fitted with a Roll Over Protection System (ROPS), details of which can be found in chapter 14 of the\u00a0National Competition Rules. As a minimum, you will be required to wear a helmet, flame-resistant overalls and gloves to approved standards. Details can be found in chapter 14 of the ns for Sprints & Hill Climbs are found in chapter 14 of the\u00a0National Competition Rules. Specific event or Championship regulations are found in Supplementary Regulations (SRs) made available by the organiser."
     ]
   },
-  Trials: {
+  12: {
     title: "Trials",
-    urlName: "Trials",
+    name: "Trials",
+    id: 12,
     image:
       "https://automedia.revsinstitute.org/wp-content/uploads/2023/05/wm-1924-arpajon-speed-trials-1.jpg",
     description: [

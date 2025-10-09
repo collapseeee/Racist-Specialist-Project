@@ -46,10 +46,10 @@ function App() {
       <div className="card-container">
         {Object.values(motorsportData).map((motorsport) => (
           <Card
-            key={motorsport.title}
+            key={motorsport.id}
             title={motorsport.title}
             image={motorsport.image}
-            type={motorsport.urlName}
+            id={motorsport.id}
           />
         ))}
           <Card
@@ -71,14 +71,14 @@ function App() {
           <Route path="/StaffList" element={<StaffList />} />
           <Route path="/StaffList/:personId" element={<StaffDetail />} />
 
-        <Route path="/:type" element={<MotorsportInformation />} />
-        <Route path="/:type/Tournaments" element={<TournamentList />} />
-        <Route path="/:type/Teams" element={<TeamList />} />
-        <Route path="/:type/Cars" element={<CarList />} />
+        <Route path="/:motorsportId" element={<MotorsportInformation />} />
+        <Route path="/:motorsportId/Tournaments" element={<TournamentList />} />
+        <Route path="/:motorsportId/Teams" element={<TeamList />} />
+        <Route path="/:motorsportId/Cars" element={<CarList />} />
 
-        <Route path="/:type/Tournaments/:tournamentId" element={<TournamentDetail />} />
-        <Route path="/:type/Teams/:teamId" element={<TeamDetail />} />
-        <Route path="/:type/Cars/:carId" element={<CarDetail />} />
+        <Route path="/:motorsportId/Tournaments/:tournamentId" element={<TournamentDetail />} />
+        <Route path="/:motorsportId/Teams/:teamId" element={<TeamDetail />} />
+        <Route path="/:motorsportId/Cars/:carId" element={<CarDetail />} />
       </Routes>
     </Router>
   );
