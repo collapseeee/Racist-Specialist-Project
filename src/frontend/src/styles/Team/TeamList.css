@@ -1,0 +1,62 @@
+/* TeamList.css */
+.team-header-banner {
+    height: 24vh;
+}
+
+.team-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vh 0;
+    width: 100vw;
+}
+
+.team-content {
+    width: 100%;
+}
+
+.team-table-title {
+    font-size: 4vh;
+    margin: 1vh 4vw;
+}
+
+.team-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.team-table th,
+.team-table td {
+    padding: 1vh 4vw;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.team-table th {
+    background-color: rgb(46, 50, 54);
+    color: #f5f5f5;
+    font-weight: 600;
+    font-size: 2.2vh;
+    cursor: pointer;
+}
+
+.team-table td {
+    color: #ddd;
+    font-size: 2vh;
+}
+
+.team-link {
+    color: #646cff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.team-link:hover {
+    color: #7c84ff;
+    text-decoration: underline;
+}
+
+.team-table tr:hover td {
+    background-color: rgba(255, 255, 255, 0.05);
+}

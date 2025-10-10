@@ -1,0 +1,100 @@
+.staff-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vh 0;
+    width: 100vw;
+}
+
+.staff-content {
+    width: 100%;
+}
+
+.staff-table-title {
+    font-size: 4vh;
+    margin: 1vh 0;
+}
+
+.staff-table-container {
+    padding: 1vh 2vw;
+}
+
+.tournament-detail-ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tournament-detail-ranking-table th,
+.tournament-detail-ranking-table td {
+    padding: 1vh 4vw;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tournament-detail-ranking-table th {
+    background-color: rgb(46, 50, 54);
+    color: #f5f5f5;
+    font-weight: 600;
+    font-size: 2.2vh;
+    cursor: pointer;
+}
+
+.tournament-detail-ranking-table td {
+    color: #ddd;
+    font-size: 2vh;
+}
+
+.staff-link {
+    color: #646cff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.staff-link:hover {
+    color: #7c84ff;
+    text-decoration: underline;
+}
+
+.tournament-detail-ranking-table tr:hover td {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.staff-dropdown-group {
+    margin: 2vh 4vw;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background-color: rgb(40, 44, 52);
+    overflow: hidden;
+}
+
+.staff-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(46, 50, 54);
+    padding: 1vh 4vw;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+.staff-dropdown-header:hover {
+    background-color: rgb(55, 59, 66);
+}
+
+.dropdown-arrow {
+    color: #646cff;
+    font-size: 2vh;
+    margin-left: 10px;
+}
+
+.staff-table-container {
+    padding: 1vh 2vw;
+    animation: dropdownOpen 0.3s ease;
+}
+
+@keyframes dropdownOpen {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}

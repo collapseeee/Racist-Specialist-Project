@@ -1,0 +1,122 @@
+.team-detail-header {
+    display: flex;
+    flex-direction: column;
+    padding: 2vh 2vw;
+}
+
+.team-detail-image {
+    border-radius: 10px;
+    align-self: center;
+    height: 50vh;
+}
+
+.team-detail-header-title {
+    background-color: #012c52;
+    text-align: center;
+    font-size: 6vh;
+    margin-top: 2vh;
+    padding: 1vh 0;
+    margin-bottom: 1vh;
+    text-transform: uppercase;
+    width: 100vw;
+}
+
+.team-detail-header-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.team-detail-header-description-left {
+    text-align: right;
+    width: 50%;
+    margin: 0.5vh 0.5vw;
+}
+
+.team-detail-header-description-right {
+    text-align: left;
+    width: 50%;
+    margin: 0.5vh 0.5vw;
+}
+
+.tournament-detail-header-description-text {
+    font-size: 2.5vh;
+}
+.team-detail-roster {
+    width: 100%;
+}
+
+.team-detail-roster-title {
+    text-align: center;
+    font-size: 4vh;
+    margin: 0 4vw;
+}
+
+.racer-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 2vw;
+    padding: 4vh 0;
+}
+
+.racer-card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1vh 2vw;
+}
+
+.team-card {
+    background-color: rgb(46, 50, 54);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    width: 24vw;
+    padding: 4vh 2vw;
+    text-align: left;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-0.5vh);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+}
+
+.racer-card-image {
+    height: 30vh;
+    width: auto;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+}
+
+.racer-card-name {
+    text-align: center;
+    word-spacing: 100vw;
+    font-size: 3vh;
+}
+
+.racer-card-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.8vh;
+}
+
+.racer-card-description-left {
+    text-align: right;
+}
+
+.racer-card-description-right {
+    text-align: left;
+}
+
+.racer-card-info p {
+    font-size: 2vh;
+    margin: 0.5vh 0;
+}
+
+.team-detail-car {
+    width: 100%;
+}

@@ -1,0 +1,82 @@
+/* RacerDetail.css */
+
+.team-list-title {
+    font-size: 4vh;
+    text-align: center;
+    padding: 0.5vh 0;
+    margin: 0 0;
+    background-color: #012c52;
+}
+
+.team-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 2vw;
+    padding: 2vh 0;
+}
+
+.racer-card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1vh 2vw;
+}
+
+.team-card {
+    background-color: rgb(46, 50, 54);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    width: 30vw;
+    padding: 4vh 2vw;
+    text-align: left;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-0.5vh);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+}
+
+.team-card-image {
+    height: auto;
+    width: auto;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+}
+
+.team-card-name {
+    text-align: center;
+    font-size: 3vh;
+}
+
+.team-card-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.8vh;
+}
+
+.team-card-description-left {
+    text-align: right;
+    width: 50%;
+}
+
+.team-card-description-right {
+    text-align: left;
+    width: 50%;
+}
+
+.racer-card-info p {
+    font-size: 2vh;
+    margin: 0.5vh 0;
+}
+
+.no-team-text {
+    font-size: 2.5vh;
+    text-align: center;
+    color: #ccc;
+    padding: 4vh 0;
+}

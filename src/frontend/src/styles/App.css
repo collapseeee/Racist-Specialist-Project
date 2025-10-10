@@ -1,0 +1,62 @@
+/* App.css */
+.header {
+    background-color: rgb(32,36,39);
+    padding: 1.5vh 10vw;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.logo {
+    height: 12vh;
+    width: auto;
+    padding-left: 2vh;
+    padding-right: 2vh;
+    background-color: rgb(32,36,39);
+}
+
+.motoropedia-text {
+    font-size: 4vh;
+    font-weight: 700;
+    margin-left: 1vh;
+    margin-right: 1vh;
+}
+
+.welcome-text {
+    display: flex;
+    color: #f5f5f5;
+    font-size: 1vh;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: auto;
+    width: auto;
+    gap: 1.5vw;
+    flex-wrap: wrap;
+    padding: 4vh 4vh;
+}
+
+.search-bar-container {
+    width: 100%;
+    max-width: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vh auto;
+}

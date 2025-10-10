@@ -1,0 +1,134 @@
+a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
+}
+a:hover {
+    color: #535bf2;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+}
+
+.information-header-banner {
+    height: 40.5vh;
+}
+
+.information-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vh 4vw;
+}
+
+.information-content {
+    font-size: 2vh;
+}
+
+.information-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: auto;
+    width: auto;
+    gap: 2vw;
+    padding: 2vh 2vw;
+    flex-wrap: wrap;
+}
+
+.information-cards-overlay-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    overflow-x: hidden;
+    overflow-y: visible;
+    pointer-events: none;
+}
+
+.information-cards .type-card {
+    width: 28vw;
+    height: 40vh;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.information-cards {
+    position: relative;
+    display: inline-block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.information-cards-overlay-text {
+    position: absolute;
+    text-align: center;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    pointer-events: none;
+    font-size: 8vh;
+    line-height: 12vh;
+    letter-spacing: -0.4vh;
+    opacity: 0.45;
+    white-space: nowrap;
+    text-shadow: 8px 8px 2px rgba(0, 0, 0, 0.75);
+}
+
+.information-cards:hover .information-cards-overlay-text {
+    opacity: 0.8;
+    transform: translate(-50%, -52%); /* small upward movement */
+}
+
+.separator {
+    justify-self: center;
+    width: 100%;
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 2vh 1vw;
+}
+
+.information-content-description {
+    margin: 0 4vw;
+}
+
+.information-content-description-header {
+    margin: 4vh 0;
+    margin-bottom: 3vh;
+}
+
+.information-content-description-subbody {
+    margin-top: 0;
+    margin-bottom: 4vh;
+}
+
+information-content-description-subheader {
+    margin-top: 4vh;
+    margin-bottom: 0;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
+    a:hover {
+        color: #747bff;
+    }
+    button {
+        background-color: #f9f9f9;
+    }
+}
