@@ -48,7 +48,7 @@ DB_DATABASE=motoropedia
 #### Step 1:
 Open and Run SQL Script `motoropedia_table.sql` in MySQL Workbench or any tool that you prefer.
 
-### Step 2:
+#### Step 2:
 Open and Run SQL Script `motoropedia_data.sql` in MySQL Workbench or any tool that you prefer.
 
 ### Backend Setup
