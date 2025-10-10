@@ -13,9 +13,9 @@ import TournamentDetail from "./component/Tournament/TournamentDetail.jsx";
 import TeamDetail from "./component/Team/TeamDetail.jsx";
 import CarDetail from "./component/Car/CarDetail.jsx";
 import SearchResult from "./component/Universal/SearchResult.jsx";
-import StaffList from "./component/Staff/StaffList.jsx";
+import StaffList from "./component/Person/StaffList.jsx";
 import ScrollToTop from "./component/Universal/ScrollToTop.jsx";
-import StaffDetail from "./component/Staff/StaffDetail.jsx";
+import StaffDetail from "./component/Person/StaffDetail.jsx";
 
 import teamPlaceholderImage from "/public/team-placeholder.jpg";
 import logo from "/public/motoropedia-logo.png";

@@ -15,7 +15,7 @@ function StaffDetail() {
     const handleGetData = async () => {
         try {
             const response = await fetch(
-                `http://localhost:3000/api/tournament/person:${personId}`, // <-- Adjust here after backend define query.
+                `http://localhost:3000/api/staff:${personId}`,
                 {
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
@@ -34,12 +34,21 @@ function StaffDetail() {
         handleGetData();
     }, [personId]);
 
+  function getDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  }
+
     return (
         <>
             <NavBar />
 
             <div className="staff-card-container">
-                <h1 className="staff-detail-header-title">{staffData.staff_type} No.{staffData.person_id}</h1>
+                <h1 className="staff-detail-header-title">{staffData.staff_type}</h1>
                     <div className="staff-card">
                         <div className="staff-card-info">
                             <img src={racerPlaceholderImage} alt="Staff Image" className="staff-card-image" />
@@ -69,7 +78,7 @@ function StaffDetail() {
                                 </div>
                                 <div className="staff-card-description-right">
                                     <p>
-                                        {staffData.date_of_birth}
+                                        {getDate(staffData.date_of_birth)}
                                     </p>
                                     <p>
                                         {staffData.nationality}
@@ -78,13 +87,13 @@ function StaffDetail() {
                                         {staffData.status}
                                     </p>
                                     <p>
-                                        {staffData.year_experience}
+                                        {staffData.years_experience}
                                     </p>
                                     <p>
-                                        {staffData.referee_license}
+                                      {staffData.staff_type === "Referee" ? staffData.referee_license : "-"}
                                     </p>
                                     <p>
-                                        {staffData.nationality}
+                                        {staffData.staff_type === "Caster" ? staffData.language : "-"}
                                     </p>
                                 </div>
                             </div>

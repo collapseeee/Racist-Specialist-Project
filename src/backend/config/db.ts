@@ -53,7 +53,7 @@ export const getTournaments = async () => {
 }
 
 export const getTournamentsById = async (tournament_id: number) => {
-    const [rows] = await promisePool.query('SELECT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, t.average_viewer_count, t.caster_id, t.referee_id, t.motorsport_id FROM tournaments t WHERE t.tournament_id = ?',
+    const [rows] = await promisePool.query('SELECT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, t.average_viewer_count, t.caster_id, t.referee_id, t.motorsport_id, m.motorsport_type, m.terrain FROM tournaments t INNER JOIN motorsport m ON m.motorsport_id = t.motorsport_id WHERE t.tournament_id = ?',
         tournament_id);
     return rows;
 }
@@ -156,4 +156,4 @@ export default promisePool;
 
 /*
 
-Staff Search return person_id, first_name, last_name, staff_type, year_experience */
+Person Search return person_id, first_name, last_name, staff_type, year_experience */

@@ -1,4 +1,4 @@
-import {Link, useParams} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../../styles/Team/TeamDetail.css";
 
 import NavBar from "../Universal/NavBar.jsx";
@@ -10,59 +10,64 @@ import racerPlaceholderImage from "/public/racer-placeholder.jpg";
 import carPlaceholderImage from "/public/car-placeholder.png";
 
 function TeamDetail() {
-    const { motorsportId } = useParams();
+  const { motorsportId } = useParams();
   const { teamId } = useParams();
 
   const [teamDetail, setTeamDetail] = useState([]);
   const [roster, setRoster] = useState([]);
   const [cars, setCars] = useState([]);
 
-
   const handleGetData = async () => {
-        try {
-            const responseTeamDetail = await fetch(
-                `http://localhost:3000/api/team:${teamId}`,
-                {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" },
-                },
-            );
-            const resultTeamDetail = await responseTeamDetail.json();
-            console.log(resultTeamDetail);
-            setTeamDetail(resultTeamDetail.data[0]);
+    try {
+      const responseTeamDetail = await fetch(
+        `http://localhost:3000/api/team:${teamId}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      const resultTeamDetail = await responseTeamDetail.json();
+      console.log(resultTeamDetail);
+      setTeamDetail(resultTeamDetail.data[0]);
 
-            /* !! Adjust later after backend provide query: !!
-            const responseRoster = await fetch(
-                `http://localhost:3000/api/car/team:${teamId}`, // <-- Adjust here
-                {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" },
-                },
-            );
-            const resultRoster = await responseRoster.json();
-            console.log(resultRoster);
-            setTeamDetail(resultRoster.data);
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            */
+      const responseRoster = await fetch(
+        `http://localhost:3000/api/teamroster/:${teamId}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      const resultRoster = await responseRoster.json();
+      console.log(resultRoster);
+      setRoster(resultRoster.data);
 
-            const responseCars = await fetch(
-                `http://localhost:3000/api/car/team:${teamId}`,
-                {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" },
-                },
-            );
-            const resultCars = await responseCars.json();
-            console.log(resultCars);
-            setCars(resultCars.data);
-        } catch (err) {
-            console.error(err);
-        }
-    };
+      const responseCars = await fetch(
+        `http://localhost:3000/api/car/team:${teamId}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      const resultCars = await responseCars.json();
+      console.log(resultCars);
+      setCars(resultCars.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    useEffect(() => {
-        handleGetData();
-    }, [teamId]);
+  useEffect(() => {
+    handleGetData();
+  }, [teamId]);
+
+  function getDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  }
 
   return (
     <>
@@ -70,30 +75,30 @@ function TeamDetail() {
       <div className="team-detail-header">
         <img src={teamLogoPlaceholderImage} className="team-detail-image" />
         <h1 className="team-detail-header-title">{teamDetail.team_name}</h1>
-          <div className="team-detail-header-description">
-              <div className="team-detail-header-description-left">
-                  <p className="tournament-detail-header-description-text">
-                      <strong>Sponsor:</strong>
-                  </p>
-                  <p className="tournament-detail-header-description-text">
-                      <strong>Country:</strong>
-                  </p>
-                  <p className="tournament-detail-header-description-text">
-                      <strong>Win Count:</strong>
-                  </p>
-              </div>
-              <div className="team-detail-header-description-right">
-                  <p className="tournament-detail-header-description-text">
-                      {teamDetail.sponsor}
-                  </p>
-                  <p className="tournament-detail-header-description-text">
-                      {teamDetail.country}
-                  </p>
-                  <p className="tournament-detail-header-description-text">
-                      {teamDetail.win_count}
-                  </p>
-              </div>
+        <div className="team-detail-header-description">
+          <div className="team-detail-header-description-left">
+            <p className="tournament-detail-header-description-text">
+              <strong>Sponsor:</strong>
+            </p>
+            <p className="tournament-detail-header-description-text">
+              <strong>Country:</strong>
+            </p>
+            <p className="tournament-detail-header-description-text">
+              <strong>Win Count:</strong>
+            </p>
           </div>
+          <div className="team-detail-header-description-right">
+            <p className="tournament-detail-header-description-text">
+              {teamDetail.sponsor}
+            </p>
+            <p className="tournament-detail-header-description-text">
+              {teamDetail.country}
+            </p>
+            <p className="tournament-detail-header-description-text">
+              {teamDetail.win_count}
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="separator"></div>
@@ -104,34 +109,32 @@ function TeamDetail() {
           {roster.map((racer) => (
             <div key={racer.person_id} className="racer-card">
               <div className="racer-card-info">
-                <img src={racerPlaceholderImage} alt="Racer Image" className="racer-card-image" />
+                <img
+                  src={racerPlaceholderImage}
+                  alt="Racer Image"
+                  className="racer-card-image"
+                />
                 <h3 className="racer-card-name">
                   {racer.first_name} {racer.last_name}
                 </h3>
-                  <div className="racer-card-description">
-                      <div className="racer-card-description-left">
-                          <p>
-                              <strong>Status:</strong>
-                          </p>
-                          <p>
-                              <strong>Date of Birth:</strong>
-                          </p>
-                          <p>
-                              <strong>Nationality:</strong>
-                          </p>
-                      </div>
-                      <div className="racer-card-description-right">
-                          <p>
-                              {racer.status}
-                          </p>
-                          <p>
-                              {racer.date_of_birth}
-                          </p>
-                          <p>
-                              {racer.nationality}
-                          </p>
-                      </div>
+                <div className="racer-card-description">
+                  <div className="racer-card-description-left">
+                    <p>
+                      <strong>Status:</strong>
+                    </p>
+                    <p>
+                      <strong>Date of Birth:</strong>
+                    </p>
+                    <p>
+                      <strong>Nationality:</strong>
+                    </p>
                   </div>
+                  <div className="racer-card-description-right">
+                    <p>{racer.status}</p>
+                    <p>{getDate(racer.date_of_birth)}</p>
+                    <p>{racer.nationality}</p>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
@@ -146,15 +149,17 @@ function TeamDetail() {
           {cars.map((car) => (
             <div key={car.carmodel_id} className="racer-card">
               <div className="racer-card-info">
-                <img src={carPlaceholderImage} alt="Car Image" className="racer-card-image" />
-                  <Link
-                      to={`/${motorsportId}/Cars/${car.carmodel_id}`}
-                      className="racer-card-link"
-                      >
-                <h3 className="racer-card-name">
-                  {car.car_type}
-                </h3>
-                  </Link>
+                <img
+                  src={carPlaceholderImage}
+                  alt="Car Image"
+                  className="racer-card-image"
+                />
+                <Link
+                  to={`/${motorsportId}/Cars/${car.carmodel_id}`}
+                  className="racer-card-link"
+                >
+                  <h3 className="racer-card-name">{car.car_type}</h3>
+                </Link>
                 <p>
                   <strong>Engine:</strong> {car.engine}
                 </p>
