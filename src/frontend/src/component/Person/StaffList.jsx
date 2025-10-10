@@ -1,4 +1,4 @@
-import '../../styles/Staff/StaffList.css'
+import '../../styles/Person/StaffList.css'
 import React, {useEffect, useState} from "react";
 
 import NavBar from "../Universal/NavBar.jsx";

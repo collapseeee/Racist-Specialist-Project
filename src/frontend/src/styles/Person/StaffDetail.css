@@ -53,7 +53,7 @@
     word-spacing: 100vw;
     margin-bottom: 2vh;
     padding: 1vh 0;
-    font-size: 3vh;
+    font-size: 4vh;
 }
 
 .staff-card-info p {
@@ -70,8 +70,10 @@
 
 .staff-card-description-left {
     text-align: right;
+    width: 50%;
 }
 
 .staff-card-description-right {
     text-align: left;
+    width: 50%;
 }

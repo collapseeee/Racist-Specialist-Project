@@ -1,11 +1,12 @@
 /* StaffDetail.jsx */
-import '../../styles/Staff/StaffDetail.css'
+import '../../styles/Person/StaffDetail.css'
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
-import racerPlaceholderImage from "/public/racer-placeholder.jpg";
-import React, {useEffect, useState} from "react";
+import refereePlaceholderImage from "/public/referee-placeholder.png";
+import casterPlaceholderImage from "/public/caster-placeholder.png";
 
 function StaffDetail() {
     const { personId } = useParams();
@@ -34,6 +35,8 @@ function StaffDetail() {
         handleGetData();
     }, [personId]);
 
+  const staffImage = staffData.staff_type === "Referee" ? refereePlaceholderImage : casterPlaceholderImage;
+
   function getDate(dateString) {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
@@ -51,7 +54,7 @@ function StaffDetail() {
                 <h1 className="staff-detail-header-title">{staffData.staff_type}</h1>
                     <div className="staff-card">
                         <div className="staff-card-info">
-                            <img src={racerPlaceholderImage} alt="Staff Image" className="staff-card-image" />
+                            <img src={staffImage} alt="Staff Image" className="staff-card-image" />
                             <h3 className="staff-card-name">
                                 {staffData.first_name} {staffData.last_name}
                             </h3>

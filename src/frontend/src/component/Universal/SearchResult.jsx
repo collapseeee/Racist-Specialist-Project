@@ -135,26 +135,24 @@ function SearchResult() {
         <table className="tournament-detail-ranking-table">
           <thead>
             <tr>
-              <th>Team Name</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Motorsport Type</th>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Racer License</th>
             </tr>
           </thead>
           <tbody>
             {racerResults.map((r) => (
-              <tr key={`${r.person_id}-${r.motorsport_id}`}>
+              <tr key={`${r.person_id}`}>
                 <td>
                   <Link
-                    to={`/${r.motorsport_id}/Teams/${r.team_id}`}
+                    to={`/RacerList/${r.team_id}`}
                     className="staff-link"
                   >
-                    {r.team_name}
+                    {r.first_name} {r.last_name}
                   </Link>
                 </td>
-                <td>{r.first_name}</td>
-                <td>{r.last_name}</td>
-                <td>{r.motorsport_type}</td>
+                <td>{r.status}</td>
+                <td>{r.racer_license}</td>
               </tr>
             ))}
           </tbody>
