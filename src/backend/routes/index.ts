@@ -9,7 +9,10 @@ import {
     getTournamentsByMotorId,
     getTournamentParticipatingById,
     getTeamById,
-    getTeamByMotorId
+    getTeamByMotorId,
+    getTeamRosterById,
+    getStaffById,
+    getPersonById
 } from '../config/db'
 
 const router = Router();
@@ -114,8 +117,12 @@ router.get('/team/motorsport:id', async (req, res) => {
     });
 });
 
-router.get('/teamroster', async (req, res) => {
-    const data = await getTeamRoster();
+// GET team_roster by teamId
+
+router.get('/teamroster:id', async (req, res) => {
+    const teamId: String = req.params.id.replace(':', '');
+    const id: Number = Number(teamId);
+    const data = await getTeamRosterById(id);
     res.send({
         data
     });
@@ -166,6 +173,27 @@ router.get('/staff', async (req, res) => {
     });
 });
 
+
+// GET staff by personId
+router.get('/staff:id', async (req, res) => {
+    const personId: String = req.params.id.replace(':', '');
+    const id: Number = Number(personId);
+    const data = await getStaffById(id)
+    res.send({
+        data
+    });
+});
+
+
+// GET person by personId
+router.get('/person:id', async (req, res) => {
+    const personId: String = req.params.id.replace(':', '');
+    const id: Number = Number(personId);
+    const data = await getPersonById(id);
+    res.send({
+        data
+    });
+});
 // get caster and referee
 
 router.get('/staff/caster', async (req, res) => {
@@ -173,8 +201,8 @@ router.get('/staff/caster', async (req, res) => {
     console.log("GET CASTER");
     res.send({
         data
-    })
-})
+    });
+});
 
 router.get('/staff/referee', async (req, res) => {
     const data = await getReferee();
