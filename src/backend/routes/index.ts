@@ -12,7 +12,9 @@ import {
     getTeamByMotorId,
     getTeamRosterById,
     getStaffById,
-    getPersonById
+    getPersonById,
+    getTeamByPersonId,
+    getRacerByMotorId
 } from '../config/db'
 
 const router = Router();
@@ -20,6 +22,8 @@ const router = Router();
 router.get('/', async (req, res) => {
     return res.status(200);
 })
+
+//////////////////////////////////////////////////              GET CAR
 
 router.get('/car', async (req, res) => {
     const data = await getCar();
@@ -62,6 +66,8 @@ router.get('/car:id', async (req, res) => {
     });
 });
 
+
+///////////////////////     ////////////////////////////            GET TOURNAMENT
 router.get('/tournament', async (req, res) => {
     const data = await getTournaments();
     console.log("GET TOURNAMENTS");
@@ -91,6 +97,8 @@ router.get('/tournament/motorsport:motorId', async (req, res) => {
     });
 });
 
+//////////////////////////////////////////////          TEAM
+
 router.get('/team', async (req, res) => {
     const data = await getTeam();
     console.log("GET TEAM");
@@ -108,6 +116,15 @@ router.get('/team:id', async (req, res) => {
     });
 });
 
+router.get('/team/person:id', async (req, res) => {
+    const personId: string = req.params.id.replace(':', '');
+    const id: number = Number(personId);
+    const data = await getTeamByPersonId(id);
+    res.send({
+        data
+    });
+});
+
 router.get('/team/motorsport:id', async (req, res) => {
     const motorsportId: String = req.params.id.replace(':', '');
     const id: number = Number(motorsportId);
@@ -117,6 +134,8 @@ router.get('/team/motorsport:id', async (req, res) => {
     });
 });
 
+
+///////////////////////////////////////////////         TEAM ROSTER
 router.get('/teamroster', async (req, res) => {
     const data = await getTeamRoster();
     res.send({
@@ -135,6 +154,7 @@ router.get('/teamroster/:id', async (req, res) => {
     });
 });
 
+/////////////////////////////////////////////////////////////           MOTORSPORT
 router.get('/motorsport:type', async (req, res) => {
     const type = req.params.type.replace(':', '');
     console.log(type)
@@ -153,6 +173,8 @@ router.get('/motorsport', async (req, res) => {
     });
 });
 
+
+/////////////////////////////////////               TOURNAMENT PARTICIPATION
 router.get('/participation', async (req, res) => {
     const data = await getTournamentParticipating();
     console.log("GET TOURNAMENT_PARTICIPATION");
@@ -170,7 +192,36 @@ router.get('/participation:id', async (req, res) => {
     res.send({
         data
     });
-})
+});
+
+//////////////////////////////////////////////////////////////////////////////          GET PERSON
+
+// GET person by personId
+router.get('/person:id', async (req, res) => {
+    const personId: String = req.params.id.replace(':', '');
+    const id: number = Number(personId);
+    const data = await getPersonById(id);
+    res.send({
+        data
+    });
+});
+
+router.get('/racer', async (req, res) => {
+    const data = await getRacer();
+    res.send({
+        data
+    });
+});
+
+router.get('/racer/motorsport:id', async (req, res) => {
+    const motorId: string = req.params.id.replace(':', '');
+    const id: number = Number(motorId);
+    const data = await getRacerByMotorId(id);
+    console.log('GET racer by motorsport id ', id)
+    res.send({
+        data
+    });
+});
 
 router.get('/staff', async (req, res) => {
     const data = await getStaff();
@@ -192,15 +243,7 @@ router.get('/staff:id', async (req, res) => {
 });
 
 
-// GET person by personId
-router.get('/person:id', async (req, res) => {
-    const personId: String = req.params.id.replace(':', '');
-    const id: number = Number(personId);
-    const data = await getPersonById(id);
-    res.send({
-        data
-    });
-});
+
 // get caster and referee
 
 router.get('/staff/caster', async (req, res) => {
@@ -219,6 +262,8 @@ router.get('/staff/referee', async (req, res) => {
     });
 });
 
+
+/////////////////////////////////////////////////////////////////////////           SEARCH
 // get all searched data
 router.get('/search:keyword', async (req, res) => {
     const keyword = req.params.keyword.replace(':', '');

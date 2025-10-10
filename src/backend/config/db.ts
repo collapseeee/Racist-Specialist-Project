@@ -53,7 +53,7 @@ export const getTournaments = async () => {
 }
 
 export const getTournamentsById = async (tournament_id: number) => {
-    const [rows] = await promisePool.query('SELECT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, t.average_viewer_count, t.caster_id, t.referee_id, t.motorsport_id, m.motorsport_type, m.terrain FROM tournaments t INNER JOIN motorsport m ON m.motorsport_id = t.motorsport_id WHERE t.tournament_id = ?',
+    const [rows] = await promisePool.query('SELECT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, t.average_viewer_count, t.caster_id, t.referee_id, t.motorsport_id FROM tournaments t WHERE t.tournament_id = ?',
         tournament_id);
     return rows;
 }
@@ -85,6 +85,13 @@ export const getTeamById = async (team_id: number) => {
     return rows;
 }
 
+export const getTeamByPersonId = async (person_id: number) => {
+    const [rows] = await promisePool.query('SELECT t.team_id, t.team_name FROM team t INNER JOIN team_roster tr ON t.team_id = tr.team_id WHERE tr.person_id = ?'
+        , person_id
+    );
+    return rows
+}
+
 export const getTeamByMotorId = async (motrosport_id: number) => {
     const [rows] = await promisePool.query('SELECT DISTINCT t.team_id, t.team_name, t.sponsor, t.country, t.win_count, m.motorsport_id FROM team t INNER JOIN tournament_participating tp ON tp.team_id = t.team_id INNER JOIN tournaments tm ON tm.tournament_id = tp.tournament_id INNER JOIN motorsport m ON tm.motorsport_id = m.motorsport_id WHERE m.motorsport_id = ? ORDER BY t.team_name ASC', motrosport_id)
     return rows;
@@ -106,9 +113,17 @@ export const getPersonById = async (person_id: number) => {
 }
 
 export const getRacer = async () => {
-    const [rows] = await promisePool.query("SELECT * FROM staff");
+    const [rows] = await promisePool.query("SELECT p.person_id, p.first_name, p.last_name, p.status, p.date_of_birth, p.nationality, r.racer_license FROM racer r INNER JOIN person p ON r.person_id = p.person_id");
     return rows;
 }
+
+export const getRacerByMotorId = async (motorsportId: number) => {
+    const [rows] = await promisePool.query('SELECT p.person_id, p.first_name, p.last_name, p.status, p.date_of_birth, p.nationality, p.person_type, r.racer_license FROM person p INNER JOIN team_roster tr ON p.person_id = tr.person_id INNER JOIN tournament_participating tp ON tp.team_id = tr.team_id INNER JOIN tournaments tm ON tp.tournament_id = tm.tournament_id INNER JOIN motorsport m ON m.motorsport_id = tm.motorsport_id INNER JOIN racer r ON p.person_id = r.person_id WHERE m.motorsport_id = ? ORDER BY p.first_name ASC'
+        , motorsportId
+    );
+    return rows;
+}
+
 export const getReferee = async () => {
     const [rows] = await promisePool.query("SELECT p.person_id, p.first_name, p.last_name, p.status, p.nationality, s.years_experience, s.referee_license FROM person p INNER JOIN staff s ON p.person_id = s.person_id WHERE s.staff_type = 'Referee' ORDER BY p.first_name ASC");
     return rows;
@@ -156,4 +171,4 @@ export default promisePool;
 
 /*
 
-Person Search return person_id, first_name, last_name, staff_type, year_experience */
+Staff Search return person_id, first_name, last_name, staff_type, year_experience */
