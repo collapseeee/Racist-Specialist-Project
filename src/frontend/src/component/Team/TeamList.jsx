@@ -1,11 +1,13 @@
+/* TeamList.jsx */
 import '../../styles/Team/TeamList.css'
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
 import Header from "../Universal/Header.jsx";
-import { Link, useParams } from "react-router-dom";
 import motorsportData from "../../data/motorsportData.js";
-import React, { useEffect, useState } from "react";
+
 
 function TeamList() {
   const { motorsportId } = useParams();

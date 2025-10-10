@@ -145,7 +145,7 @@ function SearchResult() {
               <tr key={`${r.person_id}`}>
                 <td>
                   <Link
-                    to={`/RacerList/${r.team_id}`}
+                    to={`/RacerList/${r.person_id}`}
                     className="staff-link"
                   >
                     {r.first_name} {r.last_name}

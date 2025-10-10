@@ -68,7 +68,7 @@
     padding: 1vh 2vw;
 }
 
-.racer-card {
+.team-card {
     background-color: rgb(46, 50, 54);
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -78,7 +78,7 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.racer-card:hover {
+.team-card:hover {
     transform: translateY(-0.5vh);
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
 }

@@ -86,7 +86,7 @@ export const getTeamById = async (team_id: number) => {
 }
 
 export const getTeamByPersonId = async (person_id: number) => {
-    const [rows] = await promisePool.query('SELECT t.team_id, t.team_name FROM team t INNER JOIN team_roster tr ON t.team_id = tr.team_id WHERE tr.person_id = ?'
+    const [rows] = await promisePool.query('SELECT t.team_id, t.team_name, t.country, t.sponsor, t.win_count FROM team t INNER JOIN team_roster tr ON t.team_id = tr.team_id WHERE tr.person_id = ?'
         , person_id
     );
     return rows
@@ -118,7 +118,7 @@ export const getRacer = async () => {
 }
 
 export const getRacerByMotorId = async (motorsportId: number) => {
-    const [rows] = await promisePool.query('SELECT p.person_id, p.first_name, p.last_name, p.status, p.date_of_birth, p.nationality, p.person_type, r.racer_license FROM person p INNER JOIN team_roster tr ON p.person_id = tr.person_id INNER JOIN tournament_participating tp ON tp.team_id = tr.team_id INNER JOIN tournaments tm ON tp.tournament_id = tm.tournament_id INNER JOIN motorsport m ON m.motorsport_id = tm.motorsport_id INNER JOIN racer r ON p.person_id = r.person_id WHERE m.motorsport_id = ? ORDER BY p.first_name ASC'
+    const [rows] = await promisePool.query('SELECT DISTINCT p.person_id, p.first_name, p.last_name, p.status, p.date_of_birth, p.nationality, p.person_type, r.racer_license FROM person p INNER JOIN team_roster tr ON p.person_id = tr.person_id INNER JOIN tournament_participating tp ON tp.team_id = tr.team_id INNER JOIN tournaments tm ON tp.tournament_id = tm.tournament_id INNER JOIN motorsport m ON m.motorsport_id = tm.motorsport_id INNER JOIN racer r ON p.person_id = r.person_id WHERE m.motorsport_id = ? ORDER BY p.first_name ASC'
         , motorsportId
     );
     return rows;
@@ -148,7 +148,7 @@ export const searchData = async (keyword: string) => {
     const [carRows] = await promisePool.query("SELECT DISTINCT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year, m.motorsport_type, m.motorsport_id FROM car c INNER JOIN team t ON c.team_id = t.team_id INNER JOIN tournament_participating tp ON tp.team_id = t.team_id INNER JOIN tournaments tm ON tm.tournament_id = tp.tournament_id INNER JOIN motorsport m ON m.motorsport_id = tm.motorsport_id WHERE c.car_type LIKE ? OR c.engine LIKE ? OR c.manufacturer LIKE ? OR c.product_year LIKE ? ORDER BY m.motorsport_type ASC",
         ['%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%']);
     const [racerRows] = await promisePool.query(
-        "SELECT DISTINCT p.person_id, tr.team_id, tr.team_name, p.first_name, p.last_name, p.status, r.racer_license FROM person p INNER JOIN racer r ON p.person_id = r.person_id INNER JOIN team_roster tr ON p.person_id = tr.person_id INNER JOIN tournament_participating tp ON tr.team_id = tp.team_id INNER JOIN tournaments t ON tp.tournament_id = t.tournament_id WHERE (CONCAT(p.first_name, ' ', p.last_name) LIKE ?) ORDER BY p.first_name ASC;",
+        "SELECT DISTINCT p.person_id, p.first_name, p.last_name, p.status, r.racer_license FROM person p INNER JOIN racer r ON p.person_id = r.person_id WHERE (CONCAT(p.first_name, ' ', p.last_name) LIKE ?) ORDER BY p.first_name ASC;",
         '%' + keyword + '%');
     const [teamRows] = await promisePool.query("SELECT DISTINCT t.team_id, t.team_name, t.sponsor, t.country, m.motorsport_type, m.motorsport_id FROM team t INNER JOIN tournament_participating tp ON t.team_id = tp.team_id INNER JOIN tournaments tm ON tm.tournament_id = tp.tournament_id INNER JOIN motorsport m ON tm.motorsport_id = m.motorsport_id WHERE t.team_name LIKE ? ORDER BY t.team_name ASC", '%' + keyword + '%');
     const [tournamentRows] = await promisePool.query("SELECT DISTINCT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, m.motorsport_type, m.motorsport_id FROM tournaments t INNER JOIN motorsport m ON m.motorsport_id = t.motorsport_id WHERE tournament_name LIKE ? OR circuit_state LIKE ? ORDER BY t.tournament_name ASC", ['%' + keyword + '%', '%' + keyword + '%']);

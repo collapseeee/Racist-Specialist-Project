@@ -107,16 +107,21 @@ function TeamDetail() {
         <h2 className="team-detail-roster-title">Team Roster</h2>
         <div className="racer-card-container">
           {roster.map((racer) => (
-            <div key={racer.person_id} className="racer-card">
+            <div key={racer.person_id} className="team-card">
               <div className="racer-card-info">
                 <img
                   src={racerPlaceholderImage}
                   alt="Racer Image"
                   className="racer-card-image"
                 />
+                <Link
+                  to={`/RacerList/${racer.person_id}`}
+                  className="racer-card-link"
+                  >
                 <h3 className="racer-card-name">
                   {racer.first_name} {racer.last_name}
                 </h3>
+                </Link>
                 <div className="racer-card-description">
                   <div className="racer-card-description-left">
                     <p>
@@ -147,7 +152,7 @@ function TeamDetail() {
         <h2 className="team-detail-roster-title">Car Roster</h2>
         <div className="racer-card-container">
           {cars.map((car) => (
-            <div key={car.carmodel_id} className="racer-card">
+            <div key={car.carmodel_id} className="team-card">
               <div className="racer-card-info">
                 <img
                   src={carPlaceholderImage}

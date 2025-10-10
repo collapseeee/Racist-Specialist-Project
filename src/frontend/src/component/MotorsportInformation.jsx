@@ -11,6 +11,7 @@ import motorsportData from "../data/motorsportData.js";
 import teamCardImage from "/public/team-card-image.png";
 import tournamentCardImage from "/public/tournament-card-image.jpg";
 import carCardImage from "/public/car-card-image.jpg";
+import racerPlaceholderImage from "/public/racer-placeholder.jpg";
 
 function MotorsportInformation() {
   const { motorsportId } = useParams();
@@ -54,6 +55,7 @@ function MotorsportInformation() {
   const tournamentsPath = `${motorsportId}/Tournaments`;
   const teamsPath = `${motorsportId}/Teams`;
   const carsPath = `${motorsportId}/Cars`;
+  const racersPath = `${motorsportId}/Racers`;
 
   return (
     <>
@@ -78,6 +80,12 @@ function MotorsportInformation() {
             </div>
             <div className="information-cards">
               <Card title="Cars" image={carCardImage} id={carsPath} />
+              <div className="information-cards-overlay-wrapper">
+                <div className="information-cards-overlay-text">{title}</div>
+              </div>
+            </div>
+            <div className="information-cards">
+              <Card title="Racers" image={racerPlaceholderImage} id={racersPath} />
               <div className="information-cards-overlay-wrapper">
                 <div className="information-cards-overlay-text">{title}</div>
               </div>

@@ -18,6 +18,7 @@ import ScrollToTop from "./component/Universal/ScrollToTop.jsx";
 import StaffDetail from "./component/Person/StaffDetail.jsx";
 import RacerList from "./component/Person/RacerList.jsx";
 import RacerDetail from "./component/Person/RacerDetail.jsx";
+import RacerListByMotorsport from "./component/Person/RacerListByMotorsport.jsx";
 
 import logo from "/public/motoropedia-logo.png";
 import motorsportData from "./data/motorsportData.js";
@@ -79,6 +80,7 @@ function App() {
         <Route path="/:motorsportId/Tournaments" element={<TournamentList />} />
         <Route path="/:motorsportId/Teams" element={<TeamList />} />
         <Route path="/:motorsportId/Cars" element={<CarList />} />
+        <Route path="/:motorsportId/Racers" element={<RacerListByMotorsport />} />
 
         <Route path="/:motorsportId/Tournaments/:tournamentId" element={<TournamentDetail />} />
         <Route path="/:motorsportId/Teams/:teamId" element={<TeamDetail />} />
