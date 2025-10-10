@@ -43,6 +43,14 @@ DB_PASSWORD=yourpassword
 DB_DATABASE=motoropedia
 ```
 
+### Database Setup
+
+#### Step 1:
+Open and Run SQL Script `motoropedia_table.sql` in MySQL Workbench or any tool that you prefer.
+
+### Step 2:
+Open and Run SQL Script `motoropedia_data.sql` in MySQL Workbench or any tool that you prefer.
+
 ### Backend Setup
 
 ```bash
@@ -96,6 +104,26 @@ A login authentication system will be added in the next phase, allowing administ
 ✏️ Update existing data through web forms
 
 ❌ Remove entities directly from the frontend
+
+## Project Structure
+
+```
+📦 Motoropedia-Project
+├─ dataset
+│  ├─ motoropedia_data.sql
+│  └─ motoropedia_table.sql
+├─ src
+│  ├─ backend
+│  ├─ docs
+│  └─ frontend
+├─ .gitattributes
+├─ .gitignore
+├─ README.md
+├─ package-lock.json
+├─ package.json
+└─ tsconfig.json
+```
+
 ## Authors
 
 - [@collapseeee](https://www.github.com/collapseeee) 672115014 Nattikorn Sae-sue
