@@ -17,19 +17,19 @@ export const getCar = async () => {
     return rows;
 }
 
-export const getCarByMotorId = async (motorsport_id: Number) => {
+export const getCarByMotorId = async (motorsport_id: number) => {
     const [rows] = await promisePool.query("SELECT DISTINCT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year, tp.team_id, tm.team_name , m.motorsport_id FROM car c INNER JOIN tournament_participating tp ON c.team_id = tp.team_id INNER JOIN team tm ON tp.team_id = tm.team_id INNER JOIN tournaments t ON t.tournament_id = tp.tournament_id INNER JOIN motorsport m ON m.motorsport_id = t.motorsport_id WHERE m.motorsport_id = ?"
         , motorsport_id);
     return rows;
 }
 
-export const getCarByTeamId = async (team_id: Number) => {
+export const getCarByTeamId = async (team_id: number) => {
     const [rows] = await promisePool.query("SELECT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year, c.team_id FROM car c WHERE c.team_id = ?"
         , team_id);
     return rows;
 }
 
-export const getCarByModelId = async (carmodel_id: Number) => {
+export const getCarByModelId = async (carmodel_id: number) => {
     const [rows] = await promisePool.query("SELECT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year, t.team_name, t.team_id FROM car c INNER JOIN team t ON c.team_id = t.team_id WHERE c.carmodel_id = ?"
         , carmodel_id);
     return rows;
@@ -40,9 +40,10 @@ export const getTeamRoster = async () => {
     return rows;
 }
 
-export const getTeamRosterById = async (id: Number) => {
-    const [rows] = await promisePool.query('SELECT tr.team_id, p.person_id, p.first_name, p.last_name, p.status, p.date_of_birth, p.nationality, p.person_type FROM team_roster tr INNER JOIN person p ON tr.person_id = p.person_id WHERE tr.team_id = ?'
-        , id);
+export const getTeamRosterById = async (team_id: number) => {
+    const [rows] = await promisePool.query('SELECT t.team_id, p.person_id, p.first_name, p.last_name, p.status, p.date_of_birth, p.nationality, p.person_type FROM team_roster tr INNER JOIN team t ON tr.team_id = t.team_id INNER JOIN person p ON tr.person_id = p.person_id WHERE t.team_id = ?'
+        , [team_id]);
+
     return rows;
 }
 
@@ -51,13 +52,13 @@ export const getTournaments = async () => {
     return rows
 }
 
-export const getTournamentsById = async (tournament_id: Number) => {
+export const getTournamentsById = async (tournament_id: number) => {
     const [rows] = await promisePool.query('SELECT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, t.average_viewer_count, t.caster_id, t.referee_id, t.motorsport_id FROM tournaments t WHERE t.tournament_id = ?',
         tournament_id);
     return rows;
 }
 
-export const getTournamentsByMotorId = async (motorsport_id: Number) => {
+export const getTournamentsByMotorId = async (motorsport_id: number) => {
     const [rows] = await promisePool.query('SELECT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, t.average_viewer_count, t.caster_id, t.referee_id, t.motorsport_id FROM tournaments t WHERE t.motorsport_id = ?',
         motorsport_id);
     return rows;
@@ -79,12 +80,12 @@ export const getTeam = async () => {
     return rows;
 }
 
-export const getTeamById = async (team_id: Number) => {
+export const getTeamById = async (team_id: number) => {
     const [rows] = await promisePool.query("SELECT t.team_id, t.team_name, t.sponsor, t.country, t.win_count FROM team t WHERE t.team_id = ? ORDER BY t.team_name ASC", team_id);
     return rows;
 }
 
-export const getTeamByMotorId = async (motrosport_id: Number) => {
+export const getTeamByMotorId = async (motrosport_id: number) => {
     const [rows] = await promisePool.query('SELECT DISTINCT t.team_id, t.team_name, t.sponsor, t.country, t.win_count, m.motorsport_id FROM team t INNER JOIN tournament_participating tp ON tp.team_id = t.team_id INNER JOIN tournaments tm ON tm.tournament_id = tp.tournament_id INNER JOIN motorsport m ON tm.motorsport_id = m.motorsport_id WHERE m.motorsport_id = ? ORDER BY t.team_name ASC', motrosport_id)
     return rows;
 }
@@ -94,13 +95,13 @@ export const getTournamentParticipating = async () => {
     return rows;
 }
 
-export const getTournamentParticipatingById = async (tournament_id: Number) => {
+export const getTournamentParticipatingById = async (tournament_id: number) => {
     const [rows] = await promisePool.query('SELECT tp.tournament_id, tp.team_id, t.team_name, tp.average_laps_time, tp.start_time, tp.finish_time, tp.placement FROM tournament_participating tp INNER JOIN team t ON tp.team_id = t.team_id WHERE tp.tournament_id = 20001 ORDER BY tp.placement ASC', tournament_id);
     return rows;
 }
 
-export const getPersonById = async (id: Number) => {
-    const [rows] = await promisePool.query('SELECT p.person_id, p.first_name, p.last_name, p.status, p.date_of_birth, p.nationality, person_type FROM person p WHERE p.person_id = ?', id);
+export const getPersonById = async (person_id: number) => {
+    const [rows] = await promisePool.query('SELECT p.person_id, p.first_name, p.last_name, p.status, p.date_of_birth, p.nationality, person_type FROM person p WHERE p.person_id = ?', person_id);
     return rows;
 }
 
@@ -123,12 +124,12 @@ export const getStaff = async () => {
     return rows;
 }
 
-export const getStaffById = async (id: Number) => {
-    const [rows] = await promisePool.query('SELECT * FROM person p INNER JOIN staff s ON p.person_id = s.person_id WHERE p.person_id = ?', id);
+export const getStaffById = async (person_id: number) => {
+    const [rows] = await promisePool.query('SELECT * FROM person p INNER JOIN staff s ON p.person_id = s.person_id WHERE p.person_id = ?', person_id);
     return rows;
 }
 
-export const searchData = async (keyword: String) => {
+export const searchData = async (keyword: string) => {
     const [carRows] = await promisePool.query("SELECT DISTINCT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year, m.motorsport_type, m.motorsport_id FROM car c INNER JOIN team t ON c.team_id = t.team_id INNER JOIN tournament_participating tp ON tp.team_id = t.team_id INNER JOIN tournaments tm ON tm.tournament_id = tp.tournament_id INNER JOIN motorsport m ON m.motorsport_id = tm.motorsport_id WHERE c.car_type LIKE ? OR c.engine LIKE ? OR c.manufacturer LIKE ? OR c.product_year LIKE ? ORDER BY m.motorsport_type ASC",
         ['%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%']);
     const [racerRows] = await promisePool.query(

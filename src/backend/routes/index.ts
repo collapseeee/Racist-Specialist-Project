@@ -33,7 +33,7 @@ router.get('/car', async (req, res) => {
 
 router.get('/car/motorsport:id', async (req, res) => {
     const motorId: String = req.params.id.replace(':', '').trim();
-    const id: Number = Number(motorId);
+    const id: number = Number(motorId);
     const data = await getCarByMotorId(id);
     console.log('GET CAR BY MOTORSPORT_ID: ', id);
 
@@ -44,7 +44,7 @@ router.get('/car/motorsport:id', async (req, res) => {
 
 router.get('/car/team:id', async (req, res) => {
     const teamId: String = req.params.id.replace(':', '').trim();
-    const id: Number = Number(teamId);
+    const id: number = Number(teamId);
     const data = await getCarByTeamId(id);
     console.log('GET CAR BY TEAM_ID ', id);
     res.send({
@@ -54,7 +54,7 @@ router.get('/car/team:id', async (req, res) => {
 
 router.get('/car:id', async (req, res) => {
     const modelId: String = req.params.id.replace(':', '').trim();
-    const id: Number = Number(modelId);
+    const id: number = Number(modelId);
     const data = await getCarByModelId(id);
     console.log('GET CAR BY CARMODEL_ID ', id);
     res.send({
@@ -73,7 +73,7 @@ router.get('/tournament', async (req, res) => {
 // get tournament by tournament_id and motorsport_id
 router.get('/tournament:id', async (req, res) => {
     const tournamentId: String = req.params.id.replace(':', '').trim();
-    const id: Number = Number(tournamentId);
+    const id: number = Number(tournamentId);
     const data = await getTournamentsById(id);
     console.log('GET TOURNAMENT BY ID ', id)
     res.send({
@@ -83,7 +83,7 @@ router.get('/tournament:id', async (req, res) => {
 
 router.get('/tournament/motorsport:motorId', async (req, res) => {
     const motorsportId: String = req.params.motorId.replace(':', '').trim();
-    const id: Number = Number(motorsportId);
+    const id: number = Number(motorsportId);
     const data = await getTournamentsByMotorId(id);
     console.log('GET TOURNAMENT BY MOTORSPORT ID ', id);
     res.send({
@@ -101,7 +101,7 @@ router.get('/team', async (req, res) => {
 
 router.get('/team:id', async (req, res) => {
     const teamId: String = req.params.id.replace(':', '');
-    const id: Number = Number(teamId);
+    const id: number = Number(teamId);
     const data = await getTeamById(id)
     res.send({
         data
@@ -110,8 +110,15 @@ router.get('/team:id', async (req, res) => {
 
 router.get('/team/motorsport:id', async (req, res) => {
     const motorsportId: String = req.params.id.replace(':', '');
-    const id: Number = Number(motorsportId);
+    const id: number = Number(motorsportId);
     const data = await getTeamByMotorId(id);
+    res.send({
+        data
+    });
+});
+
+router.get('/teamroster', async (req, res) => {
+    const data = await getTeamRoster();
     res.send({
         data
     });
@@ -119,9 +126,9 @@ router.get('/team/motorsport:id', async (req, res) => {
 
 // GET team_roster by teamId
 
-router.get('/teamroster:id', async (req, res) => {
-    const teamId: String = req.params.id.replace(':', '');
-    const id: Number = Number(teamId);
+router.get('/teamroster/:id', async (req, res) => {
+    const teamId: string = req.params.id.replace(':', '');
+    const id: number = Number(teamId);
     const data = await getTeamRosterById(id);
     res.send({
         data
@@ -156,7 +163,7 @@ router.get('/participation', async (req, res) => {
 
 router.get('/participation:id', async (req, res) => {
     const tournamentId: String = req.params.id.replace(':', '');
-    const id: Number = Number(tournamentId);
+    const id: number = Number(tournamentId);
     const data = await getTournamentParticipatingById(id);
     console.log('GET TOURNAMENT_PARTICIPATION BY ID ', id);
 
@@ -177,7 +184,7 @@ router.get('/staff', async (req, res) => {
 // GET staff by personId
 router.get('/staff:id', async (req, res) => {
     const personId: String = req.params.id.replace(':', '');
-    const id: Number = Number(personId);
+    const id: number = Number(personId);
     const data = await getStaffById(id)
     res.send({
         data
@@ -188,7 +195,7 @@ router.get('/staff:id', async (req, res) => {
 // GET person by personId
 router.get('/person:id', async (req, res) => {
     const personId: String = req.params.id.replace(':', '');
-    const id: Number = Number(personId);
+    const id: number = Number(personId);
     const data = await getPersonById(id);
     res.send({
         data
