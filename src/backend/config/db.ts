@@ -53,7 +53,7 @@ export const getTournaments = async () => {
 }
 
 export const getTournamentsById = async (tournament_id: number) => {
-    const [rows] = await promisePool.query('SELECT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, t.average_viewer_count, t.caster_id, t.referee_id, t.motorsport_id FROM tournaments t WHERE t.tournament_id = ?',
+    const [rows] = await promisePool.query('SELECT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, t.average_viewer_count, t.caster_id, t.referee_id, t.motorsport_id, m.motorsport_type, m.terrain FROM tournaments t JOIN motorsport m ON t.motorsport_id = m.motorsport_id WHERE t.tournament_id = ?',
         tournament_id);
     return rows;
 }
