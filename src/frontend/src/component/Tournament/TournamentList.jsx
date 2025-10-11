@@ -1,11 +1,10 @@
 /* TournamentList.jsx */
 import "../../styles/Tournament/TournamentList.css";
 import { useParams, Link } from "react-router-dom";
-
+import motorsportData from "../../data/motorsportData.js";
+import Header from "../Universal/Header.jsx";
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
-import Header from "../Universal/Header.jsx";
-import motorsportData from "../../data/motorsportData.js";
 import React, { useEffect, useState } from "react";
 
 function TournamentList() {
@@ -54,9 +53,9 @@ function TournamentList() {
   };
 
   function getTime(dateString) {
-      if (!dateString) return "-";
-      const date = new Date(dateString);
-      return date.toLocaleDateString("en-GB", { timeZone: "Asia/Bangkok" });
+    if (!dateString) return "-";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", { timeZone: "Asia/Bangkok" });
   }
 
   return (

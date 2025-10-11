@@ -1,11 +1,9 @@
 /* NavBar.jsx */
-import "../../styles/Universal/NavBar.css";
-import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
-import SearchBar from "./SearchBar.jsx";
-import logo from "/public/motoropedia-logo.png";
+import logo from "../../../public/motoropedia-logo.png";
 import motorsportData from "../../data/motorsportData.js";
+import SearchBar from "./SearchBar.jsx";
+import "../../styles/Universal/NavBar.css";
 
 function NavBar() {
   const location = useLocation();
@@ -91,9 +89,8 @@ function NavBar() {
                   <Link
                     key={sport.id}
                     to={`/${sport.id}`}
-                    className={`dropdown-item ${
-                      motorsportId == sport.id ? "highlight-current" : ""
-                    }`}
+                    className={`dropdown-item ${motorsportId == sport.id ? "highlight-current" : ""
+                      }`}
                   >
                     {sport.title}
                   </Link>

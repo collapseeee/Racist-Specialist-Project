@@ -1,6 +1,6 @@
 import "../../styles/Universal/Footer.css";
-import logo from "/public/motoropedia-logo.png";
-import githublogo from "/public/github-logo.png";
+import logo from "../../../public/motoropedia-logo.png";
+import githublogo from "../../../public/github-logo.png";
 import ShinyText from "./ShinyText.jsx";
 
 function Footer() {
@@ -8,7 +8,7 @@ function Footer() {
     <div className="footer">
       <div className="footer-upper-content">
         <div className="footer-left-side-content">
-            <img src={logo} alt="Motoropedia Logo" className="logo" />
+          <img src={logo} alt="Motoropedia Logo" className="logo" />
           <ShinyText
             text="Motoropedia"
             disabled={false}

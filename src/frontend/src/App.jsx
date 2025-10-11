@@ -20,10 +20,10 @@ import RacerList from "./component/Person/RacerList.jsx";
 import RacerDetail from "./component/Person/RacerDetail.jsx";
 import RacerListByMotorsport from "./component/Person/RacerListByMotorsport.jsx";
 
-import logo from "/public/motoropedia-logo.png";
+import logo from "../public/motoropedia-logo.png";
 import motorsportData from "./data/motorsportData.js";
-import racerPlaceholderImage from "/public/racer-placeholder.jpg";
-import staffPlaceholderImage from "/public/staff-placeholder.png";
+import racerPlaceholderImage from "../public/racer-placeholder.jpg";
+import staffPlaceholderImage from "../public/staff-placeholder.png";
 
 function App() {
   const HomeLayout = () => (

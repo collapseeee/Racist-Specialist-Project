@@ -3,10 +3,10 @@ import '../../styles/Team/TeamList.css'
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
+import motorsportData from "../../data/motorsportData.js";
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
 import Header from "../Universal/Header.jsx";
-import motorsportData from "../../data/motorsportData.js";
 
 
 function TeamList() {
@@ -14,7 +14,7 @@ function TeamList() {
   const data = motorsportData[motorsportId];
 
   const [teams, setTeams] = useState([]);
-  const [sortConfig, setSortConfig] = useState({key: "team_name", direction: "desc"});
+  const [sortConfig, setSortConfig] = useState({ key: "team_name", direction: "desc" });
 
   const handleSort = (key) => {
     let direction = "asc";
@@ -31,26 +31,26 @@ function TeamList() {
     setTeams(sorted);
   }
 
-    const handleGetData = async () => {
-        try {
-            const response = await fetch(
-                `http://localhost:3000/api/team/motorsport:${motorsportId}`,
-                {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" },
-                },
-            );
-            const result = await response.json();
-            console.log(result);
-            setTeams(result.data);
-        } catch (err) {
-            console.error(err);
-        }
-    };
+  const handleGetData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/team/motorsport:${motorsportId}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      const result = await response.json();
+      console.log(result);
+      setTeams(result.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    useEffect(() => {
-        handleGetData();
-    }, [motorsportId]);
+  useEffect(() => {
+    handleGetData();
+  }, [motorsportId]);
 
   return (
     <>
@@ -72,37 +72,37 @@ function TeamList() {
           <h2 className="team-table-title">{data.title} Teams List</h2>
           <table className="team-table">
             <thead>
-            <tr>
-              <th onClick={() => handleSort("team_name")}>
-                Team Name {sortConfig.key === "team_name" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-              <th onClick={() => handleSort("sponsor")}>
-                Sponsor {sortConfig.key === "sponsor" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-              <th onClick={() => handleSort("country")}>
-                Country {sortConfig.key === "country" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-              <th onClick={() => handleSort("win_count")}>
-                Win Count {sortConfig.key === "win_count" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-            </tr>
+              <tr>
+                <th onClick={() => handleSort("team_name")}>
+                  Team Name {sortConfig.key === "team_name" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+                <th onClick={() => handleSort("sponsor")}>
+                  Sponsor {sortConfig.key === "sponsor" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+                <th onClick={() => handleSort("country")}>
+                  Country {sortConfig.key === "country" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+                <th onClick={() => handleSort("win_count")}>
+                  Win Count {sortConfig.key === "win_count" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+              </tr>
             </thead>
             <tbody>
-            {teams.map((team) => (
-              <tr key={team.tournament_id}>
-                <td>
-                  <Link
-                    to={`/${motorsportId}/Teams/${team.team_id}`}
-                    className="team-link"
-                  >
-                    {team.team_name}
-                  </Link>
-                </td>
-                <td>{team.sponsor}</td>
-                <td>{team.country}</td>
-                <td>{team.win_count}</td>
-              </tr>
-            ))}
+              {teams.map((team) => (
+                <tr key={team.tournament_id}>
+                  <td>
+                    <Link
+                      to={`/${motorsportId}/Teams/${team.team_id}`}
+                      className="team-link"
+                    >
+                      {team.team_name}
+                    </Link>
+                  </td>
+                  <td>{team.sponsor}</td>
+                  <td>{team.country}</td>
+                  <td>{team.win_count}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

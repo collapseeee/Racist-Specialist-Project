@@ -8,10 +8,10 @@ import Card from "./Universal/Card.jsx";
 import Header from "./Universal/Header.jsx";
 
 import motorsportData from "../data/motorsportData.js";
-import teamCardImage from "/public/team-card-image.png";
-import tournamentCardImage from "/public/tournament-card-image.jpg";
-import carCardImage from "/public/car-card-image.jpg";
-import racerPlaceholderImage from "/public/racer-placeholder.jpg";
+import teamCardImage from "../../public/team-card-image.png";
+import tournamentCardImage from "../../public/tournament-card-image.jpg";
+import carCardImage from "../../public/car-card-image.jpg";
+import racerPlaceholderImage from "../../public/racer-placeholder.jpg";
 
 function MotorsportInformation() {
   const { motorsportId } = useParams();
@@ -31,10 +31,10 @@ function MotorsportInformation() {
       const result = await response.json();
       console.log(result);
       setCalledData(result.data[0]);
-      } catch (err) {
+    } catch (err) {
       console.error(err);
-      }
-    };
+    }
+  };
 
   useEffect(() => {
     handleGetData();

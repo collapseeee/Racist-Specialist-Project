@@ -2,11 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import '../../styles/Car/CarList.css'
-
+import motorsportData from "../../data/motorsportData.js";
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
 import Header from "../Universal/Header.jsx";
-import motorsportData from "../../data/motorsportData.js";
 
 
 function CarList() {
@@ -14,7 +13,7 @@ function CarList() {
   const data = motorsportData[motorsportId];
 
   const [cars, setCars] = useState([]);
-  const [sortConfig, setSortConfig] = useState({key: "car_type", direction: "desc"});
+  const [sortConfig, setSortConfig] = useState({ key: "car_type", direction: "desc" });
 
   const handleGetData = async () => {
     try {
@@ -73,41 +72,41 @@ function CarList() {
           <h2 className="car-table-title">{data.title} Cars List</h2>
           <table className="car-table">
             <thead>
-            <tr>
-              <th onClick={() => handleSort("car_type")}>
-                Car Type {sortConfig.key === "car_type" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-              <th onClick={() => handleSort("engine")}>
-                Engine {sortConfig.key === "engine" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-              <th onClick={() => handleSort("country")}>
-                Manufacturer {sortConfig.key === "country" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-              <th onClick={() => handleSort("product_year")}>
-                Product Year {sortConfig.key === "product_year" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-              <th onClick={() => handleSort("team_name")}>
-                Team {sortConfig.key === "team_name" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-            </tr>
+              <tr>
+                <th onClick={() => handleSort("car_type")}>
+                  Car Type {sortConfig.key === "car_type" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+                <th onClick={() => handleSort("engine")}>
+                  Engine {sortConfig.key === "engine" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+                <th onClick={() => handleSort("country")}>
+                  Manufacturer {sortConfig.key === "country" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+                <th onClick={() => handleSort("product_year")}>
+                  Product Year {sortConfig.key === "product_year" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+                <th onClick={() => handleSort("team_name")}>
+                  Team {sortConfig.key === "team_name" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+              </tr>
             </thead>
             <tbody>
-            {cars.map((car) => (
-              <tr key={`${car.carmodel_id}-${car.team_id}`}>
-                <td>
-                  <Link
-                    to={`/${motorsportId}/Cars/${car.carmodel_id}`}
-                    className="car-link"
-                  >
-                    {car.car_type} ({car.carmodel_id})
-                  </Link>
-                </td>
-                <td>{car.engine}</td>
-                <td>{car.manufacturer}</td>
-                <td>{car.product_year}</td>
-                <td>{car.team_name}</td>
-              </tr>
-            ))}
+              {cars.map((car) => (
+                <tr key={`${car.carmodel_id}-${car.team_id}`}>
+                  <td>
+                    <Link
+                      to={`/${motorsportId}/Cars/${car.carmodel_id}`}
+                      className="car-link"
+                    >
+                      {car.car_type} ({car.carmodel_id})
+                    </Link>
+                  </td>
+                  <td>{car.engine}</td>
+                  <td>{car.manufacturer}</td>
+                  <td>{car.product_year}</td>
+                  <td>{car.team_name}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

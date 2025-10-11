@@ -1,10 +1,9 @@
 import "../../styles/Tournament/TournamentDetail.css";
 import { useParams, Link } from "react-router-dom";
-
+import React, { useEffect, useState } from "react";
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
-import React, { useEffect, useState } from "react";
-import tournamentPlaceholderImage from "/public/tournament-placeholder.png";
+import tournamentPlaceholderImage from "../../../public/tournament-placeholder.png";
 
 function TournamentDetail() {
   const { motorsportId } = useParams();
@@ -161,17 +160,17 @@ function TournamentDetail() {
                 to={`/StaffList/${refereeDetail.person_id}`}
                 className="team-link"
               >
-              <p className="tournament-detail-header-description-text">
-                {refereeDetail.first_name} {refereeDetail.last_name}
-              </p>
+                <p className="tournament-detail-header-description-text">
+                  {refereeDetail.first_name} {refereeDetail.last_name}
+                </p>
               </Link>
               <Link
                 to={`/StaffList/${casterDetail.person_id}`}
                 className="team-link"
-                >
-              <p className="tournament-detail-header-description-text">
-                {casterDetail.first_name} {casterDetail.last_name}
-              </p>
+              >
+                <p className="tournament-detail-header-description-text">
+                  {casterDetail.first_name} {casterDetail.last_name}
+                </p>
               </Link>
             </div>
           </div>

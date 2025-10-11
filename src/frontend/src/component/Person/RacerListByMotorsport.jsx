@@ -3,17 +3,17 @@ import '../../styles/Team/TeamList.css'
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
+import motorsportData from "../../data/motorsportData.js";
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
 import Header from "../Universal/Header.jsx";
-import motorsportData from "../../data/motorsportData.js";
-
+import racerPlaceholderImage from "../../../public/racer-placeholder.jpg";
 function RacerListByMotorsport() {
   const { motorsportId } = useParams();
   const data = motorsportData[motorsportId];
 
   const [racers, setRacers] = useState([]);
-  const [sortConfig, setSortConfig] = useState({key: "team_name", direction: "desc"});
+  const [sortConfig, setSortConfig] = useState({ key: "team_name", direction: "desc" });
 
   const handleSort = (key) => {
     let direction = "asc";
@@ -71,37 +71,37 @@ function RacerListByMotorsport() {
           <h2 className="team-table-title">{data.title} Players List</h2>
           <table className="team-table">
             <thead>
-            <tr>
-              <th onClick={() => handleSort("first_name")}>
-                Name {sortConfig.key === "first_name" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-              <th onClick={() => handleSort("status")}>
-                Status {sortConfig.key === "status" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-              <th onClick={() => handleSort("nationality")}>
-                Nationality {sortConfig.key === "win_count" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-              <th onClick={() => handleSort("racer_license")}>
-                Racer License {sortConfig.key === "racer_license" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-              </th>
-            </tr>
+              <tr>
+                <th onClick={() => handleSort("first_name")}>
+                  Name {sortConfig.key === "first_name" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+                <th onClick={() => handleSort("status")}>
+                  Status {sortConfig.key === "status" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+                <th onClick={() => handleSort("nationality")}>
+                  Nationality {sortConfig.key === "win_count" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+                <th onClick={() => handleSort("racer_license")}>
+                  Racer License {sortConfig.key === "racer_license" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                </th>
+              </tr>
             </thead>
             <tbody>
-            {racers.map((racer) => (
-              <tr key={racer.person_id}>
-                <td>
-                  <Link
-                    to={`/RacerList/${racer.person_id}`}
-                    className="team-link"
-                  >
-                    {racer.first_name} {racer.last_name}
-                  </Link>
-                </td>
-                <td>{racer.status}</td>
-                <td>{racer.nationality}</td>
-                <td>{racer.racer_license}</td>
-              </tr>
-            ))}
+              {racers.map((racer) => (
+                <tr key={racer.person_id}>
+                  <td>
+                    <Link
+                      to={`/RacerList/${racer.person_id}`}
+                      className="team-link"
+                    >
+                      {racer.first_name} {racer.last_name}
+                    </Link>
+                  </td>
+                  <td>{racer.status}</td>
+                  <td>{racer.nationality}</td>
+                  <td>{racer.racer_license}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

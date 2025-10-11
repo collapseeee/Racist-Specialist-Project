@@ -5,9 +5,9 @@ import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
 import React, { useEffect, useState } from "react";
 
-import teamLogoPlaceholderImage from "/public/team-logo-placeholder.png";
-import racerPlaceholderImage from "/public/racer-placeholder.jpg";
-import carPlaceholderImage from "/public/car-placeholder.png";
+import racerPlaceholderImage from "../../../public/racer-placeholder.jpg";
+import carPlaceholderImage from "../../../public/car-placeholder.png";
+import teamLogoPlaceholderImage from "../../../public/team-logo-placeholder.png";
 
 function TeamDetail() {
   const { motorsportId } = useParams();
@@ -117,10 +117,10 @@ function TeamDetail() {
                 <Link
                   to={`/RacerList/${racer.person_id}`}
                   className="racer-card-link"
-                  >
-                <h3 className="racer-card-name">
-                  {racer.first_name} {racer.last_name}
-                </h3>
+                >
+                  <h3 className="racer-card-name">
+                    {racer.first_name} {racer.last_name}
+                  </h3>
                 </Link>
                 <div className="racer-card-description">
                   <div className="racer-card-description-left">

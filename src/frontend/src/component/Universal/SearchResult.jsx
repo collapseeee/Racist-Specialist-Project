@@ -1,8 +1,8 @@
 /* SearchResult.jsx */
 import "../../styles/Universal/SearchResult.css";
 import { Link, useLocation } from "react-router-dom";
-import NavBar from "../Universal/NavBar.jsx";
-import Footer from "../Universal/Footer.jsx";
+import NavBar from "./NavBar.jsx";
+import Footer from "./Footer.jsx";
 import { useEffect, useState } from "react";
 
 function SearchResult() {
@@ -237,9 +237,8 @@ function SearchResult() {
           return (
             <div key={section.key} className="result-content" id={section.key}>
               <h2
-                className={`result-table-title dropdown-toggle-title ${
-                  hasNoResult ? "disabled-title" : ""
-                }`}
+                className={`result-table-title dropdown-toggle-title ${hasNoResult ? "disabled-title" : ""
+                  }`}
                 onClick={
                   !hasNoResult ? () => toggleSection(section.key) : undefined
                 }
@@ -251,9 +250,8 @@ function SearchResult() {
               </h2>
 
               <div
-                className={`dropdown-section-body ${
-                  isOpen || hasNoResult ? "open" : "closed"
-                }`}
+                className={`dropdown-section-body ${isOpen || hasNoResult ? "open" : "closed"
+                  }`}
               >
                 {hasNoResult ? (
                   <p className="result-null-text">
