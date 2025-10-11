@@ -61,22 +61,35 @@ cd Motoropedia-Project
 npm install
 
 # Start the server
-npm start
+npm run backend
 ```
-The backend will run at http://localhost:3000
+The backend will listen at http://localhost:3000
 
 ### Frontend Setup
 
 ```bash
 # Navigate to frontend folder
-cd frontend
+cd Motoropedia-Project
 
-# Install Vite dependencies
-npm install vite@latest
+# Install dependencies
+npm install
 
 # Run the application
-npm run dev
+npm run frontend
 ```
+
+OR
+
+```bash
+cd Motoropedia-Project
+npm install
+
+Run both in separate terminals
+npm run frontend
+npm run backend
+
+```
+
 The frontend will run at http://localhost:5173
     
 ## Features
