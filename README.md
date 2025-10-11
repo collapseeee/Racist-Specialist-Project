@@ -80,7 +80,7 @@ npm run frontend
 
 The frontend will run at http://localhost:5173
 
-##OR##
+OR
 
 ```bash
 cd Motoropedia-Project
