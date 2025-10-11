@@ -45,7 +45,7 @@ function MotorsportInformation() {
       <>
         <NavBar />
         <h1>Downloading...</h1>
-        <p>If this takes longer than 30 seconds, the database server may be down.</p>
+        <p>If this takes longer than 30 seconds, the database server may be down or the backend hasn't launched via "npm start backend".</p>
         <Footer />
       </>
     );
@@ -61,7 +61,7 @@ function MotorsportInformation() {
     <>
       <NavBar />
       <div className="information-header-banner">
-        <Header title={data.title} image={data.image} />
+        <Header title={data.title} image={data.image} description={`Terrain: ${calledData.terrain}`} />
       </div>
       <div className="information-container">
         <div className="information-content">
