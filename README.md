@@ -123,6 +123,7 @@ A login authentication system will be added in the next phase, allowing administ
 
 ```
 📦 Motoropedia-Project
+├─ dist
 ├─ dataset
 │  ├─ motoropedia_data.sql
 │  └─ motoropedia_table.sql
@@ -133,9 +134,12 @@ A login authentication system will be added in the next phase, allowing administ
 ├─ .gitattributes
 ├─ .gitignore
 ├─ README.md
+├─ eslint.config.js
+├─ index.html
 ├─ package-lock.json
 ├─ package.json
-└─ tsconfig.json
+├─ tsconfig.json
+└─ vite.config.js
 ```
 
 ## Authors
