@@ -5,9 +5,9 @@ import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
 import React, { useEffect, useState } from "react";
 
-import racerPlaceholderImage from "../../../public/racer-placeholder.jpg";
-import carPlaceholderImage from "../../../public/car-placeholder.png";
-import teamLogoPlaceholderImage from "../../../public/team-logo-placeholder.png";
+import racerPlaceholderImage from "../../public/racer-placeholder.jpg";
+import carPlaceholderImage from "../../public/car-placeholder.png";
+import teamLogoPlaceholderImage from "../../public/team-logo-placeholder.png";
 
 function TeamDetail() {
   const { motorsportId } = useParams();

@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
-import tournamentPlaceholderImage from "../../../public/tournament-placeholder.png";
+import tournamentPlaceholderImage from "../../public/tournament-placeholder.png";
 
 function TournamentDetail() {
   const { motorsportId } = useParams();

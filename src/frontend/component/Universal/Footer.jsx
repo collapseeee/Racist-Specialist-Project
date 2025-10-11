@@ -1,6 +1,6 @@
 import "../../styles/Universal/Footer.css";
-import logo from "../../../public/motoropedia-logo.png";
-import githublogo from "../../../public/github-logo.png";
+import logo from "../../public/motoropedia-logo.png";
+import githublogo from "../../public/github-logo.png";
 import ShinyText from "./ShinyText.jsx";
 
 function Footer() {

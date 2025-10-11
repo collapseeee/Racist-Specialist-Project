@@ -1,6 +1,6 @@
 /* NavBar.jsx */
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logo from "../../../public/motoropedia-logo.png";
+import logo from "../../public/motoropedia-logo.png";
 import motorsportData from "../../data/motorsportData.js";
 import SearchBar from "./SearchBar.jsx";
 import "../../styles/Universal/NavBar.css";

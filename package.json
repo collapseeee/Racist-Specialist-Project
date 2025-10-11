@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/backend/server.ts",
-    "dev": "vite",
+    "backend": "ts-node src/backend/server.ts",
+    "frontend": "vite",
     "build": "vite build",
     "lint": "eslint ../../motoropedia-frontend",
     "preview": "vite preview"

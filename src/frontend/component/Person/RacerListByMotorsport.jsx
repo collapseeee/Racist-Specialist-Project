@@ -7,7 +7,7 @@ import motorsportData from "../../data/motorsportData.js";
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
 import Header from "../Universal/Header.jsx";
-import racerPlaceholderImage from "../../../public/racer-placeholder.jpg";
+import racerPlaceholderImage from "../../public/racer-placeholder.jpg";
 function RacerListByMotorsport() {
   const { motorsportId } = useParams();
   const data = motorsportData[motorsportId];

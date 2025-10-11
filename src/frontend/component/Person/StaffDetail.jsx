@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
-import refereePlaceholderImage from "../../../public/referee-placeholder.png";
-import casterPlaceholderImage from "../../../public/caster-placeholder.png";
+import refereePlaceholderImage from "../../public/referee-placeholder.png";
+import casterPlaceholderImage from "../../public/caster-placeholder.png";
 
 function StaffDetail() {
     const { personId } = useParams();

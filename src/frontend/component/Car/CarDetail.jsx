@@ -3,7 +3,7 @@ import "../../styles/Car/CarDetail.css";
 
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
-import carPlaceholderImage from "../../../public/car-placeholder.png";
+import carPlaceholderImage from "../../public/car-placeholder.png";
 import { useEffect, useState } from "react";
 
 function CarDetail() {
