@@ -84,7 +84,7 @@ OR
 cd Motoropedia-Project
 npm install
 
-Run both in separate terminals
+# Run both in separate terminals
 npm run frontend
 npm run backend
 
