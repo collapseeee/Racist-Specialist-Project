@@ -78,7 +78,9 @@ npm install
 npm run frontend
 ```
 
-OR
+The frontend will run at http://localhost:5173
+
+##OR##
 
 ```bash
 cd Motoropedia-Project
@@ -90,7 +92,6 @@ npm run backend
 
 ```
 
-The frontend will run at http://localhost:5173
     
 ## Features
 
