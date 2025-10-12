@@ -3,20 +3,23 @@ import '../../styles/Universal/SearchBar.css'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch, mode = "user" }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
     const query = searchTerm.trim();
     if (!query) return;
 
-    // Handle search logic here:
-    //
-    //
-    navigate(`/SearchResult?q=${encodeURIComponent(query)}`);
-
+      if (mode === "user") {
+          // normal user -> redirect to SearchResult page
+          navigate(`/SearchResult?q=${encodeURIComponent(query)}`);
+      } else if (mode === "admin") {
+          // admin mode -> pass query up to parent (Remove or Update)
+          onSearch?.(query.trim());
+      }
     console.log(`Searching for: "${query}"`);
     setSearchTerm("")
   }

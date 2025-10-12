@@ -1,9 +1,51 @@
 /* App.css */
 .header {
     background-color: rgb(32,36,39);
-    padding: 1.5vh 10vw;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    padding: 2vh 0;
 }
+
+.header-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 1vh 2vw;
+}
+
+.logo-center {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.logo {
+    height: 12vh;
+    width: auto;
+}
+
+.login-logo-container {
+    position: absolute;
+    right: 3vw;
+
+    transform: translateY(-50%);
+}
+
+.login-icon {
+    height: 4vh;
+    width: auto;
+    background: transparent;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.login-icon:hover {
+    transform: scale(1.05);
+}
+
 
 .logo-container {
     display: flex;
@@ -15,13 +57,6 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-}
-.logo {
-    height: 12vh;
-    width: auto;
-    padding-left: 2vh;
-    padding-right: 2vh;
-    background-color: rgb(32,36,39);
 }
 
 .motoropedia-text {
@@ -59,4 +94,14 @@
     justify-content: center;
     align-items: center;
     margin: 1vh auto;
+}
+
+.login-logo-container {
+    padding-left: 2vw;
+    width: 4vw;
+    height: 4vw;
+}
+
+.login-icon:hover {
+    transform: scale(1.05);
 }

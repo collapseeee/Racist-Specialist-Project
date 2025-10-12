@@ -12,8 +12,8 @@ function Dashboard() {
         switch (activeTab) {
             case "add":
                 return <Add />;
-            case "delete":
-                return <Delete />;
+            case "remove":
+                return <Remove />;
             case "update":
                 return <Update />;
             default:
@@ -36,10 +36,10 @@ function Dashboard() {
                         Add Data
                     </button>
                     <button
-                        className={activeTab === "delete" ? "active" : ""}
-                        onClick={() => setActiveTab("delete")}
+                        className={activeTab === "remove" ? "active" : ""}
+                        onClick={() => setActiveTab("remove")}
                     >
-                        Delete Data
+                        Remove Data
                     </button>
                     <button
                         className={activeTab === "update" ? "active" : ""}
@@ -50,6 +50,7 @@ function Dashboard() {
                 </div>
 
                 <div className="dashboard-content">{renderContent()}</div>
+
             </div>
         </>
     );

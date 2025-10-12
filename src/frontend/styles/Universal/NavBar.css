@@ -128,10 +128,11 @@
 .navbar-right-side-content {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .search-bar-container {
-    width: 20vw;
+    width: 25vw;
 }
 
 .back-button {
@@ -151,4 +152,23 @@
     color: #7c84ff;
     border-color: #7c84ff;
     transform: translateX(-2px);
+}
+
+.login-logo-container {
+    padding-left: 2vw;
+    width: 4vw;
+    height: 4vw;
+}
+
+.login-icon {
+    background-color: #f9f9f9;
+    border-radius: 50%;
+    width: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 2vh 0;
+}
+
+.login-icon:hover {
+    transform: scale(1.05);
 }

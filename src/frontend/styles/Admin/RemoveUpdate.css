@@ -1,0 +1,26 @@
+.removeupdate-header {
+    text-align: center;
+}
+
+.removeupdate-searchbar-container {
+    margin: 0 16vw;
+}
+
+.remove-button {
+    display: inline-block;
+    background-color: #5d0b0a;
+    width: 8vw;
+}
+
+.update-button {
+    display: inline-block;
+    background-color: #165d73;
+    width: 8vw;
+}
+
+.remove-td {
+    width: 10vw;
+    max-width: 10vw;
+    padding: 0;
+    text-align: center;
+}

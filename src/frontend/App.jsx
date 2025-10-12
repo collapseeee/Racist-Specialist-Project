@@ -26,6 +26,7 @@ import logo from "./public/motoropedia-logo.png";
 import motorsportData from "./data/motorsportData.js";
 import racerPlaceholderImage from "./public/racer-placeholder.jpg";
 import staffPlaceholderImage from "./public/staff-placeholder.png";
+import loginIcon from "./public/login-icon.png";
 
 function ProtectedRoute({ element }) {
     const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
@@ -35,24 +36,34 @@ function ProtectedRoute({ element }) {
 function App() {
   const HomeLayout = () => (
     <>
-      <header className="header">
-        <div className="logo-container">
-          <img src={logo} alt="Motoropedia Logo" className="logo" />
-        </div>
-        <div className="welcome-text">
-          <h1>Welcome to </h1>
-          <ShinyText
-            text='"Motoropedia"'
-            disabled={false}
-            speed={5}
-            className="motoropedia-text"
-          />
-          <h1>, The encyclopedia for Motorsport Lovers!</h1>
-        </div>
-        <div className="search-bar-container">
-          <SearchBar />
-        </div>
-      </header>
+        <header className="header">
+            <div className="header-logo-container">
+                <div className="logo-center">
+                    <img src={logo} alt="Motoropedia Logo" className="logo" />
+                </div>
+
+                <div className="login-logo-container">
+                    <Link to="/Login">
+                        <img src={loginIcon} alt="Login Button" className="login-icon" />
+                    </Link>
+                </div>
+            </div>
+
+            <div className="welcome-text">
+                <h1>Welcome to </h1>
+                <ShinyText
+                    text='"Motoropedia"'
+                    disabled={false}
+                    speed={5}
+                    className="motoropedia-text"
+                />
+                <h1>, The encyclopedia for Motorsport Lovers!</h1>
+            </div>
+
+            <div className="search-bar-container">
+                <SearchBar mode="user" />
+            </div>
+        </header>
 
       <div className="card-container">
         {Object.values(motorsportData).map((motorsport) => (

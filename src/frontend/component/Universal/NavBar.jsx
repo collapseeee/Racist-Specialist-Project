@@ -1,9 +1,10 @@
 /* NavBar.jsx */
+import "../../styles/Universal/NavBar.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../public/motoropedia-logo.png";
+import loginIcon from "../../public/login-icon.png";
 import motorsportData from "../../data/motorsportData.js";
 import SearchBar from "./SearchBar.jsx";
-import "../../styles/Universal/NavBar.css";
 
 function NavBar() {
   const location = useLocation();
@@ -102,8 +103,13 @@ function NavBar() {
 
         <div className="navbar-right-side-content">
           <div className="search-bar-container">
-            <SearchBar />
+            <SearchBar mode="user" />
           </div>
+            <div className="login-logo-container">
+            <Link to="/Login">
+                    <img src={loginIcon} alt="Login Button" className="login-icon" />
+            </Link>
+            </div>
         </div>
       </div>
     </div>

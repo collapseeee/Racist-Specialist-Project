@@ -104,7 +104,7 @@ function SearchResult() {
               <th>Team Name</th>
               <th>Sponsor</th>
               <th>Country</th>
-              <th>Motorsport Type</th>
+              <th>Win Count</th>
             </tr>
           </thead>
           <tbody>
@@ -120,7 +120,7 @@ function SearchResult() {
                 </td>
                 <td>{team.sponsor}</td>
                 <td>{team.country}</td>
-                <td>{team.motorsport_type}</td>
+                <td>{team.win_count}</td>
               </tr>
             ))}
           </tbody>
