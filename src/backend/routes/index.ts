@@ -110,16 +110,6 @@ router.get('/tournament/team:id', async (req, res) => {
     });
 });
 
-
-router.get('/tournament/person:id', async (req, res) => {
-    const personId: string = req.params.id.replace(':', '');
-    const id: number = Number(personId);
-
-    const data = await getTournamentByPersonId(id);
-    res.send({
-        data
-    });
-});
 //////////////////////////////////////////////          TEAM
 
 router.get('/team', async (req, res) => {
