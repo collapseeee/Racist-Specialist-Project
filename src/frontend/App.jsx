@@ -19,11 +19,18 @@ import StaffDetail from "./component/Person/StaffDetail.jsx";
 import RacerList from "./component/Person/RacerList.jsx";
 import RacerDetail from "./component/Person/RacerDetail.jsx";
 import RacerListByMotorsport from "./component/Person/RacerListByMotorsport.jsx";
+import LoginPage from "./component/Admin/LoginPage";
+import Dashboard from "./component/Admin/Dashboard";
 
 import logo from "./public/motoropedia-logo.png";
 import motorsportData from "./data/motorsportData.js";
 import racerPlaceholderImage from "./public/racer-placeholder.jpg";
 import staffPlaceholderImage from "./public/staff-placeholder.png";
+
+function ProtectedRoute({ element }) {
+    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+    return isAuthenticated ? element : <LoginPage />;
+}
 
 function App() {
   const HomeLayout = () => (
@@ -85,6 +92,9 @@ function App() {
         <Route path="/Tournaments/:tournamentId" element={<TournamentDetail />} />
         <Route path="/Teams/:teamId" element={<TeamDetail />} />
         <Route path="/Cars/:carId" element={<CarDetail />} />
+
+          <Route path="/Login" element={<LoginPage />} />
+          <Route path="/Admin/Dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
       </Routes>
     </Router>
   );
