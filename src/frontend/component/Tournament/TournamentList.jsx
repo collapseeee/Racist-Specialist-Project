@@ -129,7 +129,7 @@ function TournamentList() {
                 <tr key={tournament.tournament_id}>
                   <td>
                     <Link
-                      to={`/${motorsportId}/Tournaments/${tournament.tournament_id}`}
+                      to={`/Tournaments/${tournament.tournament_id}`}
                       className="tournament-link"
                     >
                       {tournament.tournament_name}

@@ -7,7 +7,6 @@ import motorsportData from "../../data/motorsportData.js";
 import NavBar from "../Universal/NavBar.jsx";
 import Footer from "../Universal/Footer.jsx";
 import Header from "../Universal/Header.jsx";
-import racerPlaceholderImage from "../../public/racer-placeholder.jpg";
 function RacerListByMotorsport() {
   const { motorsportId } = useParams();
   const data = motorsportData[motorsportId];
@@ -27,7 +26,7 @@ function RacerListByMotorsport() {
       if (a[key] > b[key]) return sortConfig.direction === "asc" ? 1 : -1;
       return 0;
     })
-    setTeams(sorted);
+    setRacers(sorted);
   }
 
   const handleGetData = async () => {

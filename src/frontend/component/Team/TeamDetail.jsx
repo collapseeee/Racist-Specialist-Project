@@ -173,7 +173,7 @@ function TeamDetail() {
                   className="racer-card-image"
                 />
                 <Link
-                  to={`/${motorsportId}/Cars/${car.carmodel_id}`}
+                  to={`/Cars/${car.carmodel_id}`}
                   className="racer-card-link"
                 >
                   <h3 className="racer-card-name">{car.car_type}</h3>
@@ -218,7 +218,7 @@ function TeamDetail() {
                     <tr key={tournament.tournament_id}>
                         <td>
                             <Link
-                                to={`/${tournament.motorsport_id}/Tournaments/${tournament.tournament_id}`}
+                                to={`/Tournaments/${tournament.tournament_id}`}
                                 className="team-link"
                                 >
                             {tournament.tournament_name}

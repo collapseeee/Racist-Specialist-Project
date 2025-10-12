@@ -73,10 +73,10 @@ function SearchResult() {
           </thead>
           <tbody>
             {tournamentResults.map((t) => (
-              <tr key={`${t.tournament_id}-${t.motorsport_id}`}>
+              <tr key={`${t.tournament_id}`}>
                 <td>
                   <Link
-                    to={`/${t.motorsport_id}/Tournaments/${t.tournament_id}`}
+                    to={`/Tournaments/${t.tournament_id}`}
                     className="staff-link"
                   >
                     {t.tournament_name}
@@ -109,10 +109,10 @@ function SearchResult() {
           </thead>
           <tbody>
             {teamResults.map((team) => (
-              <tr key={`${team.team_id}-${team.motorsport_id}`}>
+              <tr key={`${team.team_id}`}>
                 <td>
                   <Link
-                    to={`/${team.motorsport_id}/Teams/${team.team_id}`}
+                    to={`/Teams/${team.team_id}`}
                     className="staff-link"
                   >
                     {team.team_name}
@@ -175,10 +175,10 @@ function SearchResult() {
           </thead>
           <tbody>
             {carResults.map((c) => (
-              <tr key={`${c.carmodel_id}-${c.motorsport_id}`}>
+              <tr key={`${c.carmodel_id}`}>
                 <td>
                   <Link
-                    to={`/${c.motorsport_id}/Cars/${c.carmodel_id}`}
+                    to={`/Cars/${c.carmodel_id}`}
                     className="staff-link"
                   >
                     {c.car_type}
@@ -195,7 +195,7 @@ function SearchResult() {
     },
     {
       key: "staffs",
-      title: "Person Result List",
+      title: "Staff Result List",
       data: staffResults,
       content: (
         <table className="tournament-detail-ranking-table">

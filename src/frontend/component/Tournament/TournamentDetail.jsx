@@ -6,7 +6,6 @@ import Footer from "../Universal/Footer.jsx";
 import tournamentPlaceholderImage from "../../public/tournament-placeholder.png";
 
 function TournamentDetail() {
-  const { motorsportId } = useParams();
   const { tournamentId } = useParams();
 
   const [tournamentDetail, setTournamentDetail] = useState([]);
@@ -197,7 +196,7 @@ function TournamentDetail() {
                       <td>{tournament.placement}</td>
                       <td>
                         <Link
-                          to={`/${motorsportId}/Teams/${tournament.team_id}`}
+                          to={`/Teams/${tournament.team_id}`}
                           className="team-link"
                         >
                           {tournament.team_name}

@@ -95,7 +95,7 @@ function CarList() {
                 <tr key={`${car.carmodel_id}-${car.team_id}`}>
                   <td>
                     <Link
-                      to={`/${motorsportId}/Cars/${car.carmodel_id}`}
+                      to={`/Cars/${car.carmodel_id}`}
                       className="car-link"
                     >
                       {car.car_type} ({car.carmodel_id})

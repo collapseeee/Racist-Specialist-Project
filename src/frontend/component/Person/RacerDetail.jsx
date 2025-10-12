@@ -97,7 +97,7 @@ function StaffDetail() {
 
       <div className="separator"></div>
 
-      <h2 className="team-list-title">Team List</h2>
+      <h2 className="team-list-title">Team</h2>
       <div className="team-list-container">
         <div className="team-list-container">
           {teams.length > 0 ? (
@@ -109,7 +109,13 @@ function StaffDetail() {
                     alt="Team Logo"
                     className="team-card-image"
                   />
-                  <h3 className="team-card-name">{team.team_name}</h3>
+                  <h3 className="team-card-name">
+                    <Link to={`/Teams/${team.team_id}`}
+                          className="team-card-link"
+                          >
+                      {team.team_name}
+                    </Link>
+                  </h3>
                   <div className="team-card-description">
                     <div className="team-card-description-left">
                       <p><strong>Country:</strong></p>

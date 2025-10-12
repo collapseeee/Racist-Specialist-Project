@@ -7,7 +7,6 @@ import carPlaceholderImage from "../../public/car-placeholder.png";
 import { useEffect, useState } from "react";
 
 function CarDetail() {
-    const { motorsportId } = useParams();
     const { carId } = useParams();
 
     const [carDetail, setCarDetail] = useState([]);
@@ -72,7 +71,7 @@ function CarDetail() {
                         </p>
                         <p className="car-detail-header-description-text">
                             <Link
-                                to={`/${motorsportId}/Teams/${carDetail.team_id}`}
+                                to={`/Teams/${carDetail.team_id}`}
                                 className="car-detail-team-link"
                             >
                                 {carDetail.team_name}

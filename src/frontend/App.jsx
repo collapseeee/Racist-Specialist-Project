@@ -82,9 +82,9 @@ function App() {
         <Route path="/:motorsportId/Cars" element={<CarList />} />
         <Route path="/:motorsportId/Racers" element={<RacerListByMotorsport />} />
 
-        <Route path="/:motorsportId/Tournaments/:tournamentId" element={<TournamentDetail />} />
-        <Route path="/:motorsportId/Teams/:teamId" element={<TeamDetail />} />
-        <Route path="/:motorsportId/Cars/:carId" element={<CarDetail />} />
+        <Route path="/Tournaments/:tournamentId" element={<TournamentDetail />} />
+        <Route path="/Teams/:teamId" element={<TeamDetail />} />
+        <Route path="/Cars/:carId" element={<CarDetail />} />
       </Routes>
     </Router>
   );
