@@ -13,6 +13,7 @@ function StaffDetail() {
 
   const [racerData, setRacerData] = useState([]);
   const [teams, setTeams] = useState([]);
+  const [tournaments, setTournaments] = useState([]);
 
   const handleGetData = async () => {
     try {
@@ -37,6 +38,7 @@ function StaffDetail() {
       const resultTeams = await responseTeams.json();
       console.log(resultTeams);
       setTeams(resultTeams.data);
+
     } catch (err) {
       console.error(err);
     }

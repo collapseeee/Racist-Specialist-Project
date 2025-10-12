@@ -59,7 +59,7 @@ export const getTournamentsById = async (tournament_id: number) => {
 }
 
 export const getTournamentsByTeamId = async (team_id: number) => {
-    const [rows] = await promisePool.query('SELECT tm.tournament_id, tm.tournament_name, tm.date_of_match, tm.circuit_street, tm.circuit_city, tm.circuit_state, tm.circuit_zip, tm.average_viewer_count, tm.motorsport_id, tm.caster_id, tm.referee_id FROM tournaments tm INNER JOIN tournament_participating tp ON tm.tournament_id = tp.tournament_id INNER JOIN team t ON tp.team_id = t.team_id WHERE t.team_id = ? ORDER BY tournament_name ASC',
+    const [rows] = await promisePool.query('SELECT tm.tournament_id, tm.tournament_name, tm.date_of_match, tp.placement, tp.average_laps_time, m.motorsport_type, tm.motorsport_id FROM tournaments tm INNER JOIN tournament_participating tp ON tm.tournament_id = tp.tournament_id INNER JOIN team t ON tp.team_id = t.team_id INNER JOIN motorsport m ON tm.motorsport_id = m.motorsport_id WHERE t.team_id = ? ORDER BY date_of_match DESC',
         team_id);
     return rows;
 }

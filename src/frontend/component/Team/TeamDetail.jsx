@@ -16,6 +16,7 @@ function TeamDetail() {
   const [teamDetail, setTeamDetail] = useState([]);
   const [roster, setRoster] = useState([]);
   const [cars, setCars] = useState([]);
+  const [tournaments, setTournaments] = useState([]);
 
   const handleGetData = async () => {
     try {
@@ -51,6 +52,18 @@ function TeamDetail() {
       const resultCars = await responseCars.json();
       console.log(resultCars);
       setCars(resultCars.data);
+
+      const responseTournaments = await fetch(
+          `http://localhost:3000/api/tournament/team:${teamId}`,
+          {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+          },
+      );
+      const resultTournaments = await responseTournaments.json();
+      console.log(resultTournaments);
+      setTournaments(resultTournaments.data);
+
     } catch (err) {
       console.error(err);
     }
@@ -179,6 +192,47 @@ function TeamDetail() {
           ))}
         </div>
       </div>
+
+        <div className="separator"></div>
+
+        <div className="team-detail-participated">
+            <h2 className="team-detail-participated-title">Tournament Participated</h2>
+            <table className="team-table">
+                <thead>
+                <tr>
+                <th>Tournament Name</th>
+                <th>Date of Match</th>
+                <th>Placement</th>
+                <th>Avg. Laps Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                {!tournaments || tournaments.length === 0 ? (
+                    <tr>
+                    <td colSpan="4" className="team-detail-no-tournament">
+                        No tournament participated.
+                    </td>
+                    </tr>
+                ) : (
+                    tournaments.map((tournament) => (
+                    <tr key={tournament.tournament_id}>
+                        <td>
+                            <Link
+                                to={`/${tournament.motorsport_id}/Tournaments/${tournament.tournament_id}`}
+                                className="team-link"
+                                >
+                            {tournament.tournament_name}
+                            </Link>
+                        </td>
+                        <td>{getDate(tournament.date_of_match)}</td>
+                        <td>{tournament.placement}</td>
+                        <td>{tournament.average_laps_time} seconds</td>
+                    </tr>
+                )))}
+                </tbody>
+            </table>
+        </div>
+
       <Footer />
     </>
   );
