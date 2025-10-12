@@ -14,7 +14,9 @@ import {
     getStaffById,
     getPersonById,
     getTeamByPersonId,
-    getRacerByMotorId
+    getRacerByMotorId,
+    getTournamentsByTeamId,
+    getTournamentByPersonId
 } from '../config/db'
 
 const router = Router();
@@ -97,6 +99,27 @@ router.get('/tournament/motorsport:motorId', async (req, res) => {
     });
 });
 
+router.get('/tournament/team:id', async (req, res) => {
+    const teamId: String = req.params.id.replace(':', '').trim();
+    const id: number = Number(teamId);
+
+    const data = await getTournamentsByTeamId(id);
+    console.log('GET TOURNAMENT BY TEAM ID ', id);
+    res.send({
+        data
+    });
+});
+
+
+router.get('/tournament/person:id', async (req, res) => {
+    const personId: string = req.params.id.replace(':', '');
+    const id: number = Number(personId);
+
+    const data = await getTournamentByPersonId(id);
+    res.send({
+        data
+    });
+});
 //////////////////////////////////////////////          TEAM
 
 router.get('/team', async (req, res) => {
