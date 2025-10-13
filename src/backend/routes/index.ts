@@ -16,7 +16,6 @@ import {
     getTeamByPersonId,
     getRacerByMotorId,
     getTournamentsByTeamId,
-    getTournamentByPersonId,
     deleteTournamentById,
     deleteStaffById,
     deleteRacerById,
@@ -33,7 +32,6 @@ import {
     updateTeam,
     updateStaff
 } from '../config/db'
-import { data } from 'react-router-dom';
 
 const router = Router();
 
@@ -297,13 +295,11 @@ router.get('/staff/referee', async (req, res) => {
 router.get('/search:keyword', async (req, res) => {
     const keyword = req.params.keyword.replace(':', '');
     const data = await searchData(keyword);
-
     console.log(`SEARCHING FOR ${keyword}`);
     res.send({
         data
     })
 });
-
 
 
 /////////////////////////////////////////                                   DELETE
@@ -513,6 +509,11 @@ router.put('/racer/:id', async (req, res) => {
         return res.status(409).send({ message: "Cannot update a racer." });
     }
 });
+
+router.put('/car/:id', async (req, res) => {
+    const carId = parseInt(req.params.id);
+    const { carType, engine, manufacturer, productYear } = req.body;
+})
 
 // UPDATE TOURNAMENT
 router.put('/tournament/:id', async (req, res) => {

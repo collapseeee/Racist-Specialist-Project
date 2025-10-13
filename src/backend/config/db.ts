@@ -360,6 +360,18 @@ export const updateRacer = async (id: number, firstName: string, lastName: strin
     }
 }
 
+export const updateCar = async (id: number, type: string, engine: string, manufacturer: string, year: string) => {
+    const [car] = await promisePool.query<ResultSetHeader>(`
+        UPDATE car SET car_type = ?, engine = ?, manufacturer = ?, product_year = ?
+        WHERE carmodel_id = ?`
+        , [type, engine, manufacturer, year, id]
+    );
+
+    return {
+        car: car
+    }
+}
+
 export const updateTournament = async (id: number, tournamentName: string, dateOfMatch: string, circuitStreet: string, circuitCity: string, circuitState: string, circuitZip: number, averageViewer: number, motorsportId: number, casterId: number, refereeId: number) => {
     const [tournament] = await promisePool.query<ResultSetHeader>(`
         UPDATE tournaments SET tournament_name = ?, date_of_match = ?, circuit_street = ?, circuit_city = ?, circuit_state = ?, circuit_zip = ?, average_viewer_count = ?, motorsport_id = ?, caster_id = ?, referee_id = ?
