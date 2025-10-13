@@ -105,9 +105,9 @@ function NavBar() {
           <div className="search-bar-container">
             <SearchBar mode="user" />
           </div>
-            <div className="login-logo-container">
+            <div className="login-logo-container-navbar">
             <Link to="/Login">
-                    <img src={loginIcon} alt="Login Button" className="login-icon" />
+                    <img src={loginIcon} alt="Login Button" className="login-icon-navbar" />
             </Link>
             </div>
         </div>

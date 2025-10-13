@@ -26,7 +26,39 @@
     margin: 2vh 0;
 }
 
-.dashboard-toggle-buttons button {
+.add-button {
+    background-color: #1e3e0a;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 1vh 2vw;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.add-button:hover {
+    background-color: #356a13;
+    transform: scale(1.05);
+}
+
+.remove-button {
+    background-color: #501515;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 1vh 2vw;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.remove-button:hover {
+    background-color: #9a2b2b;
+    transform: scale(1.05);
+}
+
+.edit-button {
     background-color: #002a55;
     border: none;
     color: white;
@@ -37,8 +69,9 @@
     transition: all 0.2s ease-in-out;
 }
 
-.dashboard-toggle-buttons button:hover {
-    background-color: #035cb5;
+.edit-button:hover {
+    background-color: #0057a6;
+    transform: scale(1.05);
 }
 
 .dashboard-toggle-buttons .active {

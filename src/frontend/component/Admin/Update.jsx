@@ -1,10 +1,12 @@
 /* Update.jsx */
 import "../../styles/Admin/RemoveUpdate.css";
-import { useState } from "react";
-import SearchBar from "../Universal/SearchBar.jsx";
 import {Link} from "react-router-dom";
+import { useState } from "react";
 
-function Remove() {
+import SearchBar from "../Universal/SearchBar.jsx";
+import UpdateModal from "../Admin/UpdateModal.jsx";
+
+function Update() {
     const [query, setQuery] = useState([]);
 
     const [tournamentResults, setTournamentResults] = useState([]);
@@ -15,8 +17,26 @@ function Remove() {
 
     const [openSection, setOpenSection] = useState(null);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedEndpoint, setSelectedEndpoint] = useState("");
+    const [selectedData, setSelectedData] = useState({});
+    const [selectedId, setSelectedId] = useState(null);
+
     const toggleSection = (section) => {
         setOpenSection(openSection === section ? null : section);
+    };
+
+    const openUpdateModal = (endpoint, data) => {
+        console.log("Raw data received:", data);
+        setSelectedEndpoint(endpoint);
+        setSelectedData(data);
+        setSelectedId(
+            data.carmodel_id ||
+            data.tournament_id ||
+            data.team_id ||
+            data.person_id
+        );
+        setIsModalOpen(true);
     };
 
     const handleSearch = async (searchTerm) => {
@@ -35,98 +55,81 @@ function Remove() {
         }
     };
 
-    const handleUpdate = async (endpoint, id) => {
-        if (!confirm(`Are you sure you want to update ID: ${id}?`)) return;
+    const handleSubmitUpdate = async (endpoint, updateFields) => {
+        if (!confirm(`Are you sure you want to update this?`)) return;
 
-        let updateFields = {};
+        const formattedData = {};
 
-        switch (endpoint) {
-            case "racer":
-                updateFields = {
-                    firstName: prompt("Enter new First Name (leave blank to keep current):") || null,
-                    lastName: prompt("Enter new Last Name (leave blank to keep current):") || null,
-                    status: prompt("Enter new Status `Active/Retire` (leave blank to keep current):") || null,
-                    dateOfBirth: prompt("Enter new Date of Birth (YYYY-MM-DD, leave blank to keep current):") || null,
-                    nationality: prompt("Enter new Nationality (leave blank to keep current):") || null,
-                    license: prompt("Enter new Racer License `must not exist` (leave blank to keep current):") || null,
-                };
-                break;
+        Object.entries(updateFields).forEach(([key, value]) => {
+            if (value !== "") {
+                switch (key) {
+                    // Person
+                    case "first_name": formattedData.firstName = value; break;
+                    case "last_name": formattedData.lastName = value; break;
+                    case "date_of_birth": formattedData.dateOfBirth = value; break;
+                    case "nationality": formattedData.nationality = value; break;
+                    case "status": formattedData.status = value; break;
 
-            case "team":
-                updateFields = {
-                    name: prompt("Enter new Team Name (leave blank to keep current):") || null,
-                    sponsor: prompt("Enter new Sponsor (leave blank to keep current):") || null,
-                    country: prompt("Enter new Country (leave blank to keep current):") || null,
-                    totalWin: prompt("Enter new Total Win (leave blank to keep current):") || null,
-                };
-                break;
+                    // Staff
+                    case "referee_license": formattedData.refereeLicense = value; break;
+                    case "years_experience": formattedData.yearsExperience = value; break;
+                    case "language": formattedData.language = value; break;
+                    case "staff_type": formattedData.staffType = value; break;
 
-            case "tournament":
-                updateFields = {
-                    tournamentName: prompt("Enter new Tournament Name (leave blank to keep current):") || null,
-                    dateOfMatch: prompt("Enter new Date (YYYY-MM-DD, leave blank to keep current):") || null,
-                    street: prompt("Enter new Circuit Street (leave blank to keep current):") || null,
-                    city: prompt("Enter new Circuit City (leave blank to keep current):") || null,
-                    state: prompt("Enter new Circuit State (leave blank to keep current):") || null,
-                    motorId: prompt("Enter new Motorsport ID (leave blank to keep current):") || null,
-                    casterId: prompt("Enter new Caster ID (leave blank to keep current):") || null,
-                    refereeId: prompt("Enter new Referee ID (leave blank to keep current):") || null,
-                };
-                break;
+                    // Racer
+                    case "racer_license": formattedData.license = value; break;
 
-            case "referee":
-                endpoint = "staff";
-                updateFields = {
-                    firstName: prompt("Enter new First Name (leave blank to keep current):") || null,
-                    lastName: prompt("Enter new Last Name (leave blank to keep current):") || null,
-                    status: prompt("Enter new Status `Active/Retire` (leave blank to keep current):") || null,
-                    dateOfBirth: prompt("Enter new Date of Birth (YYYY-MM-DD, leave blank to keep current):") || null,
-                    nationality: prompt("Enter new Nationality (leave blank to keep current):") || null,
-                    yearsExperience: prompt("Enter new Years Experience (leave blank to keep current):") || null,
-                    refereeLicense: prompt("Enter new Referee License (leave blank to keep current):") || null,
-                };
-                break;
+                    // Team
+                    case "team_name": formattedData.name = value; break;
+                    case "sponsor": formattedData.sponsor = value; break;
+                    case "country": formattedData.country = value; break;
+                    case "win_count": formattedData.totalWin = value; break;
 
-            case "caster":
-                endpoint = "staff";
-                updateFields = {
-                    firstName: prompt("Enter new First Name (leave blank to keep current):") || null,
-                    lastName: prompt("Enter new Last Name (leave blank to keep current):") || null,
-                    status: prompt("Enter new Status `Active/Retire` (leave blank to keep current):") || null,
-                    dateOfBirth: prompt("Enter new Date of Birth (YYYY-MM-DD, leave blank to keep current):") || null,
-                    nationality: prompt("Enter new Nationality (leave blank to keep current):") || null,
-                    yearsExperience: prompt("Enter new Years Experience (leave blank to keep current):") || null,
-                    language: prompt("Enter new Language (leave blank to keep current):") || null,
-                };
-                break;
+                    //Tournament
+                    case "tournament_name": formattedData.tournamentName = value; break;
+                    case "date_of_match": formattedData.dateOfMatch = value; break;
+                    case "circuit_street": formattedData.street = value; break;
+                    case "circuit_city": formattedData.city = value; break;
+                    case "circuit_state": formattedData.state = value; break;
+                    case "circuit_zip": formattedData.zip = value; break;
+                    case "average_viewer_count": formattedData.viewerCount = value; break;
+                    case "motorsport_id": formattedData.motorId = value; break;
+                    case "referee_id": formattedData.refereeId = value; break;
+                    case "caster_id": formattedData.casterId = value; break;
 
-            default:
-                alert("Unknown update type!");
-                return;
-        }
+                    // Car
+                    case "car_type": formattedData.carType = value; break;
+                    case "engine": formattedData.engine = value; break;
+                    case "manufacturer": formattedData.manufacturer = value; break;
+                    case "product_year": formattedData.productYear  = value; break;
 
-        // Remove nulls so backend only receives provided fields
-        Object.keys(updateFields).forEach(
-            (key) => updateFields[key] === null && delete updateFields[key]
-        );
+                    default:
+                        formattedData[key] = value;
+                }
+            }
+        });
+
+        const apiEndpoint = endpoint === "referee" || endpoint === "caster" ? "staff" : endpoint;
+        console.log("Endpoint: " + apiEndpoint + ", ID: " + selectedId);
 
         try {
-            const response = await fetch(`http://localhost:3000/api/${endpoint}/${id}`, {
+            const response = await fetch(`http://localhost:3000/api/${apiEndpoint}/${selectedId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(updateFields),
+                body: JSON.stringify(formattedData),
             });
 
             if (response.ok) {
-                alert(`Successfully updated ${endpoint} ID ${id}`);
+                alert("Successfully updated!");
                 window.location.reload();
             } else {
-                const errMsg = await response.text();
-                alert(`Update failed: ${response.status}\n${errMsg}`);
+                alert(`Failed: ${response.status}`);
             }
         } catch (err) {
             console.error(err);
             alert("Error occurred during update.");
+        } finally {
+            setIsModalOpen(false);
         }
     };
 
@@ -151,7 +154,7 @@ function Remove() {
                     {tournamentResults.map((t) => (
                         <tr key={`${t.tournament_id}`}>
                             <td className="remove-td">
-                                <button className="update-button" onClick={() => handleUpdate("tournament", t.tournament_id)}>
+                                <button className="update-button" onClick={() => openUpdateModal("tournament", t)}>
                                     Edit
                                 </button>
                             </td>
@@ -193,7 +196,7 @@ function Remove() {
                     {teamResults.map((team) => (
                         <tr key={`${team.team_id}`}>
                             <td className="remove-td">
-                                <button className="update-button" onClick={() => handleUpdate("team", team.team_id)}>
+                                <button className="update-button" onClick={() => openUpdateModal("team", team)}>
                                     Edit
                                 </button>
                             </td>
@@ -232,7 +235,7 @@ function Remove() {
                     {racerResults.map((r) => (
                         <tr key={`${r.person_id}`}>
                             <td className="remove-td">
-                                <button className="update-button" onClick={() => handleUpdate("racer", r.person_id)}>
+                                <button className="update-button" onClick={() => openUpdateModal("racer", r)}>
                                     Edit
                                 </button>
                             </td>
@@ -264,14 +267,13 @@ function Remove() {
                         <th>Car Type</th>
                         <th>Engine</th>
                         <th>Manufacturer</th>
-                        <th>Motorsport Type</th>
                     </tr>
                     </thead>
                     <tbody>
                     {carResults.map((c) => (
                         <tr key={`${c.carmodel_id}`}>
                             <td className="remove-td">
-                                <button className="update-button" onClick={() => handleUpdate("car", c.carmodel_id)}>
+                                <button className="update-button" onClick={() => openUpdateModal("car", c)}>
                                     Edit
                                 </button>
                             </td>
@@ -285,7 +287,6 @@ function Remove() {
                             </td>
                             <td>{c.engine}</td>
                             <td>{c.manufacturer}</td>
-                            <td>{c.motorsport_type}</td>
                         </tr>
                     ))}
                     </tbody>
@@ -311,7 +312,7 @@ function Remove() {
                         <tr key={s.person_id}>
                             <td className="remove-td">
                                 <button className="update-button" onClick={() =>
-                                    (handleUpdate((s.staff_type.toLowerCase() === "referee") ? ("referee") : ("caster"), s.person_id))}>
+                                    (openUpdateModal((s.staff_type.toLowerCase() === "referee") ? ("referee") : ("caster"), s))}>
                                     Edit
                                 </button>
                             </td>
@@ -387,8 +388,15 @@ function Remove() {
                     );
                 })}
             </div>
+            <UpdateModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                endpoint={selectedEndpoint}
+                onSubmit={handleSubmitUpdate}
+                currentData={selectedData}
+            />
         </>
     );
 }
 
-export default Remove;
+export default Update;

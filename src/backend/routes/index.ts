@@ -30,7 +30,7 @@ import {
     updateTournament,
     addTeam,
     updateTeam,
-    updateStaff
+    updateStaff, updateCar
 } from '../config/db'
 
 const router = Router();
@@ -513,6 +513,14 @@ router.put('/racer/:id', async (req, res) => {
 router.put('/car/:id', async (req, res) => {
     const carId = parseInt(req.params.id);
     const { carType, engine, manufacturer, productYear } = req.body;
+    try {
+        const result = await updateCar(carId, carType, engine, manufacturer, productYear);
+        console.log(result);
+        return res.status(200).send({ message: `Successfully updated car model ID ${carId}.` })
+    } catch (err) {
+        console.log(err);
+        return res.status(409).send({ message: "Cannot update a car." });
+    }
 })
 
 // UPDATE TOURNAMENT

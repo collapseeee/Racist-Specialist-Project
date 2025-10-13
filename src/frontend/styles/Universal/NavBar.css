@@ -154,13 +154,13 @@
     transform: translateX(-2px);
 }
 
-.login-logo-container {
+.login-logo-container-navbar {
     padding-left: 2vw;
     width: 4vw;
     height: 4vw;
 }
 
-.login-icon {
+.login-icon-navbar {
     background-color: #f9f9f9;
     border-radius: 50%;
     width: 100%;

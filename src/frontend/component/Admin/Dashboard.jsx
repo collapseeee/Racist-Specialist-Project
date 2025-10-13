@@ -14,7 +14,7 @@ function Dashboard() {
                 return <Add />;
             case "remove":
                 return <Remove />;
-            case "update":
+            case "edit":
                 return <Update />;
             default:
                 return null;
@@ -30,22 +30,22 @@ function Dashboard() {
 
                 <div className="dashboard-toggle-buttons">
                     <button
-                        className={activeTab === "add" ? "active" : ""}
+                        className="add-button"
                         onClick={() => setActiveTab("add")}
                     >
-                        Add Data
+                        Add
                     </button>
                     <button
-                        className={activeTab === "remove" ? "active" : ""}
+                        className="remove-button"
                         onClick={() => setActiveTab("remove")}
                     >
-                        Remove Data
+                        Remove
                     </button>
                     <button
-                        className={activeTab === "update" ? "active" : ""}
-                        onClick={() => setActiveTab("update")}
+                        className="edit-button"
+                        onClick={() => setActiveTab("edit")}
                     >
-                        Update Data
+                        Edit
                     </button>
                 </div>
 

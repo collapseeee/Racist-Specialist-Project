@@ -64,13 +64,6 @@ export const getTournamentsByTeamId = async (team_id: number) => {
     return rows;
 }
 
-export const getTournamentByPersonId = async (person_id: number) => {
-    const [rows] = await promisePool.query('SELECT tm.tournament_id, tm.tournament_name, tm.date_of_match, tm.circuit_street, tm.circuit_city, tm.circuit_state, tm.circuit_zip, tm.average_viewer_count, tm.motorsport_id, tm.caster_id, tm.referee_id FROM tournaments tm INNER JOIN tournament_participating tp ON tm.tournament_id = tp.tournament_id INNER JOIN team_roster tr ON tp.team_id = tr.team_id WHERE tr.person_id = ? OR tm.caster_id = ? OR tm.referee_id = ? ORDER BY tm.tournament_name ASC'
-        , person_id
-    );
-    return rows;
-}
-
 export const getTournamentsByMotorId = async (motorsport_id: number) => {
     const [rows] = await promisePool.query('SELECT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, t.average_viewer_count, t.caster_id, t.referee_id, t.motorsport_id FROM tournaments t WHERE t.motorsport_id = ?',
         motorsport_id);
@@ -162,7 +155,7 @@ export const searchData = async (keyword: string) => {
     const yearsKeyword: number = parseInt(keyword, 10) || 0;
     const [[carRows], [racerRows], [teamRows], [tournamentRows], staffRows] = await Promise.all([
         promisePool.query(`
-            SELECT DISTINCT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year, t.team_name FROM car c
+            SELECT DISTINCT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year, t.team_id, t.team_name FROM car c
             INNER JOIN team t ON c.team_id = t.team_id
             WHERE c.car_type LIKE ? OR c.engine
             LIKE ? OR c.manufacturer LIKE ?
@@ -170,7 +163,7 @@ export const searchData = async (keyword: string) => {
             ORDER BY c.car_type ASC`, [likeKeyword, likeKeyword, likeKeyword, yearsKeyword]
         ),
         promisePool.query(`
-            SELECT DISTINCT p.person_id, p.first_name, p.last_name, p.status, r.racer_license FROM person p
+            SELECT DISTINCT p.person_id, p.first_name, p.last_name, p.status, r.racer_license, p.date_of_birth, p.nationality FROM person p
             INNER JOIN racer r ON p.person_id = r.person_id
             WHERE (CONCAT(p.first_name, ' ', p.last_name) LIKE ?)
             ORDER BY p.first_name ASC;`, likeKeyword),
@@ -179,12 +172,12 @@ export const searchData = async (keyword: string) => {
             WHERE t.team_name LIKE ?
             ORDER BY t.team_name ASC`, likeKeyword),
         promisePool.query(`
-            SELECT DISTINCT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, m.motorsport_type, m.motorsport_id FROM tournaments t
+            SELECT DISTINCT t.tournament_id, t.tournament_name, t.date_of_match, t.average_viewer_count, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, m.motorsport_type, m.motorsport_id, t.referee_id, t.caster_id FROM tournaments t
             INNER JOIN motorsport m ON m.motorsport_id = t.motorsport_id
             WHERE tournament_name LIKE ? OR circuit_state LIKE ?
             ORDER BY t.tournament_name ASC`, [likeKeyword, likeKeyword]),
         promisePool.query(`
-            SELECT p.person_id, p.first_name, p.last_name, s.staff_type, s.years_experience FROM person p
+            SELECT p.person_id, p.first_name, p.last_name, p.date_of_birth, p.nationality, s.staff_type, s.years_experience, p.status, s.referee_license, s.language FROM person p
             INNER JOIN staff s ON p.person_id = s.person_id
             WHERE (CONCAT(p.first_name, ' ', p.last_name)) LIKE ?
             ORDER BY p.first_name ASC`, likeKeyword)
