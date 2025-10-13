@@ -471,9 +471,11 @@ router.post('/staff', async (req, res) => {
     const { firstName, lastName, status, dateOfBirth, nationality, yearsExperience, staffType, license, language } = req.body;
     try {
         let result;
-        if (staffType === 'referee') {
+        let type: string = staffType;
+        type = type.charAt(0).toUpperCase() + type.substring(1, type.length - 1).toLowerCase();
+        if (type === 'Referee') {
             result = await addStaffReferee(firstName, lastName, status, dateOfBirth, nationality, yearsExperience, license);
-        } else if (staffType === 'caster') {
+        } else if (type === 'Caster') {
             result = await addStaffCaster(firstName, lastName, status, dateOfBirth, nationality, yearsExperience, language);
         } else {
             return res.status(400).send({ message: "Invalid staffType provided. Must be 'Referee' or 'Caster'." });
@@ -504,6 +506,7 @@ router.put('/racer/:id', async (req, res) => {
     const { firstName, lastName, status, dateOfBirth, nationality, license } = req.body;
     try {
         const result = await updateRacer(racerId, firstName, lastName, status, dateOfBirth, nationality, license);
+        console.log(result);
         return res.status(200).send({ message: `Successfully updated racer ID ${racerId}.` });
     } catch (err) {
         console.log(err);
@@ -517,6 +520,7 @@ router.put('/tournament/:id', async (req, res) => {
     const { tournamentName, dateOfMatch, street, city, state, zip, viewerCount, motorId, casterId, refereeId } = req.body;
     try {
         const result = await updateTournament(tournamentId, tournamentName, dateOfMatch, street, city, state, zip, viewerCount, motorId, casterId, refereeId);
+        console.log(result);
         return res.status(200).send({ message: `Successfully updated tournament ID ${tournamentId}.` });
     } catch (err) {
         console.log(err);
@@ -526,10 +530,12 @@ router.put('/tournament/:id', async (req, res) => {
 
 // UPDATE TEAM
 router.put('/team/:id', async (req, res) => {
-    const teamId = parseInt(req.params.id);
+    const teamId: number = parseInt(req.params.id);
+
     const { name, sponsor, country, totalWin } = req.body;
     try {
         const result = await updateTeam(teamId, name, sponsor, country, totalWin);
+        console.log(result);
         return res.status(200).send({ message: `Successfully updated team ID ${teamId}.` });
     } catch (err) {
         console.log(err);
@@ -539,14 +545,16 @@ router.put('/team/:id', async (req, res) => {
 
 // UPDATE STAFF
 router.put('/staff/:id', async (req, res) => {
-    const staffId = parseInt(req.params.id);
+    const staffId: number = parseInt(req.params.id);
     const { firstName, lastName, status, dateOfBirth, nationality, yearsExperience, staffType, refereeLicense, language } = req.body;
     try {
         const result = await updateStaff(staffId, firstName, lastName, status, dateOfBirth, nationality, yearsExperience, staffType, refereeLicense, language);
+        console.log(result);
         return res.status(200).send({ message: `Successfully updated staff ID ${staffId}.` });
     } catch (err) {
         console.log(err);
         return res.status(409).send({ message: "Cannot update a staff member." });
     }
 });
+
 export default router;
