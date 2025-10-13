@@ -26,7 +26,12 @@ import {
     addTournament,
     addStaffReferee,
     addStaffCaster,
-    addCar
+    addCar,
+    updateRacer,
+    updateTournament,
+    addTeam,
+    updateTeam,
+    updateStaff
 } from '../config/db'
 import { data } from 'react-router-dom';
 
@@ -453,6 +458,25 @@ router.post('/add/tournament/:name/:date/:street/:city/:state/:zip/:viewerNum/:m
     }
 });
 
+// ADD TEAM
+router.post('/add/team/:name/:sponsor/:country/:totalWin', async (req, res) => {
+    const data = {
+        name: req.params.name,
+        sponsor: req.params.sponsor,
+        country: req.params.country,
+        totalWin: parseInt(req.params.totalWin)
+    }
+
+    try {
+        const result = await addTeam(data.name, data.sponsor, data.country, data.totalWin);
+        console.log(result);
+        return res.status(201).send({ message: `Successfully added ${data.name} ${data.country}` });
+    } catch (err) {
+        console.log(err);
+        return res.status(409).send({ message: "Cannot add a team." });
+    }
+});
+
 // ADD REFEREE
 router.post('/add/staff/referee/:firstName/:lastName/:status/:dateOfBirth/:nationality/:yearsExperience/:refereeLicense', async (req, res) => {
     const data = {
@@ -511,5 +535,83 @@ router.post('/add/car/:carType/:engine/:manufacturer/:year', async (req, res) =>
         console.log(err);
         return res.status(409).send({ message: "Cannot add a car" });
     }
-})
+});
+
+//////////////////////////////////////////////////////////////////////                  UPDATE
+router.put('/update/racer/:racerId/:firstName/:lastName/:status/:dateOfBirth/:nationality/:racerLicense', async (req, res) => {
+    const data = {
+        racerId: parseInt(req.params.racerId),
+        firstName: req.params.firstName,
+        lastName: req.params.lastName,
+        status: req.params.status,
+        dateOfBirth: req.params.dateOfBirth,
+        nationality: req.params.nationality,
+        license: parseInt(req.params.racerLicense)
+    }
+    try {
+        const result = await updateRacer(data.racerId, data.firstName, data.lastName, data.status, data.dateOfBirth, data.nationality, data.license);
+        console.log(result);
+        return res.status(204).send({ message: `Successfully updated ${data.racerId}, ${data.firstName}, ${data.lastName}.` });
+    } catch (err) {
+        console.log(err);
+        return res.status(409).send({ message: "Cannot update a racer." });
+    }
+});
+
+router.put('/update/tournament/:tournamentId/:name/:date/:street/:city/:state/:zip/:viewerNum/:motorId/:casterId/:refereeId', async (req, res) => {
+    const data = {
+        tournamentId: parseInt(req.params.tournamentId),
+        tournamentName: req.params.name,
+        dateOfMatch: req.params.date,
+        street: req.params.street,
+        city: req.params.city,
+        state: req.params.state,
+        zip: parseInt(req.params.zip),
+        viewerCount: parseInt(req.params.viewerNum),
+        motorId: parseInt(req.params.motorId),
+        casterId: parseInt(req.params.casterId),
+        refereeId: parseInt(req.params.refereeId)
+    };
+
+    try {
+        const result = await updateTournament(data.tournamentId, data.tournamentName, data.dateOfMatch, data.street, data.city, data.state, data.zip, data.viewerCount, data.motorId, data.casterId, data.refereeId);
+        console.log(result);
+        return res.status(204).send({ message: `Successfully updated ${data.tournamentId}, ${data.tournamentName}.` });
+    } catch (err) {
+        console.log(err);
+        return res.status(409).send({ message: "Cannot update a tournament." });
+    }
+});
+
+router.put('/update/team/:teamId/:name/:sponsor/:country/:totalWin', async (req, res) => {
+    const data = {
+        teamId: parseInt(req.params.teamId),
+        name: req.params.name,
+        sponsor: req.params.sponsor,
+        country: req.params.country,
+        totalWin: parseInt(req.params.totalWin)
+    }
+    try {
+        const result = await updateTeam(data.teamId, data.name, data.sponsor, data.country, data.totalWin);
+        console.log(result);
+        return res.status(204).send({ message: `Successfully updated ${data.name}, ${data.country}.` });
+    } catch (err) {
+        console.log(err);
+        return res.status(409).send({ message: "Cannot update a team." })
+
+    }
+});
+
+router.put('/update/staff/:id/:firstName/:lastName/:status/:dateOfBirth/:nationality/:yearsExperience/:staffType/:refereeLicense/:language', async (req, res) => {
+    const id: number = parseInt(req.params.id);
+    const { firstName, lastName, status, dateOfBirth, nationality, yearsExperience, staffType, refereeLicense, language } = req.params;
+    try {
+        const result = await updateStaff(id, firstName, lastName, status, dateOfBirth, nationality, parseInt(yearsExperience), staffType, refereeLicense, language);
+        console.log(result);
+        return res.status(204).send({ message: `Successfully updated ${firstName}, ${lastName}.` });
+    } catch (err) {
+        console.log(err);
+        return res.status(409).send({ message: "Cannot update a staff." })
+    }
+});
 export default router;

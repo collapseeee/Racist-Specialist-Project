@@ -200,7 +200,7 @@ export const searchData = async (keyword: string) => {
 }
 
 
-///////////////////////////////         DELETE ROW QUERIES
+///////////////////////////////         DELETE ROW QUERIES (DELETE method)
 
 export const deleteTournamentById = async (id: number) => {
     const [result] = await promisePool.query<ResultSetHeader>(`
@@ -231,7 +231,7 @@ export const deleteRacerById = async (id: number) => {
     return result;
 }
 
-/////////////////////////////////////////       ADD ROWS QUERIES
+/////////////////////////////////////////       ADD ROWS QUERIES (POST method)
 
 export const addRacer = async (firstName: string, lastName: string, status: string, dateOfBirth: string, nationality: string, racerLicense: number) => {
     const [person] = await promisePool.query<ResultSetHeader>(`
@@ -339,4 +339,67 @@ export const addCar = async (type: string, engine: string, manufacturer: string,
     };
 }
 
+////////////////////////////////////////////////            UPDATE (PUT method)
+
+export const updateRacer = async (id: number, firstName: string, lastName: string, status: string, dateOfBirth: string, nationality: string, racerLicense: number) => {
+    const [person] = await promisePool.query<ResultSetHeader>(`
+        UPDATE person SET first_name = ?, last_name = ?, status = ?, date_of_birth = ?, nationality = ?
+        WHERE person_id = ?
+        `, [firstName, lastName, status, dateOfBirth, nationality, id]
+    );
+
+    const [racer] = await promisePool.query<ResultSetHeader>(`
+        UPDATE racer SET racer_license = ?
+        WHERE person_id = ?;
+        `, [racerLicense, id]
+    );
+
+    return {
+        person: person,
+        racer: racer
+    }
+}
+
+export const updateTournament = async (id: number, tournamentName: string, dateOfMatch: string, circuitStreet: string, circuitCity: string, circuitState: string, circuitZip: number, averageViewer: number, motorsportId: number, casterId: number, refereeId: number) => {
+    const [tournament] = await promisePool.query<ResultSetHeader>(`
+        UPDATE tournaments SET tournament_name = ?, date_of_match = ?, circuit_street = ?, circuit_city = ?, circuit_state = ?, circuit_zip = ?, average_viewer_count = ?, motorsport_id = ?, caster_id = ?, referee_id = ?
+        WHERE tournament_id = ?;
+        `, [tournamentName, dateOfMatch, circuitStreet, circuitCity, circuitState, circuitZip, averageViewer, motorsportId, casterId, refereeId, id]
+    );
+
+    return {
+        tournament: tournament
+    }
+}
+
+export const updateTeam = async (id: number, teamName: string, sponsor: string, country: string, totalWin: number) => {
+    const [team] = await promisePool.query<ResultSetHeader>(`
+        UPDATE team SET team_name = ?, sponsor = ?, country = ?, win_count = ?
+        WHERE team_id = ?;
+        `, [teamName, sponsor, country, totalWin, id]
+    );
+
+    return {
+        team: team
+    }
+}
+
+export const updateStaff = async (id: number, firstName: string, lastName: string, status: string, dateOfBirth: string, nationality: string, yearsExperience: number, staffType: string, refereeLicense: string, lang: string) => {
+    const [person] = await promisePool.query<ResultSetHeader>(`
+        UPDATE person SET first_name = ?, last_name = ?, status = ?, date_of_birth = ?, nationality = ?
+        WHERE person_id = ?
+        `, [firstName, lastName, status, dateOfBirth, nationality, id]
+    );
+
+    const [staff] = await promisePool.query<ResultSetHeader>(`
+        UPDATE staff SET years_experience = ?, staff_type = ?, referee_license = ?, language = ?
+        WHERE person_id = ?
+        `, [yearsExperience, staffType, refereeLicense, lang, id]
+    );
+
+    return {
+        person: person,
+        staff: staff
+    }
+}
 export default promisePool;
