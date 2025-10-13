@@ -249,7 +249,7 @@ export const addRacer = async (firstName: string, lastName: string, status: stri
 
 export const addTournament = async (tournamentName: string, dateOfMatch: string, circuitStreet: string, circuitCity: string, circuitState: string, circuitZip: number, averageViewer: number, motorsportId: number, casterId: number, refereeId: number) => {
     const [tournament] = await promisePool.query<ResultSetHeader>(`
-            INSERT INTO person (tournament_name, date_of_match, circuit_street, circuit_city, circuit_state, circuit_zip, average_viewer_count, motorsport_id, caster_id, referee_id)
+            INSERT INTO tournaments (tournament_name, date_of_match, circuit_street, circuit_city, circuit_state, circuit_zip, average_viewer_count, motorsport_id, caster_id, referee_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         `, [tournamentName, dateOfMatch, circuitStreet, circuitCity, circuitState, circuitZip, averageViewer, motorsportId, casterId, refereeId]
     );

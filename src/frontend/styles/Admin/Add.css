@@ -1,0 +1,76 @@
+.add-container {
+    padding: 40px;
+    text-align: center;
+}
+
+.add-header {
+    margin-bottom: 20px;
+}
+
+.toggle-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+    font-size: 2vh;
+}
+
+.toggle-btn {
+    padding: 1.2vh 4vh;
+    border-radius: 8px;
+    border: none;
+    background-color: #10111e;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.toggle-btn:hover {
+    background-color: #3e3e3e;
+}
+
+.toggle-btn.active {
+    background-color: #333;
+    color: #fff;
+}
+
+.admin-form {
+    margin: 20px auto;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+}
+
+.admin-form h2 {
+    text-align: center;
+    font-size: 1.5vw;
+}
+
+.admin-form input {
+    font-size: 1.5vh;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+}
+
+.submit-btn {
+    background-color: #1e3e0a;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #111;
+}
+
+.instruction-text {
+    margin-top: 40px;
+    color: #fb6b6b;
+    font-size: 2vh;
+}

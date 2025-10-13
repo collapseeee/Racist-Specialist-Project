@@ -468,7 +468,7 @@ router.post('/staff', async (req, res) => {
     try {
         let result;
         let type: string = staffType;
-        type = type.charAt(0).toUpperCase() + type.substring(1, type.length - 1).toLowerCase();
+        type = type.charAt(0).toUpperCase() + type.substring(1, type.length).toLowerCase();
         if (type === 'Referee') {
             result = await addStaffReferee(firstName, lastName, status, dateOfBirth, nationality, yearsExperience, license);
         } else if (type === 'Caster') {
