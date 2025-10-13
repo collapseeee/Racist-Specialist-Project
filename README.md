@@ -122,24 +122,55 @@ A login authentication system will be added in the next phase, allowing administ
 ## Project Structure
 
 ```
-📦 Motoropedia-Project
-├─ dist
-├─ dataset
-│  ├─ motoropedia_data.sql
-│  └─ motoropedia_table.sql
-├─ src
-│  ├─ backend
-│  ├─ docs
-│  └─ frontend
-├─ .gitattributes
-├─ .gitignore
-├─ README.md
-├─ eslint.config.js
-├─ index.html
-├─ package-lock.json
-├─ package.json
-├─ tsconfig.json
-└─ vite.config.js
+Motoropedia-Project/
+├── .gitattributes
+├── .gitignore
+├── dataset/
+│   ├── motoropedia_data.sql
+│   └── motoropedia_table.sql
+├── dist/
+│   ├── assets/
+│   └── index.html
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md
+├── src/
+│   ├── backend/
+│   │   ├── config/
+│   │   │   └── db.ts
+│   │   ├── routes/
+│   │   │   └── index.ts
+│   │   └── server.ts
+│   ├── docs/
+│   │   └── placeholder.txt
+│   └── frontend/
+│       ├── App.jsx
+│       ├── component/
+│       │   ├── Admin/
+│       │   ├── Car/
+│       │   ├── MotorsportInformation.jsx
+│       │   ├── Person/
+│       │   ├── Team/
+│       │   ├── Tournament/
+│       │   └── Universal/
+│       ├── data/
+│       ├── main.jsx
+│       ├── public/
+│       └── styles/
+│           ├── Admin/
+│           ├── App.css
+│           ├── Car/
+│           ├── index.css
+│           ├── MotorsportInformation.css
+│           ├── Person/
+│           ├── Team/
+│           ├── Tournament/
+│           └── Universal/
+├── tsconfig.json
+└── vite.config.js
+
 ```
 
 ## Authors
