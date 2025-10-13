@@ -1,4 +1,4 @@
-import mysql from 'mysql2';
+import mysql, { ResultSetHeader } from 'mysql2';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -203,35 +203,140 @@ export const searchData = async (keyword: string) => {
 ///////////////////////////////         DELETE ROW QUERIES
 
 export const deleteTournamentById = async (id: number) => {
-    const [result] = await promisePool.query(`
+    const [result] = await promisePool.query<ResultSetHeader>(`
         DELETE FROM tournaments t WHERE t.tournament_id = ?;`, id);
     return result;
 }
 
 export const deleteCarById = async (id: number) => {
-    const [result] = await promisePool.query(`
+    const [result] = await promisePool.query<ResultSetHeader>(`
         DELETE FROM car c WHERE c.carmodel_id = ?`, id);
     return result;
 }
 
 export const deleteTeamById = async (id: number) => {
-    const [result] = await promisePool.query(`
+    const [result] = await promisePool.query<ResultSetHeader>(`
         DELETE FROM team t WHERE t.team_id = ?`, id);
     return result;
 }
 
 export const deleteStaffById = async (id: number) => {
-    const [result] = await promisePool.query(`
+    const [result] = await promisePool.query<ResultSetHeader>(`
         DELETE FROM staff s WHERE s.person_id = ?`, id);
     return result;
 }
 export const deleteRacerById = async (id: number) => {
-    const [result] = await promisePool.query(`
+    const [result] = await promisePool.query<ResultSetHeader>(`
         DELETE FROM persono p WHERE p.person_id = ?`, id);
     return result;
 }
 
-/////////////////////////////////////////       ADD
+/////////////////////////////////////////       ADD ROWS QUERIES
 
+export const addRacer = async (firstName: string, lastName: string, status: string, dateOfBirth: string, nationality: string, racerLicense: number) => {
+    const [person] = await promisePool.query<ResultSetHeader>(`
+            INSERT INTO person (first_name, last_name, status, date_of_birth, nationality, person_type)
+            VALUES (?, ?, ?, ?, ?, ?);
+        `, [firstName, lastName, status, dateOfBirth, nationality, 'Racer']
+    );
+
+    const newPersonId = person.insertId;
+
+    await promisePool.query<ResultSetHeader>(`
+            INSERT INTO racer (person_id, racer_license)
+            VALUES (?, ?)
+        `, [newPersonId, racerLicense]
+    );
+
+    return {
+        personId: newPersonId,
+        racer: racerLicense
+    };
+}
+
+export const addTournament = async (tournamentName: string, dateOfMatch: string, circuitStreet: string, circuitCity: string, circuitState: string, circuitZip: number, averageViewer: number, motorsportId: number, casterId: number, refereeId: number) => {
+    const [tournament] = await promisePool.query<ResultSetHeader>(`
+            INSERT INTO person (tournament_name, date_of_match, circuit_street, circuit_city, circuit_state, circuit_zip, average_viewer_count, motorsport_id, caster_id, referee_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        `, [tournamentName, dateOfMatch, circuitStreet, circuitCity, circuitState, circuitZip, averageViewer, motorsportId, casterId, refereeId]
+    );
+
+    const tournamentId = tournament.insertId;
+
+    return {
+        tournamentId: tournamentId,
+        tournamentName: tournamentName
+    };
+}
+
+export const addTeam = async (teamName: string, sponsor: string, country: string, totalWin: number) => {
+    const [team] = await promisePool.query<ResultSetHeader>(`
+        INSERT INTO team (team_name, sponsor, country, win_count)
+        VALUES (?, ?, ?, ?)
+        `, [teamName, sponsor, country, totalWin]
+    );
+
+    const teamId = team.insertId;
+
+    return {
+        teamId: teamId,
+        teamtName: teamName
+    };
+}
+
+export const addStaffReferee = async (firstName: string, lastName: string, status: string, dateOfBirth: string, nationality: string, yearsExperience: number, refereeLicense: string) => {
+    const [person] = await promisePool.query<ResultSetHeader>(`
+            INSERT INTO person (first_name, last_name, status, date_of_birth, nationality, person_type)
+            VALUES (?, ?, ?, ?, ?, ?);
+        `, [firstName, lastName, status, dateOfBirth, nationality, 'Staff']
+    );
+
+    const newPersonId = person.insertId;
+
+    await promisePool.query<ResultSetHeader>(`
+            INSERT INTO staff (person_id, years_experience, staff_type, referee_license, language)
+            VALUES (?, ?, ?, ?, ?)
+        `, [newPersonId, yearsExperience, 'Referee', refereeLicense, null]
+    );
+    return {
+        personId: newPersonId,
+        refereeLicense: refereeLicense
+    };
+}
+
+export const addStaffCaster = async (firstName: string, lastName: string, status: string, dateOfBirth: string, nationality: string, yearsExperience: number, language: string) => {
+    const [person] = await promisePool.query<ResultSetHeader>(`
+            INSERT INTO person (first_name, last_name, status, date_of_birth, nationality, person_type)
+            VALUES (?, ?, ?, ?, ?, ?);
+        `, [firstName, lastName, status, dateOfBirth, nationality, 'Staff']
+    );
+
+    const newPersonId = person.insertId;
+
+    await promisePool.query<ResultSetHeader>(`
+            INSERT INTO staff (person_id, years_experience, staff_type, referee_license, language)
+            VALUES (?, ?, ?, ?, ?)
+        `, [newPersonId, yearsExperience, 'Caster', null, language]
+    );
+
+    return {
+        personId: newPersonId,
+        lang: language
+    };
+}
+
+export const addCar = async (type: string, engine: string, manufacturer: string, year: string) => {
+    const [car] = await promisePool.query<ResultSetHeader>(`
+            INSERT INTO car (car_type, engine, manufacturer, product_year)
+            VALUES (?, ?, ?, ?);
+        `, [type, engine, manufacturer, year]
+    );
+
+    const carId = car.insertId;
+
+    return {
+        carId: carId
+    };
+}
 
 export default promisePool;

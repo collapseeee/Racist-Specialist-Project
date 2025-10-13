@@ -21,7 +21,12 @@ import {
     deleteStaffById,
     deleteRacerById,
     deleteCarById,
-    deleteTeamById
+    deleteTeamById,
+    addRacer,
+    addTournament,
+    addStaffReferee,
+    addStaffCaster,
+    addCar
 } from '../config/db'
 import { data } from 'react-router-dom';
 
@@ -298,6 +303,8 @@ router.get('/search:keyword', async (req, res) => {
 
 /////////////////////////////////////////                                   DELETE
 
+
+// delete tournament
 router.delete('/delete/tournament/:id', async (req, res) => {
     const id: number = parseInt(req.params.id);
     if (isNaN(id)) {
@@ -307,6 +314,9 @@ router.delete('/delete/tournament/:id', async (req, res) => {
     try {
         const result = await deleteTournamentById(id);
         console.log(result);
+        if (result.affectedRows === 0) {
+            return res.status(404).send({ message: `Tournament not found.` })
+        }
         return res.status(200).send({ message: `Tournament successfully deleted!` })
 
     } catch (err) {
@@ -315,6 +325,7 @@ router.delete('/delete/tournament/:id', async (req, res) => {
     }
 });
 
+// delete team
 router.delete('/delete/team/:id', async (req, res) => {
     const id: number = parseInt(req.params.id);
     if (isNaN(id)) {
@@ -324,6 +335,9 @@ router.delete('/delete/team/:id', async (req, res) => {
     try {
         const result = await deleteTeamById(id);
         console.log(result);
+        if (result.affectedRows === 0) {
+            return res.status(404).send({ message: `Team not found.` })
+        }
         return res.status(200).send({ message: `Team successfully deleted!` })
 
     } catch (err) {
@@ -332,6 +346,7 @@ router.delete('/delete/team/:id', async (req, res) => {
     }
 });
 
+// delete car
 router.delete('/delete/car/:id', async (req, res) => {
     const id: number = parseInt(req.params.id);
     if (isNaN(id)) {
@@ -341,6 +356,9 @@ router.delete('/delete/car/:id', async (req, res) => {
     try {
         const result = await deleteCarById(id);
         console.log(result);
+        if (result.affectedRows === 0) {
+            return res.status(404).send({ message: `Car not found.` })
+        }
         return res.status(200).send({ message: `Car successfully deleted!` })
 
     } catch (err) {
@@ -348,15 +366,20 @@ router.delete('/delete/car/:id', async (req, res) => {
         return res.status(500).send({ message: `An error occurred while deleting the car.` })
     }
 });
+
+// delete racer
 router.delete('/delete/racer/:id', async (req, res) => {
     const id: number = parseInt(req.params.id);
     if (isNaN(id)) {
-        return res.status(400).send({ message: `Invalid carId provided.` });
+        return res.status(400).send({ message: `Invalid racerId provided.` });
     }
 
     try {
         const result = await deleteRacerById(id);
         console.log(result);
+        if (result.affectedRows === 0) {
+            return res.status(404).send({ message: `Racer not found.` })
+        }
         return res.status(200).send({ message: `Racer successfully deleted!` })
 
     } catch (err) {
@@ -365,14 +388,18 @@ router.delete('/delete/racer/:id', async (req, res) => {
     }
 });
 
+// delete staff
 router.delete('/delete/staff/:id', async (req, res) => {
     const id: number = parseInt(req.params.id);
     if (isNaN(id)) {
-        return res.status(400).send({ message: `Invalid carId provided.` });
+        return res.status(400).send({ message: `Invalid staffId provided.` });
     }
     try {
         const result = await deleteStaffById(id);
         console.log(result);
+        if (result.affectedRows === 0) {
+            return res.status(404).send({ message: `Staff not found.` })
+        }
         return res.status(200).send({ message: `Staff successfully deleted!` })
 
     } catch (err) {
@@ -381,5 +408,108 @@ router.delete('/delete/staff/:id', async (req, res) => {
     }
 });
 
+/////////////////////////////////////////////                                                                                                ADD            /////////////////////////////////
+/* Usage NOTE: http://localhost:3000/add/racer/Krittameth/Tansuwan/Retired/2005-07-15/Thai/69420 */
+// ADD RACER
+router.post('/add/racer/:firstName/:lastName/:status/:dateOfBirth/:nationality/:racerLicense', async (req, res) => {
+    const data = {
+        firstName: req.params.firstName,
+        lastName: req.params.lastName,
+        status: req.params.status,
+        dateOfBirth: req.params.dateOfBirth,
+        nationality: req.params.nationality,
+        racerLicense: parseInt(req.params.racerLicense)
+    };
+    try {
+        const result = await addRacer(data.firstName, data.lastName, data.status, data.dateOfBirth, data.nationality, data.racerLicense);
+        console.log(result);
+        return res.status(201).send({ message: `Successfully added ${data.firstName} ${data.lastName}` });
+    } catch (err) {
+        console.log(err)
+        return res.status(409).send({ message: "Cannot add a racer." });
+    }
+});
+// ADD TOURNAMENT
+router.post('/add/tournament/:name/:date/:street/:city/:state/:zip/:viewerNum/:motorId/:casterId/:refereeId', async (req, res) => {
+    const data = {
+        tournamentName: req.params.name,
+        dateOfMatch: req.params.date,
+        street: req.params.street,
+        city: req.params.city,
+        state: req.params.state,
+        zip: parseInt(req.params.zip),
+        viewerCount: parseInt(req.params.viewerNum),
+        motorId: parseInt(req.params.motorId),
+        casterId: parseInt(req.params.casterId),
+        refereeId: parseInt(req.params.refereeId)
+    };
+    try {
+        const result = await addTournament(data.tournamentName, data.dateOfMatch, data.street, data.city, data.state, data.zip, data.viewerCount, data.motorId, data.casterId, data.refereeId);
+        console.log(result)
+        return res.status(201).send({ message: `Successfully added ${data.tournamentName} ${data.dateOfMatch}` });
+    } catch (err) {
+        console.log(err);
+        return res.status(409).send({ message: "Cannot add a tournament." });
+    }
+});
 
+// ADD REFEREE
+router.post('/add/staff/referee/:firstName/:lastName/:status/:dateOfBirth/:nationality/:yearsExperience/:refereeLicense', async (req, res) => {
+    const data = {
+        firstName: req.params.firstName,
+        lastName: req.params.lastName,
+        status: req.params.status,
+        dateOfBirth: req.params.dateOfBirth,
+        nationality: req.params.nationality,
+        yearExp: parseInt(req.params.yearsExperience),
+        license: req.params.refereeLicense
+    }
+    try {
+        const result = await addStaffReferee(data.firstName, data.lastName, data.status, data.dateOfBirth, data.nationality, data.yearExp, data.license)
+        console.log(result);
+        return res.status(201).send({ message: `Successfully added ${data.firstName} ${data.lastName} as Referee Staff` });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(409).send({ message: "Cannot add a referee." });
+    }
+});
+// ADD CASTER
+router.post('/add/staff/caster/:firstName/:lastName/:status/:dateOfBirth/:nationality/:yearsExperience/:language', async (req, res) => {
+    const data = {
+        firstName: req.params.firstName,
+        lastName: req.params.lastName,
+        status: req.params.status,
+        dateOfBirth: req.params.dateOfBirth,
+        nationality: req.params.nationality,
+        yearExp: parseInt(req.params.yearsExperience),
+        lang: req.params.language
+    }
+    try {
+        const result = await addStaffCaster(data.firstName, data.lastName, data.status, data.dateOfBirth, data.nationality, data.yearExp, data.lang)
+        console.log(result);
+        return res.status(201).send({ message: `Successfully added ${data.firstName} ${data.lastName} as Referee Staff` });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(409).send({ message: "Cannot add a caster." });
+    }
+});
+// ADD CAR
+router.post('/add/car/:carType/:engine/:manufacturer/:year', async (req, res) => {
+    const data = {
+        carType: req.params.carType,
+        engine: req.params.engine,
+        manufacturer: req.params.manufacturer,
+        year: req.params.year
+    }
+    try {
+        const result = await addCar(data.carType, data.engine, data.manufacturer, data.year);
+        console.log(result);
+        return res.status(201).send({ message: `Successfully added ${data.carType} ${data.engine} ${data.manufacturer} ${data.year}` });
+    } catch (err) {
+        console.log(err);
+        return res.status(409).send({ message: "Cannot add a car" });
+    }
+})
 export default router;
