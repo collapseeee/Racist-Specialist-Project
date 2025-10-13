@@ -107,17 +107,13 @@ npm run backend
 
 - 🎨 Fully responsive interface with dark-themed UI design
 
-## Upcoming Feature: Login System for CRUD
+- 🔑 Admin Dashboard with login authentification (Username: admin | Password: 953212)
 
-A login authentication system will be added in the next phase, allowing administrators to:
+- ➕ Add new entries (motorsport, team, car, tournament, etc.)
 
-🔑 Log in securely using username and password
+- ✏️ Update existing data through web forms
 
-➕ Add new entries (motorsport, team, car, tournament, etc.)
-
-✏️ Update existing data through web forms
-
-❌ Remove entities directly from the frontend
+- ❌ Remove entities directly from the frontend
 
 ## Project Structure
 
