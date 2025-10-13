@@ -16,8 +16,14 @@ import {
     getTeamByPersonId,
     getRacerByMotorId,
     getTournamentsByTeamId,
-    getTournamentByPersonId
+    getTournamentByPersonId,
+    deleteTournamentById,
+    deleteStaffById,
+    deleteRacerById,
+    deleteCarById,
+    deleteTeamById
 } from '../config/db'
+import { data } from 'react-router-dom';
 
 const router = Router();
 
@@ -287,5 +293,93 @@ router.get('/search:keyword', async (req, res) => {
         data
     })
 });
+
+
+
+/////////////////////////////////////////                                   DELETE
+
+router.delete('/delete/tournament/:id', async (req, res) => {
+    const id: number = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).send({ message: `Invalid tournamentId provided.` });
+    }
+
+    try {
+        const result = await deleteTournamentById(id);
+        console.log(result);
+        return res.status(200).send({ message: `Tournament successfully deleted!` })
+
+    } catch (err) {
+        console.log(`Fail to delete tournament Id ${id} : `, err);
+        return res.status(500).send({ message: `An error occurred while deleting the tournament.` })
+    }
+});
+
+router.delete('/delete/team/:id', async (req, res) => {
+    const id: number = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).send({ message: `Invalid teamId provided.` });
+    }
+
+    try {
+        const result = await deleteTeamById(id);
+        console.log(result);
+        return res.status(200).send({ message: `Team successfully deleted!` })
+
+    } catch (err) {
+        console.log(`Fail to delete team Id ${id} : `, err);
+        return res.status(500).send({ message: `An error occurred while deleting the team.` })
+    }
+});
+
+router.delete('/delete/car/:id', async (req, res) => {
+    const id: number = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).send({ message: `Invalid carId provided.` });
+    }
+
+    try {
+        const result = await deleteCarById(id);
+        console.log(result);
+        return res.status(200).send({ message: `Car successfully deleted!` })
+
+    } catch (err) {
+        console.log(`Fail to delete car Id ${id} : `, err);
+        return res.status(500).send({ message: `An error occurred while deleting the car.` })
+    }
+});
+router.delete('/delete/racer/:id', async (req, res) => {
+    const id: number = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).send({ message: `Invalid carId provided.` });
+    }
+
+    try {
+        const result = await deleteRacerById(id);
+        console.log(result);
+        return res.status(200).send({ message: `Racer successfully deleted!` })
+
+    } catch (err) {
+        console.log(`Fail to delete racer Id ${id} : `, err);
+        return res.status(500).send({ message: `An error occurred while deleting the racer.` })
+    }
+});
+
+router.delete('/delete/staff/:id', async (req, res) => {
+    const id: number = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).send({ message: `Invalid carId provided.` });
+    }
+    try {
+        const result = await deleteStaffById(id);
+        console.log(result);
+        return res.status(200).send({ message: `Staff successfully deleted!` })
+
+    } catch (err) {
+        console.log(`Fail to delete staff Id ${id} : `, err);
+        return res.status(500).send({ message: `An error occurred while deleting the staff.` })
+    }
+});
+
 
 export default router;

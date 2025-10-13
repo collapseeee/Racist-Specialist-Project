@@ -158,14 +158,37 @@ export const getStaffById = async (person_id: number) => {
 }
 
 export const searchData = async (keyword: string) => {
-    const [carRows] = await promisePool.query("SELECT DISTINCT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year, t.team_name FROM car c INNER JOIN team t ON c.team_id = t.team_id WHERE c.car_type LIKE ? OR c.engine LIKE ? OR c.manufacturer LIKE ? OR c.product_year LIKE ? ORDER BY c.car_type ASC",
-        ['%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%']);
-    const [racerRows] = await promisePool.query(
-        "SELECT DISTINCT p.person_id, p.first_name, p.last_name, p.status, r.racer_license FROM person p INNER JOIN racer r ON p.person_id = r.person_id WHERE (CONCAT(p.first_name, ' ', p.last_name) LIKE ?) ORDER BY p.first_name ASC;",
-        '%' + keyword + '%');
-    const [teamRows] = await promisePool.query("SELECT DISTINCT t.team_id, t.team_name, t.sponsor, t.country, t.win_count FROM team t WHERE t.team_name LIKE ? ORDER BY t.team_name ASC", '%' + keyword + '%');
-    const [tournamentRows] = await promisePool.query("SELECT DISTINCT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, m.motorsport_type, m.motorsport_id FROM tournaments t INNER JOIN motorsport m ON m.motorsport_id = t.motorsport_id WHERE tournament_name LIKE ? OR circuit_state LIKE ? ORDER BY t.tournament_name ASC", ['%' + keyword + '%', '%' + keyword + '%']);
-    const [staffRows] = await promisePool.query("SELECT p.person_id, p.first_name, p.last_name, s.staff_type, s.years_experience FROM person p INNER JOIN staff s ON p.person_id = s.person_id WHERE p.first_name LIKE ? OR p.last_name LIKE ? ORDER BY p.first_name ASC", ['%' + keyword + '%', '%' + keyword + '%']);
+    const likeKeyword: string = `%${keyword}%`;
+    const yearsKeyword: number = parseInt(keyword, 10) || 0;
+    const [[carRows], [racerRows], [teamRows], [tournamentRows], staffRows] = await Promise.all([
+        promisePool.query(`
+            SELECT DISTINCT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year, t.team_name FROM car c
+            INNER JOIN team t ON c.team_id = t.team_id
+            WHERE c.car_type LIKE ? OR c.engine
+            LIKE ? OR c.manufacturer LIKE ?
+            OR c.product_year LIKE ?
+            ORDER BY c.car_type ASC`, [likeKeyword, likeKeyword, likeKeyword, yearsKeyword]
+        ),
+        promisePool.query(`
+            SELECT DISTINCT p.person_id, p.first_name, p.last_name, p.status, r.racer_license FROM person p
+            INNER JOIN racer r ON p.person_id = r.person_id
+            WHERE (CONCAT(p.first_name, ' ', p.last_name) LIKE ?)
+            ORDER BY p.first_name ASC;`, likeKeyword),
+        promisePool.query(`
+            SELECT DISTINCT t.team_id, t.team_name, t.sponsor, t.country, t.win_count FROM team t
+            WHERE t.team_name LIKE ?
+            ORDER BY t.team_name ASC`, likeKeyword),
+        promisePool.query(`
+            SELECT DISTINCT t.tournament_id, t.tournament_name, t.date_of_match, t.circuit_street, t.circuit_city, t.circuit_state, t.circuit_zip, m.motorsport_type, m.motorsport_id FROM tournaments t
+            INNER JOIN motorsport m ON m.motorsport_id = t.motorsport_id
+            WHERE tournament_name LIKE ? OR circuit_state LIKE ?
+            ORDER BY t.tournament_name ASC`, [likeKeyword, likeKeyword]),
+        promisePool.query(`
+            SELECT p.person_id, p.first_name, p.last_name, s.staff_type, s.years_experience FROM person p
+            INNER JOIN staff s ON p.person_id = s.person_id
+            WHERE (CONCAT(p.first_name, ' ', p.last_name)) LIKE ?
+            ORDER BY p.first_name ASC`, likeKeyword)
+    ]);
 
     return {
         cars: carRows,
@@ -175,5 +198,40 @@ export const searchData = async (keyword: string) => {
         staffs: staffRows
     };
 }
+
+
+///////////////////////////////         DELETE ROW QUERIES
+
+export const deleteTournamentById = async (id: number) => {
+    const [result] = await promisePool.query(`
+        DELETE FROM tournaments t WHERE t.tournament_id = ?;`, id);
+    return result;
+}
+
+export const deleteCarById = async (id: number) => {
+    const [result] = await promisePool.query(`
+        DELETE FROM car c WHERE c.carmodel_id = ?`, id);
+    return result;
+}
+
+export const deleteTeamById = async (id: number) => {
+    const [result] = await promisePool.query(`
+        DELETE FROM team t WHERE t.team_id = ?`, id);
+    return result;
+}
+
+export const deleteStaffById = async (id: number) => {
+    const [result] = await promisePool.query(`
+        DELETE FROM staff s WHERE s.person_id = ?`, id);
+    return result;
+}
+export const deleteRacerById = async (id: number) => {
+    const [result] = await promisePool.query(`
+        DELETE FROM persono p WHERE p.person_id = ?`, id);
+    return result;
+}
+
+/////////////////////////////////////////       ADD
+
 
 export default promisePool;
