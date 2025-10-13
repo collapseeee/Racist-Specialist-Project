@@ -56,7 +56,7 @@ function RacerList() {
         <div className="team-header-content">
           <div className="team-header-banner">
             <Header
-              title="Racers List"
+              title="All Racer List"
               image={racerPlaceholderImage}
             />
           </div>

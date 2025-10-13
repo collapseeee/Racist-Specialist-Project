@@ -21,11 +21,15 @@ import RacerDetail from "./component/Person/RacerDetail.jsx";
 import RacerListByMotorsport from "./component/Person/RacerListByMotorsport.jsx";
 import LoginPage from "./component/Admin/LoginPage";
 import Dashboard from "./component/Admin/Dashboard";
+import AllCarList from "./component/Car/AllCarList.jsx";
+import AllTeamList from "./component/Team/AllTeamList.jsx";
 
 import logo from "./public/motoropedia-logo.png";
 import motorsportData from "./data/motorsportData.js";
 import racerPlaceholderImage from "./public/racer-placeholder.jpg";
 import staffPlaceholderImage from "./public/staff-placeholder.png";
+import teamPlaceholderImage from "./public/team-logo-placeholder.png";
+import carPlaceholderImage from "./public/car-placeholder.png";
 import loginIcon from "./public/login-icon.png";
 
 function ProtectedRoute({ element }) {
@@ -74,8 +78,11 @@ function App() {
             id={motorsport.id}
           />
         ))}
-        <Card title="Staff List" image={staffPlaceholderImage} id="StaffList" />
-        <Card title="Racer List" image={racerPlaceholderImage} id="RacerList" />
+          <Card title="All Team List" image={teamPlaceholderImage} id="TeamList" />
+          <Card title="All Racer List" image={racerPlaceholderImage} id="RacerList" />
+          <Card title="All Car List" image={carPlaceholderImage} id="CarList" />
+        <Card title="All Staff List" image={staffPlaceholderImage} id="StaffList" />
+
       </div>
       <Footer />
     </>
@@ -87,6 +94,9 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeLayout />} />
         <Route path="/SearchResult" element={<SearchResult />} />
+
+          <Route path="/TeamList" element={<AllTeamList />} />
+          <Route path="/CarList" element={<AllCarList />} />
 
         <Route path="/RacerList" element={<RacerList />} />
         <Route path="/RacerList/:personId" element={<RacerDetail />} />

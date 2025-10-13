@@ -36,22 +36,24 @@ function CarList() {
     handleGetData();
   }, [motorsportId]);
 
-  const handleSort = (key) => {
-    let direction = "asc";
-    if (sortConfig.key === key && sortConfig.direction === "asc") {
-      direction = "desc";
-    }
-    setSortConfig({ key, direction });
+    const handleSort = (key) => {
+        let direction = "asc";
+        if (sortConfig.key === key && sortConfig.direction === "asc") {
+            direction = "desc";
+        }
 
-    const sorted = [...cars].sort((a, b) => {
-      if (a[key] < b[key]) return sortConfig.direction === "asc" ? -1 : 1;
-      if (a[key] > b[key]) return sortConfig.direction === "asc" ? 1 : -1;
-      return 0;
-    })
-    setCars(sorted);
-  }
+        const sorted = [...cars].sort((a, b) => {
+            if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
+            if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
+            return 0;
+        });
 
-  return (
+        setSortConfig({ key, direction });
+        setCars(sorted);
+    };
+
+
+    return (
     <>
       <NavBar />
 
@@ -79,7 +81,7 @@ function CarList() {
                 <th onClick={() => handleSort("engine")}>
                   Engine {sortConfig.key === "engine" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
                 </th>
-                <th onClick={() => handleSort("country")}>
+                <th onClick={() => handleSort("manufacturer")}>
                   Manufacturer {sortConfig.key === "country" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
                 </th>
                 <th onClick={() => handleSort("product_year")}>

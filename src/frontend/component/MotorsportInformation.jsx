@@ -17,6 +17,7 @@ function MotorsportInformation() {
   const { motorsportId } = useParams();
   const data = motorsportData[motorsportId];
 
+
   const [calledData, setCalledData] = useState(null);
 
   const handleGetData = async () => {
@@ -36,11 +37,11 @@ function MotorsportInformation() {
     }
   };
 
-  useEffect(() => {
-    handleGetData();
-  }, [motorsportId]);
+    useEffect(() => {
+        if (data) handleGetData();
+    }, [motorsportId]);
 
-  if (!data || !calledData) {
+    if (!data || !calledData) {
     return (
       <>
         <NavBar />

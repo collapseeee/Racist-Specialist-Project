@@ -33,7 +33,7 @@ function Footer() {
           672115002 Krittameth Tansuwan | 672115014 Nattikorn Sae-sue |
           672115050 Apitawan Chirakunasin
         </p>
-        <a href="https://github.com/collapseeee/Racist-Specialist-Project">
+        <a href="https://github.com/collapseeee/Motoropedia-Project">
           <img src={githublogo} alt="GitHub Logo" className="github-logo" />
         </a>
       </div>

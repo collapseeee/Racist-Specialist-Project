@@ -178,15 +178,24 @@ function TeamDetail() {
                 >
                   <h3 className="racer-card-name">{car.car_type}</h3>
                 </Link>
-                <p>
-                  <strong>Engine:</strong> {car.engine}
-                </p>
-                <p>
-                  <strong>Manufacturer:</strong> {car.manufacturer}
-                </p>
-                <p>
-                  <strong>Product Year:</strong> {car.product_year}
-                </p>
+                  <div className="racer-card-description">
+                      <div className="racer-card-description-left">
+                          <p>
+                              <strong>Engine:</strong>
+                          </p>
+                          <p>
+                              <strong>Manufacturer:</strong>
+                          </p>
+                          <p>
+                              <strong>Product Year:</strong>
+                          </p>
+                      </div>
+                      <div className="racer-card-description-right">
+                          <p>{car.engine}</p>
+                          <p>{car.manufacturer}</p>
+                          <p>{car.product_year}</p>
+                      </div>
+                  </div>
               </div>
             </div>
           ))}

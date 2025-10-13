@@ -3,7 +3,7 @@ import '../../styles/Admin/Add.css'
 function Admin() {
     return (
         <>
-            Cards: Tournament, Racer, Car, Staff
+            Tournament, Racer, Car, Staff
         </>
     );
 }
