@@ -414,44 +414,40 @@ router.delete('/delete/staff/:id', async (req, res) => {
 });
 
 /////////////////////////////////////////////                                                                                                ADD            /////////////////////////////////
-/* Usage NOTE: http://localhost:3000/add/racer/Krittameth/Tansuwan/Retired/2005-07-15/Thai/69420 */
+/* Usage NOTE: 
+        Content-Type: application/json
+        method: POST
+        body: {
+            "firstName": "John",
+            "lastName": "Smith",
+            "status": "Active",
+            "dateOfBirth": "1985-10-26",
+            "nationality": "American",
+            "yearsExperience": 10,
+            "staffType": "Engineer",
+            "refereeLicense": "REF-998877",
+            "language": "English"
+        }
+    */
 // ADD RACER
-router.post('/add/racer/:firstName/:lastName/:status/:dateOfBirth/:nationality/:racerLicense', async (req, res) => {
-    const data = {
-        firstName: req.params.firstName,
-        lastName: req.params.lastName,
-        status: req.params.status,
-        dateOfBirth: req.params.dateOfBirth,
-        nationality: req.params.nationality,
-        racerLicense: parseInt(req.params.racerLicense)
-    };
+router.post('/racer', async (req, res) => {
+    // Data comes from the JSON request body
+    const { firstName, lastName, status, dateOfBirth, nationality, racerLicense } = req.body;
     try {
-        const result = await addRacer(data.firstName, data.lastName, data.status, data.dateOfBirth, data.nationality, data.racerLicense);
-        console.log(result);
-        return res.status(201).send({ message: `Successfully added ${data.firstName} ${data.lastName}` });
+        const result = await addRacer(firstName, lastName, status, dateOfBirth, nationality, racerLicense);
+        return res.status(201).send({ message: `Successfully added ${firstName} ${lastName}`, data: result });
     } catch (err) {
-        console.log(err)
+        console.log(err);
         return res.status(409).send({ message: "Cannot add a racer." });
     }
 });
+
 // ADD TOURNAMENT
-router.post('/add/tournament/:name/:date/:street/:city/:state/:zip/:viewerNum/:motorId/:casterId/:refereeId', async (req, res) => {
-    const data = {
-        tournamentName: req.params.name,
-        dateOfMatch: req.params.date,
-        street: req.params.street,
-        city: req.params.city,
-        state: req.params.state,
-        zip: parseInt(req.params.zip),
-        viewerCount: parseInt(req.params.viewerNum),
-        motorId: parseInt(req.params.motorId),
-        casterId: parseInt(req.params.casterId),
-        refereeId: parseInt(req.params.refereeId)
-    };
+router.post('/tournament', async (req, res) => {
+    const { tournamentName, dateOfMatch, street, city, state, zip, viewerCount, motorId, casterId, refereeId } = req.body;
     try {
-        const result = await addTournament(data.tournamentName, data.dateOfMatch, data.street, data.city, data.state, data.zip, data.viewerCount, data.motorId, data.casterId, data.refereeId);
-        console.log(result)
-        return res.status(201).send({ message: `Successfully added ${data.tournamentName} ${data.dateOfMatch}` });
+        const result = await addTournament(tournamentName, dateOfMatch, street, city, state, zip, viewerCount, motorId, casterId, refereeId);
+        return res.status(201).send({ message: `Successfully added ${tournamentName}`, data: result });
     } catch (err) {
         console.log(err);
         return res.status(409).send({ message: "Cannot add a tournament." });
@@ -459,78 +455,42 @@ router.post('/add/tournament/:name/:date/:street/:city/:state/:zip/:viewerNum/:m
 });
 
 // ADD TEAM
-router.post('/add/team/:name/:sponsor/:country/:totalWin', async (req, res) => {
-    const data = {
-        name: req.params.name,
-        sponsor: req.params.sponsor,
-        country: req.params.country,
-        totalWin: parseInt(req.params.totalWin)
-    }
-
+router.post('/team', async (req, res) => {
+    const { name, sponsor, country, totalWin } = req.body;
     try {
-        const result = await addTeam(data.name, data.sponsor, data.country, data.totalWin);
-        console.log(result);
-        return res.status(201).send({ message: `Successfully added ${data.name} ${data.country}` });
+        const result = await addTeam(name, sponsor, country, totalWin);
+        return res.status(201).send({ message: `Successfully added ${name}`, data: result });
     } catch (err) {
         console.log(err);
         return res.status(409).send({ message: "Cannot add a team." });
     }
 });
 
-// ADD REFEREE
-router.post('/add/staff/referee/:firstName/:lastName/:status/:dateOfBirth/:nationality/:yearsExperience/:refereeLicense', async (req, res) => {
-    const data = {
-        firstName: req.params.firstName,
-        lastName: req.params.lastName,
-        status: req.params.status,
-        dateOfBirth: req.params.dateOfBirth,
-        nationality: req.params.nationality,
-        yearExp: parseInt(req.params.yearsExperience),
-        license: req.params.refereeLicense
-    }
+// ADD STAFF (Unified endpoint for Caster and Referee)
+router.post('/staff', async (req, res) => {
+    const { firstName, lastName, status, dateOfBirth, nationality, yearsExperience, staffType, license, language } = req.body;
     try {
-        const result = await addStaffReferee(data.firstName, data.lastName, data.status, data.dateOfBirth, data.nationality, data.yearExp, data.license)
-        console.log(result);
-        return res.status(201).send({ message: `Successfully added ${data.firstName} ${data.lastName} as Referee Staff` });
-
+        let result;
+        if (staffType === 'referee') {
+            result = await addStaffReferee(firstName, lastName, status, dateOfBirth, nationality, yearsExperience, license);
+        } else if (staffType === 'caster') {
+            result = await addStaffCaster(firstName, lastName, status, dateOfBirth, nationality, yearsExperience, language);
+        } else {
+            return res.status(400).send({ message: "Invalid staffType provided. Must be 'Referee' or 'Caster'." });
+        }
+        return res.status(201).send({ message: `Successfully added ${firstName} ${lastName} as ${staffType}`, data: result });
     } catch (err) {
         console.log(err);
-        return res.status(409).send({ message: "Cannot add a referee." });
+        return res.status(409).send({ message: "Cannot add a staff member." });
     }
 });
-// ADD CASTER
-router.post('/add/staff/caster/:firstName/:lastName/:status/:dateOfBirth/:nationality/:yearsExperience/:language', async (req, res) => {
-    const data = {
-        firstName: req.params.firstName,
-        lastName: req.params.lastName,
-        status: req.params.status,
-        dateOfBirth: req.params.dateOfBirth,
-        nationality: req.params.nationality,
-        yearExp: parseInt(req.params.yearsExperience),
-        lang: req.params.language
-    }
-    try {
-        const result = await addStaffCaster(data.firstName, data.lastName, data.status, data.dateOfBirth, data.nationality, data.yearExp, data.lang)
-        console.log(result);
-        return res.status(201).send({ message: `Successfully added ${data.firstName} ${data.lastName} as Referee Staff` });
 
-    } catch (err) {
-        console.log(err);
-        return res.status(409).send({ message: "Cannot add a caster." });
-    }
-});
 // ADD CAR
-router.post('/add/car/:carType/:engine/:manufacturer/:year', async (req, res) => {
-    const data = {
-        carType: req.params.carType,
-        engine: req.params.engine,
-        manufacturer: req.params.manufacturer,
-        year: req.params.year
-    }
+router.post('/car', async (req, res) => {
+    const { carType, engine, manufacturer, year } = req.body;
     try {
-        const result = await addCar(data.carType, data.engine, data.manufacturer, data.year);
-        console.log(result);
-        return res.status(201).send({ message: `Successfully added ${data.carType} ${data.engine} ${data.manufacturer} ${data.year}` });
+        const result = await addCar(carType, engine, manufacturer, year);
+        return res.status(201).send({ message: `Successfully added car`, data: result });
     } catch (err) {
         console.log(err);
         return res.status(409).send({ message: "Cannot add a car" });
@@ -538,80 +498,55 @@ router.post('/add/car/:carType/:engine/:manufacturer/:year', async (req, res) =>
 });
 
 //////////////////////////////////////////////////////////////////////                  UPDATE
-router.put('/update/racer/:racerId/:firstName/:lastName/:status/:dateOfBirth/:nationality/:racerLicense', async (req, res) => {
-    const data = {
-        racerId: parseInt(req.params.racerId),
-        firstName: req.params.firstName,
-        lastName: req.params.lastName,
-        status: req.params.status,
-        dateOfBirth: req.params.dateOfBirth,
-        nationality: req.params.nationality,
-        license: parseInt(req.params.racerLicense)
-    }
+// UPDATE RACER
+router.put('/racer/:id', async (req, res) => {
+    const racerId = parseInt(req.params.id);
+    const { firstName, lastName, status, dateOfBirth, nationality, license } = req.body;
     try {
-        const result = await updateRacer(data.racerId, data.firstName, data.lastName, data.status, data.dateOfBirth, data.nationality, data.license);
-        console.log(result);
-        return res.status(204).send({ message: `Successfully updated ${data.racerId}, ${data.firstName}, ${data.lastName}.` });
+        const result = await updateRacer(racerId, firstName, lastName, status, dateOfBirth, nationality, license);
+        return res.status(200).send({ message: `Successfully updated racer ID ${racerId}.` });
     } catch (err) {
         console.log(err);
         return res.status(409).send({ message: "Cannot update a racer." });
     }
 });
 
-router.put('/update/tournament/:tournamentId/:name/:date/:street/:city/:state/:zip/:viewerNum/:motorId/:casterId/:refereeId', async (req, res) => {
-    const data = {
-        tournamentId: parseInt(req.params.tournamentId),
-        tournamentName: req.params.name,
-        dateOfMatch: req.params.date,
-        street: req.params.street,
-        city: req.params.city,
-        state: req.params.state,
-        zip: parseInt(req.params.zip),
-        viewerCount: parseInt(req.params.viewerNum),
-        motorId: parseInt(req.params.motorId),
-        casterId: parseInt(req.params.casterId),
-        refereeId: parseInt(req.params.refereeId)
-    };
-
+// UPDATE TOURNAMENT
+router.put('/tournament/:id', async (req, res) => {
+    const tournamentId = parseInt(req.params.id);
+    const { tournamentName, dateOfMatch, street, city, state, zip, viewerCount, motorId, casterId, refereeId } = req.body;
     try {
-        const result = await updateTournament(data.tournamentId, data.tournamentName, data.dateOfMatch, data.street, data.city, data.state, data.zip, data.viewerCount, data.motorId, data.casterId, data.refereeId);
-        console.log(result);
-        return res.status(204).send({ message: `Successfully updated ${data.tournamentId}, ${data.tournamentName}.` });
+        const result = await updateTournament(tournamentId, tournamentName, dateOfMatch, street, city, state, zip, viewerCount, motorId, casterId, refereeId);
+        return res.status(200).send({ message: `Successfully updated tournament ID ${tournamentId}.` });
     } catch (err) {
         console.log(err);
         return res.status(409).send({ message: "Cannot update a tournament." });
     }
 });
 
-router.put('/update/team/:teamId/:name/:sponsor/:country/:totalWin', async (req, res) => {
-    const data = {
-        teamId: parseInt(req.params.teamId),
-        name: req.params.name,
-        sponsor: req.params.sponsor,
-        country: req.params.country,
-        totalWin: parseInt(req.params.totalWin)
-    }
+// UPDATE TEAM
+router.put('/team/:id', async (req, res) => {
+    const teamId = parseInt(req.params.id);
+    const { name, sponsor, country, totalWin } = req.body;
     try {
-        const result = await updateTeam(data.teamId, data.name, data.sponsor, data.country, data.totalWin);
-        console.log(result);
-        return res.status(204).send({ message: `Successfully updated ${data.name}, ${data.country}.` });
+        const result = await updateTeam(teamId, name, sponsor, country, totalWin);
+        return res.status(200).send({ message: `Successfully updated team ID ${teamId}.` });
     } catch (err) {
         console.log(err);
-        return res.status(409).send({ message: "Cannot update a team." })
-
+        return res.status(409).send({ message: "Cannot update a team." });
     }
 });
 
-router.put('/update/staff/:id/:firstName/:lastName/:status/:dateOfBirth/:nationality/:yearsExperience/:staffType/:refereeLicense/:language', async (req, res) => {
-    const id: number = parseInt(req.params.id);
-    const { firstName, lastName, status, dateOfBirth, nationality, yearsExperience, staffType, refereeLicense, language } = req.params;
+// UPDATE STAFF
+router.put('/staff/:id', async (req, res) => {
+    const staffId = parseInt(req.params.id);
+    const { firstName, lastName, status, dateOfBirth, nationality, yearsExperience, staffType, refereeLicense, language } = req.body;
     try {
-        const result = await updateStaff(id, firstName, lastName, status, dateOfBirth, nationality, parseInt(yearsExperience), staffType, refereeLicense, language);
-        console.log(result);
-        return res.status(204).send({ message: `Successfully updated ${firstName}, ${lastName}.` });
+        const result = await updateStaff(staffId, firstName, lastName, status, dateOfBirth, nationality, yearsExperience, staffType, refereeLicense, language);
+        return res.status(200).send({ message: `Successfully updated staff ID ${staffId}.` });
     } catch (err) {
         console.log(err);
-        return res.status(409).send({ message: "Cannot update a staff." })
+        return res.status(409).send({ message: "Cannot update a staff member." });
     }
 });
 export default router;
