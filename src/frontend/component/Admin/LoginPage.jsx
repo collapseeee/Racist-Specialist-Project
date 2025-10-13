@@ -24,6 +24,7 @@ function LoginPage() {
 
     return (
         <div className="login-container">
+            <button className="back-button" onClick={() => navigate(-1)}>Back</button>
             <h1 className="login-title">Admin Login</h1>
             <form onSubmit={handleLogin} className="login-form">
                 <label className="login-label">Username</label>

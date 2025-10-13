@@ -29,7 +29,7 @@ function Remove() {
             setTeamResults(result.data.teams);
             setRacerResults(result.data.racers);
             setCarResults(result.data.cars);
-            setStaffResults(result.data.staffs);
+            setStaffResults(Array.isArray(result.data.staffs[0]) ? result.data.staffs[0] : result.data.staffs);
         } catch (err) {
             console.error(err);
         }
@@ -73,7 +73,7 @@ function Remove() {
                     {tournamentResults.map((t) => (
                         <tr key={`${t.tournament_id}`}>
                             <td className="remove-td">
-                                <button className="remove-button">
+                                <button className="remove-button" onClick={() => handleRemove("delete/tournament", t.tournament_id)}>
                                     Remove
                                 </button>
                             </td>
@@ -115,7 +115,7 @@ function Remove() {
                     {teamResults.map((team) => (
                         <tr key={`${team.team_id}`}>
                             <td className="remove-td">
-                                <button className="remove-button">
+                                <button className="remove-button" onClick={() => handleRemove("delete/team", team.team_id)}>
                                     Remove
                                 </button>
                             </td>
@@ -154,7 +154,7 @@ function Remove() {
                     {racerResults.map((r) => (
                         <tr key={`${r.person_id}`}>
                             <td className="remove-td">
-                                <button className="remove-button">
+                                <button className="remove-button" onClick={() => handleRemove("delete/racer", r.person_id)}>
                                     Remove
                                 </button>
                             </td>
@@ -193,7 +193,7 @@ function Remove() {
                     {carResults.map((c) => (
                         <tr key={`${c.carmodel_id}`}>
                             <td className="remove-td">
-                                <button className="remove-button">
+                                <button className="remove-button" onClick={() => handleRemove("delete/car", c.carmodel_id)}>
                                     Remove
                                 </button>
                             </td>

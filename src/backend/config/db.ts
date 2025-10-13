@@ -227,7 +227,7 @@ export const deleteStaffById = async (id: number) => {
 }
 export const deleteRacerById = async (id: number) => {
     const [result] = await promisePool.query<ResultSetHeader>(`
-        DELETE FROM persono p WHERE p.person_id = ?`, id);
+        DELETE FROM person p WHERE p.person_id = ?`, id);
     return result;
 }
 
