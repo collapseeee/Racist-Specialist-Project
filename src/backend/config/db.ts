@@ -152,15 +152,12 @@ export const getStaffById = async (person_id: number) => {
 
 export const searchData = async (keyword: string) => {
     const likeKeyword: string = `%${keyword}%`;
-    const yearsKeyword: number = parseInt(keyword, 10) || 0;
     const [[carRows], [racerRows], [teamRows], [tournamentRows], staffRows] = await Promise.all([
         promisePool.query(`
             SELECT DISTINCT c.carmodel_id, c.car_type, c.engine, c.manufacturer, c.product_year, t.team_id, t.team_name FROM car c
             INNER JOIN team t ON c.team_id = t.team_id
-            WHERE c.car_type LIKE ? OR c.engine
-            LIKE ? OR c.manufacturer LIKE ?
-            OR c.product_year LIKE ?
-            ORDER BY c.car_type ASC`, [likeKeyword, likeKeyword, likeKeyword, yearsKeyword]
+            WHERE (CONCAT(c.car_type, ' ', c.engine, ' ', c.manufacturer, ' ', c.product_year)) LIKE ?
+            ORDER BY c.car_type ASC`, likeKeyword
         ),
         promisePool.query(`
             SELECT DISTINCT p.person_id, p.first_name, p.last_name, p.status, r.racer_license, p.date_of_birth, p.nationality FROM person p
