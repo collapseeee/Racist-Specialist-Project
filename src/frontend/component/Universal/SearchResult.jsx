@@ -38,7 +38,7 @@ function SearchResult() {
         setTeamResults(result.data.teams);
         setRacerResults(result.data.racers);
         setCarResults(result.data.cars);
-        setStaffResults(result.data.staffs);
+        setStaffResults(result.data.staffs[0]);
       } catch (err) {
         console.error(err);
       }
